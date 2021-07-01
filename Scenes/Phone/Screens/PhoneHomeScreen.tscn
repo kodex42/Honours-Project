@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 1
+emission_sphere_radius = 20.0
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = -200.0
+orbit_velocity = 1.2
+orbit_velocity_random = 0.0
+tangential_accel = 100.0
+
+[sub_resource type="ViewportTexture" id=2]
+viewport_path = NodePath("ScreenViewport")
+
+[node name="PhoneHomeScreen" type="Node2D"]
+
+[node name="ScreenViewport" type="Viewport" parent="."]
+size = Vector2( 1080, 1920 )
+transparent_bg = true
+disable_3d = true
+usage = 0
+render_target_update_mode = 3
+
+[node name="Camera2D" type="Camera2D" parent="ScreenViewport"]
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 637.37, 370.211 )
+scale = Vector2( 10, 10 )
+amount = 50
+process_material = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -1050.3, 361.053 )
+texture = SubResource( 2 )

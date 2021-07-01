@@ -1,0 +1,84 @@
+extends KinematicBody
+
+# Exports
+export(NodePath) onready var _anim_tree = get_node(_anim_tree)
+export(NodePath) onready var camera = get_node(camera)
+
+# Sibling nodes
+onready var phone = owner.get_node("Phone")
+
+# Constants
+const GRAV_FORCE = -9.83
+
+# State variables
+var jumping = false
+var jump_percentage = 0.0
+var gravity = Vector3.ZERO
+var _turning_speed = 5.0
+
+func _physics_process(delta):
+	var root_motion : Transform = _anim_tree.get_root_motion_transform()
+	var v = root_motion.origin / delta
+	
+	# Check movement
+	v = movement_controls(delta, v)
+	
+	# Apply gravity
+	if is_on_floor() or jumping:
+		gravity = Vector3.ZERO
+	else:
+		gravity += Vector3(0.0, GRAV_FORCE*delta, 0.0)
+	v += gravity
+	
+	move_and_slide(v, Vector3.UP)
+	
+	# Check auxilliary controls
+	aux_controls()
+
+func movement_controls(delta, v):
+	var current_anim = _anim_tree.get("parameters/playback").get_current_node()
+	
+	# Check jump input
+	_anim_tree["parameters/conditions/jump"] = Input.is_action_pressed("jump")
+	
+	# Set jumping flag for length of jump animation
+	jumping = "Jump" in current_anim
+	
+	# Check directional input
+	var dir : Vector3 = Vector3.ZERO
+	
+	if Input.is_action_pressed("forward"):
+		dir.z += 1.0
+	if Input.is_action_pressed("backward"):
+		dir.z -= 1.0
+	if Input.is_action_pressed("left"):
+		dir.x += 1.0
+	if Input.is_action_pressed("right"):
+		dir.x -= 1.0
+	
+	if dir.length_squared() > 0.01:
+		dir = dir.rotated(Vector3.UP, camera.setup.rotation.y)
+		
+		# Basis = matrix form
+		var player_heading_2d := Vector2(self.transform.basis.z.x, self.transform.basis.z.z)
+		var desired_heading_2d := Vector2(dir.x, dir.z)
+		# Angle of player rotation required
+		var phi : float = desired_heading_2d.angle_to(player_heading_2d)
+		phi = phi * delta * _turning_speed
+		# Apply rotation to body and velocity
+		self.rotation.y += phi
+		v = v.rotated(Vector3.UP, self.rotation.y)
+		if Input.is_action_pressed("sprint"):
+			_anim_tree["parameters/playback"].travel("Running")
+		else:
+			_anim_tree["parameters/playback"].travel("Walking")
+	else:
+		_anim_tree["parameters/playback"].travel("Idle")
+		v = v.rotated(Vector3.UP, self.rotation.y)
+	
+	return v
+
+func aux_controls():
+	# Phone
+	if Input.is_action_just_pressed("phone_toggle"):
+		phone.toggle()
