@@ -17,7 +17,7 @@ func _ready():
 	surface_on.emission = Color(0.12,0.12,0.12)
 	surface_on.emission_energy = 1
 	surface_on.emission_operator = SpatialMaterial.EMISSION_OP_ADD
-	surface_on.emission_texture = $ScreenCollection/PhoneHomeScreen/ScreenViewport.get_texture()
+	surface_on.emission_texture = $ScreenCollection/PhoneHomeScreen/Viewport.get_texture()
 
 func change_screen(tex):
 	if typeof(tex) == typeof(Texture):
