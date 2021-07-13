@@ -45,6 +45,7 @@ background_mode = 2
 background_sky = SubResource( 10 )
 ambient_light_color = Color( 0.156863, 0.188235, 0.211765, 1 )
 ambient_light_energy = 0.99
+auto_exposure_enabled = true
 auto_exposure_min_luma = 0.4
 auto_exposure_max_luma = 1.0
 auto_exposure_speed = 0.3

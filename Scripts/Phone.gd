@@ -14,10 +14,9 @@ func _ready():
 	surface_off = _mesh.surface_get_material(0).duplicate()
 	surface_on = _mesh.surface_get_material(0).duplicate()
 	surface_on.emission_enabled = true
-	surface_on.emission = Color(0.12,0.12,0.12)
+	surface_on.emission = Color.white
 	surface_on.emission_energy = 1
-	surface_on.emission_operator = SpatialMaterial.EMISSION_OP_ADD
-	surface_on.emission_texture = $ScreenCollection/PhoneHomeScreen/Viewport.get_texture()
+	surface_on.emission_operator = SpatialMaterial.EMISSION_OP_MULTIPLY
 
 func change_screen(tex):
 	if typeof(tex) == typeof(Texture):
