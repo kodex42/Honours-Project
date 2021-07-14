@@ -13,14 +13,13 @@ var surface_on : SpatialMaterial
 func _ready():
 	surface_off = _mesh.surface_get_material(0).duplicate()
 	surface_on = _mesh.surface_get_material(0).duplicate()
-	surface_on.emission_enabled = true
-	surface_on.emission = Color.white
-	surface_on.emission_energy = 1
-	surface_on.emission_operator = SpatialMaterial.EMISSION_OP_MULTIPLY
+	surface_on.flags_disable_ambient_light = true
+	surface_on.flags_transparent = true
+	surface_on.albedo_color = Color.white
 
 func change_screen(tex):
 	if typeof(tex) == typeof(Texture):
-		surface_on.emission_texture = tex
+		surface_on.albedo_texture = tex
 
 func toggle():
 	if togglable:
