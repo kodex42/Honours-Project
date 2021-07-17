@@ -1,23 +1,24 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/Phone/Screens/PhoneScreen.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Data/Textures/UI/Phone/HomeScreenBackground.png" type="Texture" id=2]
-
-[sub_resource type="Curve" id=10]
-_data = [ Vector2( 0.935018, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=11]
-curve = SubResource( 10 )
+[ext_resource path="res://Scripts/PhoneHomeScreen.gd" type="Script" id=3]
 
 [sub_resource type="Curve" id=1]
-_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+_data = [ Vector2( 0.935018, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=2]
 curve = SubResource( 1 )
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
 trail_divisor = 50
-trail_size_modifier = SubResource( 2 )
+trail_size_modifier = SubResource( 4 )
 emission_shape = 1
 emission_sphere_radius = 1.0
 direction = Vector3( 0, 0, 0 )
@@ -26,18 +27,18 @@ gravity = Vector3( 0, 0, 0 )
 initial_velocity = 1.0
 radial_accel = -5.0
 scale = 0.08
-scale_curve = SubResource( 11 )
+scale_curve = SubResource( 2 )
 
-[sub_resource type="OpenSimplexNoise" id=4]
+[sub_resource type="OpenSimplexNoise" id=6]
 period = 0.3
 persistence = 0.0
 
-[sub_resource type="NoiseTexture" id=5]
+[sub_resource type="NoiseTexture" id=7]
 seamless = true
-noise = SubResource( 4 )
+noise = SubResource( 6 )
 
-[sub_resource type="SpatialMaterial" id=6]
-albedo_texture = SubResource( 5 )
+[sub_resource type="SpatialMaterial" id=8]
+albedo_texture = SubResource( 7 )
 metallic = 1.0
 metallic_specular = 0.0
 emission_enabled = true
@@ -46,34 +47,35 @@ emission_energy = 1.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="SphereMesh" id=7]
-material = SubResource( 6 )
+[sub_resource type="SphereMesh" id=9]
+material = SubResource( 8 )
 radius = 0.5
 height = 1.0
 
-[sub_resource type="SpatialMaterial" id=8]
+[sub_resource type="SpatialMaterial" id=10]
 emission_enabled = true
 emission = Color( 0.894118, 0.0313726, 0.0313726, 1 )
 emission_energy = 1.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="SphereMesh" id=9]
-material = SubResource( 8 )
+[sub_resource type="SphereMesh" id=11]
+material = SubResource( 10 )
 
 [node name="PhoneHomeScreen" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
 
 [node name="Particles" type="Particles" parent="Objects" index="0"]
 transform = Transform( 0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, -2.04796, 0 )
 amount = 400
 lifetime = 10.0
 speed_scale = 2.0
-process_material = SubResource( 3 )
-draw_pass_1 = SubResource( 7 )
+process_material = SubResource( 5 )
+draw_pass_1 = SubResource( 9 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects" index="1"]
 transform = Transform( 0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, -2.04796, 0 )
-mesh = SubResource( 9 )
+mesh = SubResource( 11 )
 material/0 = null
 
 [node name="Sprite3D" type="Sprite3D" parent="Objects" index="2"]

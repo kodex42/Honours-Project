@@ -7,9 +7,11 @@ var current_app
 
 func _ready():
 	yield(owner, "ready") # Let owner node ready first to access script functions
-	home_app.hide()
-	messages_app.hide()
-	change_app(home_app)
+	
+	# Initialize active screen
+	home_app.set_active(true)
+	current_app = home_app
+	update_screen()
 
 func _process(delta):
 	if owner.on:
@@ -20,8 +22,10 @@ func _process(delta):
 
 func change_app(app):
 	if current_app != app:
-		if current_app:
-			current_app.hide()
+		current_app.set_active(false)
 		current_app = app
-		current_app.show()
-		owner.change_screen(current_app.get_node("Viewport").get_texture())
+		current_app.set_active(true)
+		update_screen()
+
+func update_screen():
+	owner.change_screen(current_app.get_node("Viewport").get_texture())

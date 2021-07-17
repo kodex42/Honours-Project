@@ -136,7 +136,7 @@ target = NodePath("../PlayerCharacter")
 setup = SubResource( 12 )
 
 [node name="HUD" type="Spatial" parent="Camera"]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -0.643 )
+transform = Transform( 0.125, 0, 0, 0, 0.125, 0, 0, 0, 1, -1.19209e-07, 0, -0.804991 )
 
 [node name="PhoneQuad" type="MeshInstance" parent="Camera/HUD"]
 mesh = SubResource( 13 )

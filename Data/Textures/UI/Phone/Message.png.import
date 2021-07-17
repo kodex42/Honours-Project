@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/Preview.png-467c8b87d31ea87e34164f24b1af840c.s3tc.stex"
-path.etc2="res://.import/Preview.png-467c8b87d31ea87e34164f24b1af840c.etc2.stex"
+path.s3tc="res://.import/Message.png-99b111ccbb811a7d99d88e64d4dd8c9d.s3tc.stex"
+path.etc2="res://.import/Message.png-99b111ccbb811a7d99d88e64d4dd8c9d.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Data/Textures/Preview.png"
-dest_files=[ "res://.import/Preview.png-467c8b87d31ea87e34164f24b1af840c.s3tc.stex", "res://.import/Preview.png-467c8b87d31ea87e34164f24b1af840c.etc2.stex" ]
+source_file="res://Data/Textures/UI/Phone/Message.png"
+dest_files=[ "res://.import/Message.png-99b111ccbb811a7d99d88e64d4dd8c9d.s3tc.stex", "res://.import/Message.png-99b111ccbb811a7d99d88e64d4dd8c9d.etc2.stex" ]
 
 [params]
 
