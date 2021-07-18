@@ -29,3 +29,6 @@ func change_app(app):
 
 func update_screen():
 	owner.change_screen(current_app.get_node("Viewport").get_texture())
+
+func prompt(choices):
+	owner.display_prompts(choices)

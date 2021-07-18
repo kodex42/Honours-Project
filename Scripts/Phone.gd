@@ -3,6 +3,9 @@ extends Spatial
 # Exports
 onready var _mesh = get_node("Model/Plane_2").mesh
 
+# Preloaded Scenes
+var prompt_scene = preload("res://Scenes/Interaction/Prompt.tscn")
+
 # State
 var togglable = true
 var on = false
@@ -16,6 +19,13 @@ func _ready():
 	surface_on.flags_disable_ambient_light = true
 	surface_on.flags_transparent = true
 	surface_on.albedo_color = Color.white
+	
+	# Test button prompts
+	var test_prompt1 = prompt_scene.instance()
+	test_prompt1.set_prompt_button("X", "test test")
+	var test_prompt2 = prompt_scene.instance()
+	test_prompt2.set_prompt_button("A", "testing tester")
+	display_prompts([test_prompt1])
 
 func change_screen(tex):
 	if typeof(tex) == typeof(Texture):
@@ -53,6 +63,16 @@ func rotate_phone():
 			p.rotation.y, p.rotation.y + deg2rad(diff), 0.15,
 			Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
+
+func display_prompts(choices):
+	if typeof(choices) != TYPE_ARRAY:
+		print("Error: Prompts to display is not of type TYPE_ARRAY, aborting")
+		return
+	for choice in choices:
+		$ScreenCollection/MessagesScreen.add_child(choice)
+		choice.translate(Vector3(0, 100, 0))
+		choice.set_scale(Vector3(0.25, 0.25, 0.25))
+		choice.rotate_y(PI)
 
 func _on_MovementTween_tween_started(object, key):
 	togglable = false
