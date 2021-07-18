@@ -10,20 +10,34 @@ var y_tex = preload("res://Data/Textures/UI/Prompts/button_prompts_Y.png")
 const ACCEPTABLE = ["A", "B", "X", "Y"]
 
 # State
+var phone_node
+var active = false
 var prompt_data = {
 	"message": "Hello World",
 	"button": "N"
 }
 
 func _process(delta):
-	if ((prompt_data.button == "A" and Input.is_action_just_pressed("Selection 1")) 
-	or (prompt_data.button == "B" and Input.is_action_just_pressed("Selection 2"))
-	or (prompt_data.button == "X" and Input.is_action_just_pressed("Selection 3"))
-	or (prompt_data.button == "Y" and Input.is_action_just_pressed("Selection 4"))):
+	var z_trans = (global_transform.origin.z + 5) / 6
+	$PromptTexture.modulate = Color(z_trans, z_trans, z_trans)
+	$PromptTexture.scale = Vector3(z_trans, z_trans, 0)
+	if (((prompt_data.button == "A" and Input.is_action_just_pressed("Selection 1")) 
+		or (prompt_data.button == "B" and Input.is_action_just_pressed("Selection 2"))
+		or (prompt_data.button == "X" and Input.is_action_just_pressed("Selection 3"))
+		or (prompt_data.button == "Y" and Input.is_action_just_pressed("Selection 4")))
+		and active):
 		execute()
 
 func execute():
-	get_parent().remove_child(self)
+	print(name + ": executed")
+	phone_node.destroy_all_prompts()
+#	phone_node.destroy_and_reorder_prompts(self)
+
+func set_active(b):
+	active = b
+
+func set_phone_node(n):
+	phone_node = n
 
 func set_prompt_button(c, m):
 	if typeof(c) != TYPE_STRING or typeof(m) != TYPE_STRING or not ACCEPTABLE.has(c):
@@ -31,13 +45,16 @@ func set_prompt_button(c, m):
 		return
 	match c:
 		"A":
-			$ButtonPrompt.texture = a_tex
+			$Viewport2/Spatial/ButtonPrompt.texture = a_tex
 		"B":
-			$ButtonPrompt.texture = b_tex
+			$Viewport2/Spatial/ButtonPrompt.texture = b_tex
 		"X":
-			$ButtonPrompt.texture = x_tex
+			$Viewport2/Spatial/ButtonPrompt.texture = x_tex
 		"Y":
-			$ButtonPrompt.texture = y_tex
+			$Viewport2/Spatial/ButtonPrompt.texture = y_tex
 	prompt_data.button = c
 	prompt_data.message = m
 	$Viewport/MessageGUI/Container/Label.text = m
+
+func destroy():
+	get_parent().remove_child(self)

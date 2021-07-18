@@ -13,6 +13,7 @@ script = ExtResource( 3 )
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 640, 640 )
 transparent_bg = true
+keep_3d_linear = true
 render_target_v_flip = true
 
 [node name="MessageGUI" parent="Viewport" instance=ExtResource( 2 )]

@@ -6,12 +6,16 @@ onready var _mesh = get_node("Model/Plane_2").mesh
 # Preloaded Scenes
 var prompt_scene = preload("res://Scenes/Interaction/Prompt.tscn")
 
+# Nodes
+onready var screens = $ScreenCollection
+
 # State
 var togglable = true
 var on = false
 var rotating = false
 var surface_off : SpatialMaterial
 var surface_on : SpatialMaterial
+var current_prompts = []
 
 func _ready():
 	surface_off = _mesh.surface_get_material(0).duplicate()
@@ -25,11 +29,16 @@ func _ready():
 	test_prompt1.set_prompt_button("X", "test test")
 	var test_prompt2 = prompt_scene.instance()
 	test_prompt2.set_prompt_button("A", "testing tester")
-	display_prompts([test_prompt1])
+	var test_prompt3 = prompt_scene.instance()
+	test_prompt3.set_prompt_button("B", "tester testerino")
+	var test_prompt4 = prompt_scene.instance()
+	test_prompt4.set_prompt_button("Y", "testony testino")
+	display_prompts([test_prompt1, test_prompt2, test_prompt3])
 
 func change_screen(tex):
 	if typeof(tex) == typeof(Texture):
 		surface_on.albedo_texture = tex
+	set_prompts_active(screens.current_app == screens.get_node("MessagesScreen"))
 
 func toggle():
 	if togglable:
@@ -38,8 +47,12 @@ func toggle():
 		
 		# Move phone using tween
 		if on:
+			screens.show()
+			set_prompts_active(screens.current_app == screens.get_node("MessagesScreen"))
 			move_phone()
 		else:
+			screens.hide()
+			set_prompts_active(false)
 			rotate_phone()
 
 func is_on():
@@ -68,11 +81,49 @@ func display_prompts(choices):
 	if typeof(choices) != TYPE_ARRAY:
 		print("Error: Prompts to display is not of type TYPE_ARRAY, aborting")
 		return
-	for choice in choices:
-		$ScreenCollection/MessagesScreen.add_child(choice)
-		choice.translate(Vector3(0, 100, 0))
-		choice.set_scale(Vector3(0.25, 0.25, 0.25))
-		choice.rotate_y(PI)
+	clear_prompts(choices)
+	if (choices.size() != 0):
+		add_prompts(choices)
+		offset_prompts(choices)
+		set_prompts_active(true)
+
+func clear_prompts(new_prompts):
+	var orbit_point = screens.get_node("MessagesScreen/PromptOrbitPoint")
+	# Clear current prompts
+	for n in orbit_point.get_children():
+		orbit_point.remove_child(n)
+	orbit_point.rotation.x = 0
+	current_prompts = new_prompts
+
+func add_prompts(prompts):
+	var orbit_point = screens.get_node("MessagesScreen/PromptOrbitPoint")
+	# Add prompts as children to orbit point
+	for i in range(prompts.size()):
+		var choice = prompts[i]
+		orbit_point.add_child(choice)
+		choice.set_scale(Vector3(0.3, 0.3, 0.3))
+
+func offset_prompts(prompts):
+	var offset_magnitude = 1.25
+	var offset_length = (2*PI) / prompts.size()
+	for i in range(prompts.size()):
+		var p = prompts[i]
+		var x_offset = cos(offset_length * (i+1)) * offset_magnitude
+		var y_offset = sin(offset_length * (i+1)) * offset_magnitude
+		p.translation = Vector3(0, x_offset, y_offset)
+
+func set_prompts_active(b):
+	for n in current_prompts:
+		n.set_active(b)
+		n.set_phone_node(self)
+
+func destroy_and_reorder_prompts(p):
+	current_prompts.erase(p)
+	display_prompts(current_prompts)
+
+func destroy_all_prompts():
+	current_prompts.clear()
+	display_prompts(current_prompts)
 
 func _on_MovementTween_tween_started(object, key):
 	togglable = false
