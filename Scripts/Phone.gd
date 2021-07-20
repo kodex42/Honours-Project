@@ -1,5 +1,8 @@
 extends Spatial
 
+# Signals
+signal message_sent(msg, type)
+
 # Exports
 onready var _mesh = get_node("Model/Plane_2").mesh
 
@@ -8,6 +11,7 @@ var prompt_scene = preload("res://Scenes/Interaction/Prompt.tscn")
 
 # Nodes
 onready var screens = $ScreenCollection
+onready var msg_app = screens.get_node("MessagesScreen")
 
 # State
 var togglable = true
@@ -33,7 +37,7 @@ func _ready():
 	test_prompt3.set_prompt_button("B", "tester testerino")
 	var test_prompt4 = prompt_scene.instance()
 	test_prompt4.set_prompt_button("Y", "testony testino")
-	display_prompts([test_prompt1, test_prompt2, test_prompt3])
+	display_prompts([test_prompt1, test_prompt2, test_prompt3, test_prompt4])
 
 func change_screen(tex):
 	if typeof(tex) == typeof(Texture):
@@ -124,6 +128,9 @@ func destroy_and_reorder_prompts(p):
 func destroy_all_prompts():
 	current_prompts.clear()
 	display_prompts(current_prompts)
+
+func createMessage(msg, type):
+	emit_signal("message_sent", msg, type)
 
 func _on_MovementTween_tween_started(object, key):
 	togglable = false

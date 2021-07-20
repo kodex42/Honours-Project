@@ -1,10 +1,15 @@
-extends Spatial
+extends MarginContainer
 
+# Exports
+export(NodePath) onready var label = get_node(label)
+
+# Enums
 enum MessageType {
 	SENT,
 	RECIEVED
 }
 
+# State
 var type : int
 
 func _ready():
@@ -15,14 +20,17 @@ func swap_type():
 
 func set_type(m_type : int):
 	type = m_type
-	update_message()
+#	update_message()
 
-func update_message():
-	if type == MessageType.SENT:
-		$Background.modulate = Color(0.3, 0.3, 1)
-		$Text.modulate = Color.white
-		self.translation.x = 0.25
-	if type == MessageType.RECIEVED:
-		$Background.modulate = Color.lightcyan
-		$Text.modulate = Color.black
-		self.translation.x = -0.25
+func set_text(msg : String):
+	label.set_text(msg)
+
+#func update_message():
+#	if type == MessageType.SENT:
+#		$Background.modulate = Color(0.3, 0.3, 1)
+#		$Text.modulate = Color.white
+#		self.translation.x = 0.25
+#	if type == MessageType.RECIEVED:
+#		$Background.modulate = Color.lightcyan
+#		$Text.modulate = Color.black
+#		self.translation.x = -0.25

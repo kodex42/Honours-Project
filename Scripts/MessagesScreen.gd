@@ -1,5 +1,8 @@
 extends "res://Scripts/PhoneScreen.gd"
 
+# Preloaded Scenes
+var message_scene = preload("res://Scenes/Phone/Screens/MessageGUI.tscn")
+
 # Constants
 const orbit_speed = PI/256
 
@@ -15,5 +18,5 @@ func phone_up():
 func phone_down():
 	print(name + ": Scroll messages down")
 
-func phone_right():
-	$Objects/Message.swap_type()
+func _on_Phone_message_sent(msg, type):
+	pass # Replace with function body.
