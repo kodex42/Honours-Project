@@ -79,7 +79,12 @@ mesh = SubResource( 11 )
 material/0 = null
 
 [node name="Sprite3D" type="Sprite3D" parent="Objects" index="2"]
-transform = Transform( 0.404, 0, 0, 0, -1.73097e-08, -1, 0, 0.396, -4.37114e-08, 0, 0, 0 )
+transform = Transform( 0.5, 0, 0, 0, -2.18557e-08, -1, 0, 0.5, -4.37114e-08, 0, 0, 0 )
 modulate = Color( 0.584314, 0, 0.847059, 1 )
 opacity = 0.5
 texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 540, 1280 )
+
+[node name="Camera" parent="Viewport" index="0"]
+size = 1.28

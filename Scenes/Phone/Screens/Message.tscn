@@ -10,10 +10,10 @@ flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="Shader" id=11]
+[sub_resource type="Shader" id=2]
 
-[sub_resource type="ShaderMaterial" id=12]
-shader = SubResource( 11 )
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
 
 [sub_resource type="AtlasTexture" id=4]
 flags = 23
@@ -25,49 +25,50 @@ flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 576, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=6]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 0, 64, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=7]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 64, 64, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=8]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 576, 64, 64, 64 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=9]
 size = 90
 font_data = ExtResource( 2 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=10]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 0, 576, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=11]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 64, 576, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=12]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 576, 576, 64, 64 )
 
 [node name="Message" type="MarginContainer"]
-margin_right = 285.0
+margin_right = 1196.0
 margin_bottom = 234.0
-size_flags_horizontal = 11
+rect_min_size = Vector2( 192, 0 )
+size_flags_horizontal = 0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-label = NodePath("BackgroundVBox/CenterContainer/MarginContainer/Label")
+backgrounds = [ NodePath("BackgroundVBox/UBorderHBox/ULBorder"), NodePath("BackgroundVBox/UBorderHBox/MarginContainer/UCBorder"), NodePath("BackgroundVBox/UBorderHBox/URBorder"), NodePath("BackgroundVBox/CenterContainer/CenterHBox/LBorder"), NodePath("BackgroundVBox/CenterContainer/CenterHBox/MarginContainer/Center"), NodePath("BackgroundVBox/CenterContainer/CenterHBox/RBorder"), NodePath("BackgroundVBox/DBorderHBox/DLBorder"), NodePath("BackgroundVBox/DBorderHBox/MarginContainer/DCBorder"), NodePath("BackgroundVBox/DBorderHBox/DRBorder") ]
 
 [node name="BackgroundVBox" type="VBoxContainer" parent="."]
 margin_right = 1196.0
@@ -97,7 +98,7 @@ margin_bottom = 64.0
 size_flags_horizontal = 3
 
 [node name="UCBorder" type="TextureRect" parent="BackgroundVBox/UBorderHBox/MarginContainer"]
-material = SubResource( 12 )
+material = SubResource( 3 )
 margin_right = 1068.0
 margin_bottom = 64.0
 texture = SubResource( 4 )
@@ -128,7 +129,7 @@ custom_constants/separation = 0
 [node name="LBorder" type="TextureRect" parent="BackgroundVBox/CenterContainer/CenterHBox"]
 margin_right = 64.0
 margin_bottom = 106.0
-texture = SubResource( 9 )
+texture = SubResource( 6 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -144,7 +145,7 @@ size_flags_vertical = 3
 [node name="Center" type="TextureRect" parent="BackgroundVBox/CenterContainer/CenterHBox/MarginContainer"]
 margin_right = 1068.0
 margin_bottom = 106.0
-texture = SubResource( 2 )
+texture = SubResource( 7 )
 expand = true
 stretch_mode = 2
 __meta__ = {
@@ -155,7 +156,7 @@ __meta__ = {
 margin_left = 1132.0
 margin_right = 1196.0
 margin_bottom = 106.0
-texture = SubResource( 10 )
+texture = SubResource( 8 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -174,7 +175,7 @@ margin_right = 1180.0
 margin_bottom = 106.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 9 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 0
 text = "I'm a label with dynamic size!"
@@ -193,7 +194,7 @@ custom_constants/separation = 0
 [node name="DLBorder" type="TextureRect" parent="BackgroundVBox/DBorderHBox"]
 margin_right = 64.0
 margin_bottom = 64.0
-texture = SubResource( 6 )
+texture = SubResource( 10 )
 stretch_mode = 3
 __meta__ = {
 "_edit_use_anchors_": false
@@ -208,7 +209,7 @@ size_flags_horizontal = 3
 [node name="DCBorder" type="TextureRect" parent="BackgroundVBox/DBorderHBox/MarginContainer"]
 margin_right = 1068.0
 margin_bottom = 64.0
-texture = SubResource( 8 )
+texture = SubResource( 11 )
 expand = true
 stretch_mode = 2
 __meta__ = {
@@ -219,10 +220,10 @@ __meta__ = {
 margin_left = 1132.0
 margin_right = 1196.0
 margin_bottom = 64.0
-texture = SubResource( 7 )
+texture = SubResource( 12 )
 stretch_mode = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="ready" from="." to="BackgroundVBox/CenterContainer/MarginContainer/Label" method="_on_Message_ready"]
-[connection signal="resized" from="BackgroundVBox/CenterContainer/MarginContainer/Label" to="BackgroundVBox/CenterContainer/MarginContainer/Label" method="_on_Label_resized"]
+[connection signal="tree_entered" from="BackgroundVBox/CenterContainer/MarginContainer/Label" to="." method="_on_Label_tree_entered"]

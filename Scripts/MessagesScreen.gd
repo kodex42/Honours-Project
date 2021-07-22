@@ -1,8 +1,5 @@
 extends "res://Scripts/PhoneScreen.gd"
 
-# Preloaded Scenes
-var message_scene = preload("res://Scenes/Phone/Screens/MessageGUI.tscn")
-
 # Constants
 const orbit_speed = PI/256
 
