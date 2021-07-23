@@ -7,9 +7,10 @@ var message_scene = preload("res://Scenes/Phone/Screens/Message.tscn")
 onready var msg_cont = $ScrollContainer/VBoxContainer
 
 func _ready():
-	new_message("I am a recieved message", 1)
-	new_message("I am also a recieved message!", 1)
-	new_message("I am a sent message...", 0)
+#	new_message("I am a recieved message", 1)
+#	new_message("I am also a recieved message!", 1)
+#	new_message("I am a sent message...", 0)
+	pass
 
 func new_message(msg : String, type : int):
 	var message = message_scene.instance()

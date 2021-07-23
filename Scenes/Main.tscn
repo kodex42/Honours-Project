@@ -60,15 +60,15 @@ rotation = Vector3( 0, 0, 0 )
 look_target = Vector3( 0, 0, 0 )
 pitch_limit = Vector2( -45, 80 )
 
-[sub_resource type="SpatialMaterial" id=14]
+[sub_resource type="SpatialMaterial" id=13]
 flags_transparent = true
 flags_unshaded = true
 flags_albedo_tex_force_srgb = true
 albedo_texture = ExtResource( 9 )
 
-[sub_resource type="QuadMesh" id=13]
+[sub_resource type="QuadMesh" id=14]
 resource_local_to_scene = true
-material = SubResource( 14 )
+material = SubResource( 13 )
 size = Vector2( 16, 9 )
 
 [node name="Main" type="Spatial"]
@@ -147,7 +147,7 @@ setup = SubResource( 12 )
 transform = Transform( 0.125, 0, 0, 0, 0.125, 0, 0, 0, 1, -1.19209e-07, 0, -0.804991 )
 
 [node name="PhoneQuad" type="MeshInstance" parent="Camera/HUD"]
-mesh = SubResource( 13 )
+mesh = SubResource( 14 )
 material/0 = null
 script = ExtResource( 8 )
 

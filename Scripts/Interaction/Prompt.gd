@@ -29,9 +29,9 @@ func _process(delta):
 		execute()
 
 func execute():
-	print(name + ": executed")
+	phone_node.send_message(prompt_data.message)
 	phone_node.destroy_all_prompts()
-#	phone_node.destroy_and_reorder_prompts(self)
+#	print(name + ": executed")
 
 func set_active(b):
 	active = b

@@ -1,7 +1,8 @@
 extends Spatial
 
 # Signals
-signal message_sent(msg, type)
+signal message_sent(msg)
+signal message_received(msg)
 
 # Exports
 onready var _model = get_node("Model")
@@ -30,16 +31,16 @@ func _ready():
 	surface_on.set("flags_unshaded", true)
 	surface_on.set("albedo_color", Color.white)
 	
-	# Test button prompts
-	var test_prompt1 = prompt_scene.instance()
-	test_prompt1.set_prompt_button("X", "test test")
-	var test_prompt2 = prompt_scene.instance()
-	test_prompt2.set_prompt_button("A", "testing tester")
-	var test_prompt3 = prompt_scene.instance()
-	test_prompt3.set_prompt_button("B", "tester testerino")
-	var test_prompt4 = prompt_scene.instance()
-	test_prompt4.set_prompt_button("Y", "testony testino")
-	display_prompts([test_prompt1, test_prompt2, test_prompt3, test_prompt4])
+#	# Test button prompts
+#	var test_prompt1 = prompt_scene.instance()
+#	test_prompt1.set_prompt_button("X", "test test")
+#	var test_prompt2 = prompt_scene.instance()
+#	test_prompt2.set_prompt_button("A", "testing tester")
+#	var test_prompt3 = prompt_scene.instance()
+#	test_prompt3.set_prompt_button("B", "tester testerino")
+#	var test_prompt4 = prompt_scene.instance()
+#	test_prompt4.set_prompt_button("Y", "testony testino")
+#	display_prompts([test_prompt1, test_prompt2, test_prompt3, test_prompt4])
 
 func change_screen(tex):
 	if typeof(tex) == typeof(Texture):
@@ -129,8 +130,11 @@ func destroy_all_prompts():
 	current_prompts.clear()
 	display_prompts(current_prompts)
 
-func createMessage(msg, type):
-	emit_signal("message_sent", msg, type)
+func send_message(msg):
+	emit_signal("message_sent", msg)
+
+func receive_message(msg):
+	emit_signal("message_received", msg)
 
 func _on_MovementTween_tween_started(object, key):
 	togglable = false
