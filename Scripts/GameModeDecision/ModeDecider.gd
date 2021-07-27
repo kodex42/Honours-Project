@@ -7,6 +7,7 @@ func _ready():
 	# Replace the current scene based on the game mode export variable
 	if server_mode:
 		change_scene("res://Scenes/Server.tscn")
+		VisualServer.render_loop_enabled = false
 	else:
 		change_scene("res://Scenes/Main.tscn")
 func change_scene(path):
