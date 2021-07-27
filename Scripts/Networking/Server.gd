@@ -5,7 +5,12 @@ var port = 1909
 var max_players = 100
 
 func _ready():
+	change_window_settings()
 	start_server()
+
+func change_window_settings():
+	VisualServer.render_loop_enabled = false
+	OS.set_window_minimized(true)
 
 func start_server():
 	network.create_server(port, max_players)
