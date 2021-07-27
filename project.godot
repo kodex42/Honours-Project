@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Hapax"
-run/main_scene="res://Scenes/ModeDecider.tscn"
+run/main_scene="res://Scenes/Main.tscn"
 
 [display]
 
