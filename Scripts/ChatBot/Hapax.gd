@@ -29,8 +29,14 @@ func set_prompts(prompts):
 	owner.display_prompts(prompt_scenes)
 
 func _on_Phone_message_sent(msg):
-	pass # Replace with function body.
+	var response = get_response(msg)
+	reply(response.msg)
+	set_prompts(response.prompts)
 
 func _on_Phone_ready():
 	reply("Hello! My name is Hapax! I am a chatbot created by Satyr industries, ask me anything!")
 	set_prompts(["Hello?"])
+
+# Responses made by Hapax are created in a dictionary format that includes the response message and possible player prompts
+func get_response(msg):
+	return

@@ -109,7 +109,7 @@ func add_prompts(prompts):
 		choice.set_scale(Vector3(0.3, 0.3, 0.3))
 
 func offset_prompts(prompts):
-	var offset_magnitude = 1.25
+	var offset_magnitude = 1.05
 	var offset_length = (2*PI) / prompts.size()
 	for i in range(prompts.size()):
 		var p = prompts[i]

@@ -4,12 +4,16 @@ extends Control
 var message_scene = preload("res://Scenes/Phone/Screens/Message.tscn")
 
 # Nodes
-onready var msg_cont = $ScrollContainer/VBoxContainer
+onready var margin = $MarginContainer
+onready var msg_cont = $MarginContainer/VBoxContainer
 
 func _ready():
-#	new_message("I am a recieved message", 1)
-#	new_message("I am also a recieved message!", 1)
-#	new_message("I am a sent message...", 0)
+	new_message("I am a recieved message", 1)
+	new_message("I am also a recieved message! aAAAAAAAAAAAAAAAAAAAAAAAAA", 1)
+	new_message("I am a sent message...", 0)
+	pass
+
+func _process(delta):
 	pass
 
 func new_message(msg : String, type : int):

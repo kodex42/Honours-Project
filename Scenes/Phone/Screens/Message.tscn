@@ -62,7 +62,8 @@ region = Rect2( 576, 576, 64, 64 )
 [node name="Message" type="MarginContainer"]
 margin_right = 1196.0
 margin_bottom = 234.0
-rect_min_size = Vector2( 192, 0 )
+rect_min_size = Vector2( 1280, 0 )
+rect_clip_content = true
 size_flags_horizontal = 0
 script = ExtResource( 3 )
 __meta__ = {
@@ -72,14 +73,14 @@ backgrounds = [ NodePath("BackgroundVBox/UBorderHBox/ULBorder"), NodePath("Backg
 
 [node name="BackgroundVBox" type="VBoxContainer" parent="."]
 margin_right = 1196.0
-margin_bottom = 234.0
-size_flags_horizontal = 11
+margin_bottom = 1324.0
+rect_min_size = Vector2( 192, 0 )
+size_flags_horizontal = 0
 custom_constants/separation = 0
 
 [node name="UBorderHBox" type="HBoxContainer" parent="BackgroundVBox"]
 margin_right = 1196.0
 margin_bottom = 64.0
-size_flags_horizontal = 3
 custom_constants/separation = 0
 
 [node name="ULBorder" type="TextureRect" parent="BackgroundVBox/UBorderHBox"]
@@ -119,7 +120,6 @@ __meta__ = {
 margin_top = 64.0
 margin_right = 1196.0
 margin_bottom = 170.0
-size_flags_horizontal = 11
 
 [node name="CenterHBox" type="HBoxContainer" parent="BackgroundVBox/CenterContainer"]
 margin_right = 1196.0
@@ -165,7 +165,7 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="BackgroundVBox/CenterContainer"]
 margin_right = 1196.0
 margin_bottom = 106.0
-size_flags_horizontal = 11
+size_flags_horizontal = 0
 custom_constants/margin_right = 16
 custom_constants/margin_left = 16
 
@@ -173,7 +173,7 @@ custom_constants/margin_left = 16
 margin_left = 16.0
 margin_right = 1180.0
 margin_bottom = 106.0
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_fonts/font = SubResource( 9 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -188,7 +188,6 @@ __meta__ = {
 margin_top = 170.0
 margin_right = 1196.0
 margin_bottom = 234.0
-size_flags_horizontal = 3
 custom_constants/separation = 0
 
 [node name="DLBorder" type="TextureRect" parent="BackgroundVBox/DBorderHBox"]
@@ -226,4 +225,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="ready" from="." to="BackgroundVBox/CenterContainer/MarginContainer/Label" method="_on_Message_ready"]
+[connection signal="resized" from="BackgroundVBox/CenterContainer/MarginContainer/Label" to="BackgroundVBox/CenterContainer/MarginContainer/Label" method="_on_Label_resized"]
 [connection signal="tree_entered" from="BackgroundVBox/CenterContainer/MarginContainer/Label" to="." method="_on_Label_tree_entered"]

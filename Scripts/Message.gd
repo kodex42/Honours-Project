@@ -24,6 +24,17 @@ func init(m : String, t : int):
 func _ready():
 	set_text(msg)
 	set_type(type)
+	pass
+
+func _process(delta):
+	var rect = get("rect_size")
+	var min_rect = get("rect_min_size")
+	if rect.x != min_rect.x:
+		set("rect_size", Vector2(min_rect.x, rect.y))
+	pass
+
+func _clips_input():
+	return true
 
 func swap_type():
 	set_type(MessageType.RECIEVED) if type == MessageType.SENT else set_type(MessageType.SENT)
