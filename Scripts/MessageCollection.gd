@@ -8,12 +8,16 @@ onready var margin = $MarginContainer
 onready var msg_cont = $MarginContainer/VBoxContainer
 
 func _ready():
-	new_message("I am a recieved message", 1)
-	new_message("I am also a recieved message! aAAAAAAAAAAAAAAAAAAAAAAAAA", 1)
-	new_message("I am a sent message...", 0)
+#	new_message("I am a recieved message", 1)
+#	new_message("I am also a recieved message! aAAAAAAAAAAAAAAAAAAAAAAAAA", 1)
+#	new_message("I am a sent message...", 0)
 	pass
 
 func _process(delta):
+	var rect = msg_cont.get("rect_size")
+	var min_rect = msg_cont.get("rect_min_size")
+	if rect.x != min_rect.x:
+		msg_cont.set("rect_size", Vector2(min_rect.x, rect.y))
 	pass
 
 func new_message(msg : String, type : int):
@@ -25,6 +29,7 @@ func new_message(msg : String, type : int):
 		# If the last message was a different type, add a seperator
 		if message.type != last_message.type:
 			var s = HSeparator.new()
+			s.modulate.a = 0
 			s.set("custom_constants/separation", 50)
 			msg_cont.add_child(s)
 	msg_cont.add_child(message)

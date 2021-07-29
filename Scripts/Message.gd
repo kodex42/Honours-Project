@@ -27,10 +27,6 @@ func _ready():
 	pass
 
 func _process(delta):
-	var rect = get("rect_size")
-	var min_rect = get("rect_min_size")
-	if rect.x != min_rect.x:
-		set("rect_size", Vector2(min_rect.x, rect.y))
 	pass
 
 func _clips_input():
@@ -42,7 +38,7 @@ func swap_type():
 func set_type(m_type : int):
 	type = m_type
 	if type == MessageType.SENT:
-		self.size_flags_horizontal = SIZE_SHRINK_END
+		$BackgroundVBox.size_flags_horizontal = SIZE_SHRINK_END
 		set_background_color(Color(0.3, 0.3, 1))
 		set_text_color(Color.white)
 	if type == MessageType.RECIEVED:
