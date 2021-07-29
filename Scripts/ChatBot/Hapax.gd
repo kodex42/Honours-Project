@@ -4,6 +4,7 @@ extends Node
 var prompt_scene = preload("res://Scenes/Interaction/Prompt.tscn")
 
 # State
+var holding_response = {}
 var sent_message = ""
 
 func reply(msg):
@@ -28,15 +29,31 @@ func set_prompts(prompts):
 		prompt_scenes.append(s)
 	owner.display_prompts(prompt_scenes)
 
+# Responses made by Hapax are created in a dictionary format that includes the response message and possible player prompts
+func get_response(msg):
+	var res = {
+		"msg" : "",
+		"prompts" : []
+	}
+	
+	# Incoming huge match case statement for dialogue
+	match msg:
+		"Hello?":
+			res.msg = "Hello, my name is Hapax! Nice to meet you!! :)"
+			res.prompts.append("Hello?")
+	
+	return res
+
 func _on_Phone_message_sent(msg):
-	var response = get_response(msg)
-	reply(response.msg)
-	set_prompts(response.prompts)
+	holding_response = get_response(msg)
+	$ReplyTimer.start()
 
 func _on_Phone_ready():
 	reply("Hello! My name is Hapax! I am a chatbot created by Satyr industries, ask me anything!")
 	set_prompts(["Hello?"])
 
-# Responses made by Hapax are created in a dictionary format that includes the response message and possible player prompts
-func get_response(msg):
-	return
+func _on_ReplyTimer_timeout():
+	if not holding_response.empty():
+		reply(holding_response.msg)
+		set_prompts(holding_response.prompts)
+		holding_response.clear()

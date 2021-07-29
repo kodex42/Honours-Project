@@ -14,6 +14,7 @@ var prompt_scene = preload("res://Scenes/Interaction/Prompt.tscn")
 # Nodes
 onready var screens = get_node("ScreenCollection")
 onready var msg_app = screens.get_node("MessagesScreen")
+onready var p_orbit = msg_app.get_node("PromptOrbitPoint")
 
 # State
 var togglable = true
@@ -93,7 +94,7 @@ func display_prompts(choices):
 		set_prompts_active(true)
 
 func clear_prompts(new_prompts):
-	var orbit_point = screens.get_node("MessagesScreen/PromptOrbitPoint")
+	var orbit_point = p_orbit
 	# Clear current prompts
 	for n in orbit_point.get_children():
 		orbit_point.remove_child(n)
@@ -101,7 +102,7 @@ func clear_prompts(new_prompts):
 	current_prompts = new_prompts
 
 func add_prompts(prompts):
-	var orbit_point = screens.get_node("MessagesScreen/PromptOrbitPoint")
+	var orbit_point = p_orbit
 	# Add prompts as children to orbit point
 	for i in range(prompts.size()):
 		var choice = prompts[i]

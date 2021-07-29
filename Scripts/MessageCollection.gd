@@ -5,7 +5,8 @@ var message_scene = preload("res://Scenes/Phone/Screens/Message.tscn")
 
 # Nodes
 onready var margin = $MarginContainer
-onready var msg_cont = $MarginContainer/VBoxContainer
+onready var scr_cont = $MarginContainer/ScrollContainer
+onready var msg_cont = $MarginContainer/ScrollContainer/VBoxContainer
 
 func _ready():
 #	new_message("I am a recieved message", 1)
@@ -18,6 +19,8 @@ func _process(delta):
 	var min_rect = msg_cont.get("rect_min_size")
 	if rect.x != min_rect.x:
 		msg_cont.set("rect_size", Vector2(min_rect.x, rect.y))
+	
+	scr_cont.scroll_vertical = scr_cont.get_v_scrollbar().max_value
 	pass
 
 func new_message(msg : String, type : int):
