@@ -16,13 +16,13 @@ func set_text(msg):
 	rect_min_size.x = 0
 	rect_size.x = 0
 
-func _process(delta):
-	var t = OS.get_time().second
-	if t % 2 == 0 and not phrase_set:
-		set_text(phrases[randi() % phrases.size()])
-		phrase_set = true
-	elif t % 2 != 0:
-		phrase_set = false
+#func _process(delta):
+#	var t = OS.get_time().second
+#	if t % 2 == 0 and not phrase_set:
+#		set_text(phrases[randi() % phrases.size()])
+#		phrase_set = true
+#	elif t % 2 != 0:
+#		phrase_set = false
 
 func _on_Label_resized():
 	var rect = get("rect_size")
