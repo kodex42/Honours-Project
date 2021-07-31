@@ -1,8 +1,8 @@
 extends Node
 
 var network = NetworkedMultiplayerENet.new()
-#var ip = "127.0.0.1" # Loopback
-var ip = "192.168.0.143" # Laptop at home on WLAN
+var ip = "127.0.0.1" # Loopback
+#var ip = "192.168.0.143" # Laptop at home on WLAN
 var port = 1909
 
 func _ready():

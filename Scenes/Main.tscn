@@ -9,11 +9,11 @@
 [ext_resource path="res://Scripts/PhoneQuad.gd" type="Script" id=8]
 [ext_resource path="res://Data/Textures/PNG/Green/texture_01.png" type="Texture" id=9]
 
-[sub_resource type="ProceduralSky" id=10]
+[sub_resource type="ProceduralSky" id=1]
 
-[sub_resource type="Environment" id=11]
+[sub_resource type="Environment" id=2]
 background_mode = 2
-background_sky = SubResource( 10 )
+background_sky = SubResource( 1 )
 ambient_light_color = Color( 0.156863, 0.188235, 0.211765, 1 )
 ambient_light_energy = 0.99
 auto_exposure_enabled = true
@@ -22,7 +22,7 @@ auto_exposure_max_luma = 1.0
 auto_exposure_speed = 0.3
 ssao_bias = 0.001
 
-[sub_resource type="Resource" id=12]
+[sub_resource type="Resource" id=3]
 script = ExtResource( 6 )
 anchor_offset = Vector3( 0, 1.518, 0 )
 target_offset = Vector3( -0.282, 0.171, -1.393 )
@@ -30,15 +30,15 @@ rotation = Vector3( 0, 0, 0 )
 look_target = Vector3( 0, 0, 0 )
 pitch_limit = Vector2( -45, 80 )
 
-[sub_resource type="SpatialMaterial" id=13]
+[sub_resource type="SpatialMaterial" id=4]
 flags_transparent = true
 flags_unshaded = true
 flags_albedo_tex_force_srgb = true
 albedo_texture = ExtResource( 9 )
 
-[sub_resource type="QuadMesh" id=14]
+[sub_resource type="QuadMesh" id=5]
 resource_local_to_scene = true
-material = SubResource( 13 )
+material = SubResource( 4 )
 size = Vector2( 16, 9 )
 
 [node name="Main" type="Spatial"]
@@ -47,7 +47,7 @@ script = ExtResource( 4 )
 [node name="World" type="Spatial" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
-environment = SubResource( 11 )
+environment = SubResource( 2 )
 __meta__ = {
 "_editor_description_": ""
 }
@@ -63,13 +63,13 @@ transform = Transform( -1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, -0.282,
 current = true
 script = ExtResource( 5 )
 target = NodePath("../PlayerCharacter")
-setup = SubResource( 12 )
+setup = SubResource( 3 )
 
 [node name="HUD" type="Spatial" parent="Camera"]
 transform = Transform( 0.125, 0, 0, 0, 0.125, 0, 0, 0, 1, -1.19209e-07, 0, -0.804991 )
 
 [node name="PhoneQuad" type="MeshInstance" parent="Camera/HUD"]
-mesh = SubResource( 14 )
+mesh = SubResource( 5 )
 material/0 = null
 script = ExtResource( 8 )
 
