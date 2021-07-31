@@ -4,3 +4,4 @@
 
 [node name="ModeDecider" type="Node"]
 script = ExtResource( 1 )
+server_mode = true
