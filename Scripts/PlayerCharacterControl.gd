@@ -8,29 +8,44 @@ export(NodePath) onready var camera = get_node(camera)
 onready var phone = owner.get_node("Phone")
 
 # Constants
-const GRAV_FORCE = -9.83
+const GRAV_FORCE = -9.86
+const SNAP = Vector3(0, -0.25, 0)
 
 # State variables
 var jumping = false
 var jump_percentage = 0.0
-var gravity = Vector3.ZERO
 var _turning_speed = 5.0
+var gravity = Vector3.ZERO
+var up = Vector3.UP
 
 func _physics_process(delta):
 	var root_motion : Transform = _anim_tree.get_root_motion_transform()
 	var v = root_motion.origin / delta
+	var snap
 	
 	# Check movement
 	v = movement_controls(delta, v)
 	
-	# Apply gravity
-	if is_on_floor() or jumping:
-		gravity = Vector3.ZERO
+	# Check jumping flag
+	if jumping:
+		gravity.y = 0
+		snap = Vector3.ZERO
+	elif is_on_floor():
+		gravity.y = 0
+		snap = SNAP
 	else:
-		gravity += Vector3(0.0, GRAV_FORCE*delta, 0.0)
+		gravity.y += GRAV_FORCE*delta
+		snap = SNAP
+	
+	# Apply gravity
 	v += gravity
 	
-	move_and_slide(v, Vector3.UP)
+	# Move character and change state based on result
+	move_and_slide_with_snap(v, snap, up, true)
+	if is_on_floor():
+		up = get_floor_normal()
+	else:
+		up = Vector3.UP
 	
 	# Check auxilliary controls
 	aux_controls()
