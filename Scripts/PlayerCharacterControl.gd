@@ -12,43 +12,48 @@ const GRAV_FORCE = -9.86
 const SNAP = Vector3(0, -0.25, 0)
 
 # State variables
+var activated = false
 var jumping = false
 var jump_percentage = 0.0
 var _turning_speed = 5.0
 var gravity = Vector3.ZERO
 var up = Vector3.UP
 
+func _ready():
+	activate()
+
 func _physics_process(delta):
-	var root_motion : Transform = _anim_tree.get_root_motion_transform()
-	var v = root_motion.origin / delta
-	var snap
-	
-	# Check movement
-	v = movement_controls(delta, v)
-	
-	# Check jumping flag
-	if jumping:
-		gravity.y = 0
-		snap = Vector3.ZERO
-	elif is_on_floor():
-		gravity.y = 0
-		snap = SNAP
-	else:
-		gravity.y += GRAV_FORCE*delta
-		snap = SNAP
-	
-	# Apply gravity
-	v += gravity
-	
-	# Move character and change state based on result
-	move_and_slide_with_snap(v, snap, up, true)
-	if is_on_floor():
-		up = get_floor_normal()
-	else:
-		up = Vector3.UP
-	
-	# Check auxilliary controls
-	aux_controls()
+	if activated:
+		var root_motion : Transform = _anim_tree.get_root_motion_transform()
+		var v = root_motion.origin / delta
+		var snap
+
+		# Check movement
+		v = movement_controls(delta, v)
+
+		# Check jumping flag
+		if jumping:
+			gravity.y = 0
+			snap = Vector3.ZERO
+		elif is_on_floor():
+			gravity.y = 0
+			snap = SNAP
+		else:
+			gravity.y += GRAV_FORCE*delta
+			snap = SNAP
+
+		# Apply gravity
+		v += gravity
+
+		# Move character and change state based on result
+		move_and_slide_with_snap(v, snap, up, true)
+		if is_on_floor():
+			up = get_floor_normal()
+		else:
+			up = Vector3.UP
+
+		# Check auxilliary controls
+		aux_controls()
 
 func movement_controls(delta, v):
 	var current_anim = _anim_tree.get("parameters/playback").get_current_node()
@@ -97,3 +102,9 @@ func aux_controls():
 	# Phone
 	if Input.is_action_just_pressed("phone_toggle"):
 		phone.toggle()
+
+func activate():
+	activated = true
+	
+func deactivate():
+	activated = false

@@ -15,6 +15,7 @@ func change_window_settings():
 func start_server():
 	network.create_server(port, max_players)
 	get_tree().set_network_peer(network)
+	rpc_config("fetch_level", MultiplayerAPI.RPC_MODE_MASTER)
 	print("Server started")
 	
 	network.connect("peer_connected", self, "_peer_connected")
@@ -25,3 +26,9 @@ func _peer_connected(pid):
 
 func _peer_disconnected(pid):
 	print("User " + str(pid) + " Disconnected")
+
+remote func fetch_level(level_name, requester):
+	var pid = get_tree().get_rpc_sender_id()
+	var pkg = $Levels.get_node(level_name).pack()
+	rpc_id(pid, "retrieve_level", pkg, requester)
+	print("Sending level " + pkg.level + " to player with id " + str(pid))
