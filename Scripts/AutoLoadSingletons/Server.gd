@@ -25,8 +25,14 @@ func _on_connection_succeeded():
 	emit_signal("connected")
 	print("Successfully connected to server")
 
+func send_level(level_name, pkg):
+	rpc_id(1, "send_level", level_name, pkg)
+
 func fetch_level(level_name, requester):
 	rpc_id(1, "fetch_level", level_name, requester)
 
 remote func retrieve_level(w_pkg, requester):
 	instance_from_id(requester).load_level_from_package(w_pkg)
+
+remote func level_sent(level_name):
+	print("Level " + level_name + "'s state has been updated server-side")

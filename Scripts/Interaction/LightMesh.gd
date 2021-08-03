@@ -24,6 +24,6 @@ func update_surface():
 		mesh.surface_set_material(0, surface_on)
 		$OmniLight.show()
 
-func _on_Switch_interaction():
-	on = not on
+func set_on(b):
+	on = b
 	update_surface()

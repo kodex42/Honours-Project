@@ -32,3 +32,11 @@ remote func fetch_level(level_name, requester):
 	var pkg = $Levels.get_node(level_name).pack()
 	rpc_id(pid, "retrieve_level", pkg, requester)
 	print("Sending level " + pkg.level + " to player with id " + str(pid))
+
+remote func send_level(level_name, pkg):
+	var pid = get_tree().get_rpc_sender_id()
+	var level = $Levels.get_node(level_name)
+	level.unpack(pkg)
+	rpc_id(pid, "level_sent", level_name)
+	print("Unpacking level " + level_name + " received from player with id " + str(pid))
+	print("Level State: " + str(pkg))

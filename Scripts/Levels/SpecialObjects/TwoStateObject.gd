@@ -10,6 +10,11 @@ func _ready():
 	init("Two State Object", "This is a Two State Object, a Special Object with a binary state.")
 	set_state(false)
 
+func set_state(s):
+	.set_state(s)
+	$sSwitchBody/mGreenLight.set_on(s)
+	$sSwitchBody/mRedLight.set_on(not s)
+
 # For user interaction
 func _on_interaction():
 	set_state(not state)
