@@ -5,42 +5,42 @@
 [ext_resource path="res://Scripts/Message.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/Control/LabelWithWrapping.gd" type="Script" id=4]
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=13]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="Shader" id=2]
+[sub_resource type="Shader" id=14]
 
-[sub_resource type="ShaderMaterial" id=3]
-shader = SubResource( 2 )
+[sub_resource type="ShaderMaterial" id=15]
+shader = SubResource( 14 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=16]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 64, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=17]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 576, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=18]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 0, 64, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=19]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 64, 64, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=9]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 576, 64, 64, 64 )
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=20]
 size = 90
 font_data = ExtResource( 2 )
 
@@ -85,7 +85,7 @@ custom_constants/separation = 0
 [node name="ULBorder" type="TextureRect" parent="BackgroundVBox/UBorderHBox"]
 margin_right = 64.0
 margin_bottom = 64.0
-texture = SubResource( 1 )
+texture = SubResource( 13 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -98,10 +98,10 @@ margin_bottom = 64.0
 size_flags_horizontal = 3
 
 [node name="UCBorder" type="TextureRect" parent="BackgroundVBox/UBorderHBox/MarginContainer"]
-material = SubResource( 3 )
+material = SubResource( 15 )
 margin_right = 1068.0
 margin_bottom = 64.0
-texture = SubResource( 4 )
+texture = SubResource( 16 )
 expand = true
 stretch_mode = 2
 
@@ -109,7 +109,7 @@ stretch_mode = 2
 margin_left = 1132.0
 margin_right = 1196.0
 margin_bottom = 64.0
-texture = SubResource( 5 )
+texture = SubResource( 17 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -128,7 +128,7 @@ custom_constants/separation = 0
 [node name="LBorder" type="TextureRect" parent="BackgroundVBox/CenterContainer/CenterHBox"]
 margin_right = 64.0
 margin_bottom = 106.0
-texture = SubResource( 6 )
+texture = SubResource( 18 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -144,7 +144,7 @@ size_flags_vertical = 3
 [node name="Center" type="TextureRect" parent="BackgroundVBox/CenterContainer/CenterHBox/MarginContainer"]
 margin_right = 1068.0
 margin_bottom = 106.0
-texture = SubResource( 7 )
+texture = SubResource( 19 )
 expand = true
 stretch_mode = 2
 __meta__ = {
@@ -155,7 +155,7 @@ __meta__ = {
 margin_left = 1132.0
 margin_right = 1196.0
 margin_bottom = 106.0
-texture = SubResource( 8 )
+texture = SubResource( 9 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -174,7 +174,7 @@ margin_right = 1180.0
 margin_bottom = 106.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 20 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 0
 text = "I'm a label with dynamic size!"
@@ -223,6 +223,4 @@ stretch_mode = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="ready" from="." to="BackgroundVBox/CenterContainer/MarginContainer/Label" method="_on_Message_ready"]
 [connection signal="resized" from="BackgroundVBox/CenterContainer/MarginContainer/Label" to="BackgroundVBox/CenterContainer/MarginContainer/Label" method="_on_Label_resized"]
-[connection signal="tree_entered" from="BackgroundVBox/CenterContainer/MarginContainer/Label" to="." method="_on_Label_tree_entered"]

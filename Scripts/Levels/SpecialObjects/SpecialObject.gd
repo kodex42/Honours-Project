@@ -16,9 +16,6 @@ var description : String
 var state # Flexible type
 var activated = false
 
-func _ready():
-	init("Special Object", "This is a Special Object")
-
 func init(t, d):
 	connect("interaction", self, "_on_interaction")
 	set_type(t)

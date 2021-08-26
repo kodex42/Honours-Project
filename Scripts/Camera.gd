@@ -5,12 +5,12 @@ export(NodePath) onready var target = get_node(target)
 export(Resource) var setup
 
 # Constants
-var MOUSE_LOOK_MOD = 0.01
+var MOUSE_LOOK_MOD = 0.003
 var STICK_LOOK_MOD = 0.1
 var RS_DEAD = 0.1
 
 # State
-var last_mouse_pos = Vector2(0, 0)
+var last_mouse_pos = Vector2(960, 540)
 var stick_pos = Vector2(0, 0)
 
 func _ready():
@@ -48,10 +48,10 @@ func _process(delta):
 	# Check for collision
 	collide()
 
-func _unhandled_input(event):
+func _input(event):
 	var diff : Vector2
 	if event is InputEventMouseMotion:
-		diff = last_mouse_pos - event.position
+		diff = -event.relative
 		diff *= MOUSE_LOOK_MOD
 		setup.rotation.y += diff.x
 		setup.rotation.x -= diff.y
@@ -80,19 +80,3 @@ func collide():
 	var col = space_state.intersect_ray(start, end)
 	if not col.empty():
 		self.transform.origin = col.position
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

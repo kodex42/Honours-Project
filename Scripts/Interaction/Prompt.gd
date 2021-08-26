@@ -5,6 +5,10 @@ var a_tex = preload("res://Data/Textures/UI/Prompts/button_prompts_A.png")
 var b_tex = preload("res://Data/Textures/UI/Prompts/button_prompts_B.png")
 var x_tex = preload("res://Data/Textures/UI/Prompts/button_prompts_X.png")
 var y_tex = preload("res://Data/Textures/UI/Prompts/button_prompts_Y.png")
+var e_tex = preload("res://Data/Textures/UI/Prompts/button_prompts_E.png")
+var q_tex = preload("res://Data/Textures/UI/Prompts/button_prompts_Q.png")
+var r_tex = preload("res://Data/Textures/UI/Prompts/button_prompts_R.png")
+var f_tex = preload("res://Data/Textures/UI/Prompts/button_prompts_F.png")
 
 # Constants
 const ACCEPTABLE = ["A", "B", "X", "Y"]
@@ -16,6 +20,9 @@ var prompt_data = {
 	"message": "Hello World",
 	"button": "N"
 }
+
+func _ready():
+	ControlDecider.connect("controls_changed", self, "_on_controls_changed")
 
 func _process(delta):
 	var z_trans = (global_transform.origin.z + 5) / 6
@@ -45,16 +52,19 @@ func set_prompt_button(c, m):
 		return
 	match c:
 		"A":
-			$Viewport2/Spatial/ButtonPrompt.texture = a_tex
+			$Viewport2/Spatial/ButtonPrompt.texture = a_tex if ControlDecider.is_gamepad() else e_tex
 		"B":
-			$Viewport2/Spatial/ButtonPrompt.texture = b_tex
+			$Viewport2/Spatial/ButtonPrompt.texture = b_tex if ControlDecider.is_gamepad() else q_tex
 		"X":
-			$Viewport2/Spatial/ButtonPrompt.texture = x_tex
+			$Viewport2/Spatial/ButtonPrompt.texture = x_tex if ControlDecider.is_gamepad() else r_tex
 		"Y":
-			$Viewport2/Spatial/ButtonPrompt.texture = y_tex
+			$Viewport2/Spatial/ButtonPrompt.texture = y_tex if ControlDecider.is_gamepad() else f_tex
 	prompt_data.button = c
 	prompt_data.message = m
 	$Viewport/MessageGUI/Container/Label.text = m
 
 func destroy():
 	get_parent().remove_child(self)
+
+func _on_controls_changed(c):
+	set_prompt_button(prompt_data.button, prompt_data.message)
