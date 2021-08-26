@@ -1,7 +1,10 @@
 extends MeshInstance
 
 func _ready():
-	Server.connect("connected", self, "_on_server_connected")
+	if Server.ignore_server:
+		_on_server_connected()
+	else:
+		Server.connect("connected", self, "_on_server_connected")
 
 func _on_server_connected():
 	var mat = SpatialMaterial.new()

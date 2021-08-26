@@ -10,9 +10,12 @@ var ip = "127.0.0.1" # Loopback
 #var ip = "192.168.0.143" # Laptop at home on WLAN
 var port = 1909
 
+# State
+var ignore_server = true
+
 func _ready():
-	rpc_config("fetch_level", MultiplayerAPI.RPC_MODE_MASTER)
-	connect_to_server()
+#	rpc_config("fetch_level", MultiplayerAPI.RPC_MODE_MASTER)
+	if not ignore_server : connect_to_server()
 
 func connect_to_server():
 	network.create_client(ip, port)

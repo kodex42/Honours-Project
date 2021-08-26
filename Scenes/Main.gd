@@ -3,8 +3,11 @@ extends Spatial
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	set_input(false)
-	Server.connect("connected", self, "_on_server_connected")
-	Server.connect("failed", self, "_on_server_failed")
+	if Server.ignore_server:
+		_on_server_connected()
+	else:
+		Server.connect("connected", self, "_on_server_connected")
+		Server.connect("failed", self, "_on_server_failed")
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
