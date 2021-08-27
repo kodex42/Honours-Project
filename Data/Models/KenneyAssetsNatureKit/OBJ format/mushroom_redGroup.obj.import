@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/mushroom_redGroup.obj-a87e5552d4c0e654bf5f52a62e71fafe.mesh"
+
+[deps]
+
+files=[ "res://.import/mushroom_redGroup.obj-a87e5552d4c0e654bf5f52a62e71fafe.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/mushroom_redGroup.obj"
+dest_files=[ "res://.import/mushroom_redGroup.obj-a87e5552d4c0e654bf5f52a62e71fafe.mesh", "res://.import/mushroom_redGroup.obj-a87e5552d4c0e654bf5f52a62e71fafe.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

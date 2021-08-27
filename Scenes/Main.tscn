@@ -24,8 +24,8 @@ ssao_bias = 0.001
 
 [sub_resource type="Resource" id=3]
 script = ExtResource( 6 )
-anchor_offset = Vector3( 0, 1.518, 0 )
-target_offset = Vector3( -0.282, 0.171, -1.393 )
+anchor_offset = Vector3( 0, 1.1, 0 )
+target_offset = Vector3( -0.28, 0.45, -1.4 )
 rotation = Vector3( 0, 0, 0 )
 look_target = Vector3( 0, 0, 0 )
 pitch_limit = Vector2( -45, 80 )
@@ -60,11 +60,11 @@ __meta__ = {
 [node name="TestLevel" parent="World" instance=ExtResource( 1 )]
 
 [node name="PlayerCharacter" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.101286, 1.87091 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125848, 1.87091 )
 camera = NodePath("../Camera")
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, -0.282, 1.45195, 0.478 )
+transform = Transform( -1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, -0.28, 1.45, -1.4 )
 current = true
 script = ExtResource( 5 )
 target = NodePath("../PlayerCharacter")
@@ -84,6 +84,8 @@ transform = Transform( 1.01, 0, 0, 0, 1.01, 0, 0, 0, 1, 0, 0, 0 )
 mesh = SubResource( 6 )
 material/0 = null
 script = ExtResource( 8 )
+
+[node name="Tween" type="Tween" parent="Camera"]
 
 [node name="Phone" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -19.8938, 0 )

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/ground_riverBend.obj-16c0f4f1d04e2f2880b0aec2e83e304d.mesh"
+
+[deps]
+
+files=[ "res://.import/ground_riverBend.obj-16c0f4f1d04e2f2880b0aec2e83e304d.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/ground_riverBend.obj"
+dest_files=[ "res://.import/ground_riverBend.obj-16c0f4f1d04e2f2880b0aec2e83e304d.mesh", "res://.import/ground_riverBend.obj-16c0f4f1d04e2f2880b0aec2e83e304d.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

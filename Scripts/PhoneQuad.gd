@@ -14,4 +14,4 @@ func _on_server_connected():
 	mat.set("flags_unshaded", true)
 	mat.set("flags_albedo_tex_force_srgb", true)
 	mesh.surface_set_material(0, mat)
-	get_parent().remove_child(get_parent().get_node("LoadingScreenViewport"))
+	get_parent().call_deferred("remove_child", get_parent().get_node("LoadingScreenViewport"))

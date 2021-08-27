@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/statue_block.obj-644688f91fc756b4693126b7ba92d65a.mesh"
+
+[deps]
+
+files=[ "res://.import/statue_block.obj-644688f91fc756b4693126b7ba92d65a.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/statue_block.obj"
+dest_files=[ "res://.import/statue_block.obj-644688f91fc756b4693126b7ba92d65a.mesh", "res://.import/statue_block.obj-644688f91fc756b4693126b7ba92d65a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

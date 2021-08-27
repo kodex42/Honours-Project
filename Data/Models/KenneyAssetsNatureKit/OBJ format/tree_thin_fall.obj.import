@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/tree_thin_fall.obj-af062fad313295fa1fe17b0e36de1fa2.mesh"
+
+[deps]
+
+files=[ "res://.import/tree_thin_fall.obj-af062fad313295fa1fe17b0e36de1fa2.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/tree_thin_fall.obj"
+dest_files=[ "res://.import/tree_thin_fall.obj-af062fad313295fa1fe17b0e36de1fa2.mesh", "res://.import/tree_thin_fall.obj-af062fad313295fa1fe17b0e36de1fa2.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

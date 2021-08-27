@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/cliff_cornerLarge_stone.obj-8752f9d82badce6c8d0cf9cbceeeb659.mesh"
+
+[deps]
+
+files=[ "res://.import/cliff_cornerLarge_stone.obj-8752f9d82badce6c8d0cf9cbceeeb659.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/cliff_cornerLarge_stone.obj"
+dest_files=[ "res://.import/cliff_cornerLarge_stone.obj-8752f9d82badce6c8d0cf9cbceeeb659.mesh", "res://.import/cliff_cornerLarge_stone.obj-8752f9d82badce6c8d0cf9cbceeeb659.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

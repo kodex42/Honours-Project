@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/cliff_waterfallTop_stone.obj-eb50e608c13146e52d1a12501272e388.mesh"
+
+[deps]
+
+files=[ "res://.import/cliff_waterfallTop_stone.obj-eb50e608c13146e52d1a12501272e388.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/cliff_waterfallTop_stone.obj"
+dest_files=[ "res://.import/cliff_waterfallTop_stone.obj-eb50e608c13146e52d1a12501272e388.mesh", "res://.import/cliff_waterfallTop_stone.obj-eb50e608c13146e52d1a12501272e388.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

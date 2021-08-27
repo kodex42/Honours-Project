@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/tree_pineRoundE.obj-061c4cda4879556114d0f38b3f79a6bc.mesh"
+
+[deps]
+
+files=[ "res://.import/tree_pineRoundE.obj-061c4cda4879556114d0f38b3f79a6bc.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/tree_pineRoundE.obj"
+dest_files=[ "res://.import/tree_pineRoundE.obj-061c4cda4879556114d0f38b3f79a6bc.mesh", "res://.import/tree_pineRoundE.obj-061c4cda4879556114d0f38b3f79a6bc.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

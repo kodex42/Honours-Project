@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/cliff_block_rock.obj-da30cf9005d953a6328a95bc92853078.mesh"
+
+[deps]
+
+files=[ "res://.import/cliff_block_rock.obj-da30cf9005d953a6328a95bc92853078.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/cliff_block_rock.obj"
+dest_files=[ "res://.import/cliff_block_rock.obj-da30cf9005d953a6328a95bc92853078.mesh", "res://.import/cliff_block_rock.obj-da30cf9005d953a6328a95bc92853078.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/rock_tallA.obj-f1dd47ba417be3ae9e7a1cf6a8eb5827.mesh"
+
+[deps]
+
+files=[ "res://.import/rock_tallA.obj-f1dd47ba417be3ae9e7a1cf6a8eb5827.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_tallA.obj"
+dest_files=[ "res://.import/rock_tallA.obj-f1dd47ba417be3ae9e7a1cf6a8eb5827.mesh", "res://.import/rock_tallA.obj-f1dd47ba417be3ae9e7a1cf6a8eb5827.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

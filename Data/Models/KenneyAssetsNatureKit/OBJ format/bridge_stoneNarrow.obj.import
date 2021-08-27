@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/bridge_stoneNarrow.obj-f46eddbd6ffc4ba4e740b275f4adc75a.mesh"
+
+[deps]
+
+files=[ "res://.import/bridge_stoneNarrow.obj-f46eddbd6ffc4ba4e740b275f4adc75a.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/bridge_stoneNarrow.obj"
+dest_files=[ "res://.import/bridge_stoneNarrow.obj-f46eddbd6ffc4ba4e740b275f4adc75a.mesh", "res://.import/bridge_stoneNarrow.obj-f46eddbd6ffc4ba4e740b275f4adc75a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

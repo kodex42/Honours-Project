@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/platform_beach.obj-d50e5f22520eb2b5a803f25d59835eb3.mesh"
+
+[deps]
+
+files=[ "res://.import/platform_beach.obj-d50e5f22520eb2b5a803f25d59835eb3.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/platform_beach.obj"
+dest_files=[ "res://.import/platform_beach.obj-d50e5f22520eb2b5a803f25d59835eb3.mesh", "res://.import/platform_beach.obj-d50e5f22520eb2b5a803f25d59835eb3.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

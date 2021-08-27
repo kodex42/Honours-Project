@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/tree_cone_fall.obj-ef42474804384efa9eead478a5709287.mesh"
+
+[deps]
+
+files=[ "res://.import/tree_cone_fall.obj-ef42474804384efa9eead478a5709287.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/tree_cone_fall.obj"
+dest_files=[ "res://.import/tree_cone_fall.obj-ef42474804384efa9eead478a5709287.mesh", "res://.import/tree_cone_fall.obj-ef42474804384efa9eead478a5709287.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

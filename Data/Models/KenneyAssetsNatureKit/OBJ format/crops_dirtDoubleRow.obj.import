@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/crops_dirtDoubleRow.obj-c7fa28a46b7f3f5657355cca0a44355e.mesh"
+
+[deps]
+
+files=[ "res://.import/crops_dirtDoubleRow.obj-c7fa28a46b7f3f5657355cca0a44355e.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/crops_dirtDoubleRow.obj"
+dest_files=[ "res://.import/crops_dirtDoubleRow.obj-c7fa28a46b7f3f5657355cca0a44355e.mesh", "res://.import/crops_dirtDoubleRow.obj-c7fa28a46b7f3f5657355cca0a44355e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

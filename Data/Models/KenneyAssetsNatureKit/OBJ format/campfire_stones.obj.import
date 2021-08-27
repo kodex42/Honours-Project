@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/campfire_stones.obj-7bb38cd869def6ab1b2597bb0329e299.mesh"
+
+[deps]
+
+files=[ "res://.import/campfire_stones.obj-7bb38cd869def6ab1b2597bb0329e299.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/campfire_stones.obj"
+dest_files=[ "res://.import/campfire_stones.obj-7bb38cd869def6ab1b2597bb0329e299.mesh", "res://.import/campfire_stones.obj-7bb38cd869def6ab1b2597bb0329e299.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

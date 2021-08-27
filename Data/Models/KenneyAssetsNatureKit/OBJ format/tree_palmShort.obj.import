@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/tree_palmShort.obj-2adf916117894b7149b6bb88134ebe39.mesh"
+
+[deps]
+
+files=[ "res://.import/tree_palmShort.obj-2adf916117894b7149b6bb88134ebe39.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/tree_palmShort.obj"
+dest_files=[ "res://.import/tree_palmShort.obj-2adf916117894b7149b6bb88134ebe39.mesh", "res://.import/tree_palmShort.obj-2adf916117894b7149b6bb88134ebe39.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

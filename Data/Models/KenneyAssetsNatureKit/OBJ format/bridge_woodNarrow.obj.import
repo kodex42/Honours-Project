@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/bridge_woodNarrow.obj-6664c84aa2d0d3aafbd868c01adaaeb0.mesh"
+
+[deps]
+
+files=[ "res://.import/bridge_woodNarrow.obj-6664c84aa2d0d3aafbd868c01adaaeb0.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/bridge_woodNarrow.obj"
+dest_files=[ "res://.import/bridge_woodNarrow.obj-6664c84aa2d0d3aafbd868c01adaaeb0.mesh", "res://.import/bridge_woodNarrow.obj-6664c84aa2d0d3aafbd868c01adaaeb0.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

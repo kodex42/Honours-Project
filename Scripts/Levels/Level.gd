@@ -14,8 +14,9 @@ var package = {
 }
 
 func _ready():
-	var pkg = pack()
-	unpack(pkg)
+#	var pkg = pack()
+#	unpack(pkg)
+	pass
 
 func pack():
 	var pkg = package.duplicate(true)

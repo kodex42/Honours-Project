@@ -8,7 +8,7 @@ export(NodePath) onready var camera = get_node(camera)
 onready var phone = owner.get_node("Phone")
 
 # Constants
-const GRAV_FORCE = -9.86
+const GRAV_FORCE = -25
 const SNAP = Vector3(0, -0.25, 0)
 
 # State variables

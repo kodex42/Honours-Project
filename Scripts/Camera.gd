@@ -8,10 +8,15 @@ export(Resource) var setup
 var MOUSE_LOOK_MOD = 0.003
 var STICK_LOOK_MOD = 0.1
 var RS_DEAD = 0.1
+var MAX_ZOOM = -1.4
+var MIN_ZOOM = -14.4
+var ZOOM_TICK = 0.5
 
 # State
 var last_mouse_pos = Vector2(960, 540)
 var stick_pos = Vector2(0, 0)
+var zoom : float = MAX_ZOOM
+var time_between_zooms = 0
 
 func _ready():
 	# Camera setup
@@ -31,6 +36,7 @@ func _process(delta):
 	
 	# Retrieve resource vectors
 	var target_offset = setup.target_offset
+	target_offset.z = zoom
 	var look_at = setup.look_target
 	var up_down_axis = Vector3.RIGHT.rotated(Vector3.UP, setup.rotation.y)
 	
@@ -45,8 +51,12 @@ func _process(delta):
 	# Move to offset and look at target
 	self.transform.origin += target_offset
 	self.look_at(look_at, Vector3.UP)
+	
 	# Check for collision
 	collide()
+	
+	# Increment timers
+	time_between_zooms += delta
 
 func _input(event):
 	var diff : Vector2
@@ -57,6 +67,10 @@ func _input(event):
 		setup.rotation.x -= diff.y
 		setup.rotation.x = clamp(setup.rotation.x, setup.pitch_limit.x, setup.pitch_limit.y)
 		last_mouse_pos = event.position
+	if event.is_action_pressed("zoom_in"):
+		zoom(1)
+	if event.is_action_pressed("zoom_out"):
+		zoom(-1)
 	if event is InputEventJoypadMotion:
 		var RLAxis = Input.get_joy_axis(0, JOY_AXIS_2)
 		var UDAxis = Input.get_joy_axis(0, JOY_AXIS_3)
@@ -80,3 +94,10 @@ func collide():
 	var col = space_state.intersect_ray(start, end)
 	if not col.empty():
 		self.transform.origin = col.position
+
+func zoom(amount):
+	var mod = clamp(1/(time_between_zooms*10) if time_between_zooms > 0 else 1, 1, 10)
+	var new_zoom = clamp(zoom + ZOOM_TICK * amount * mod, MIN_ZOOM, MAX_ZOOM)
+	time_between_zooms = 0
+	$Tween.interpolate_property(self, "zoom", zoom, new_zoom, 0.2, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	$Tween.start()
