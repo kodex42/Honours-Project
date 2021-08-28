@@ -66,7 +66,7 @@ material = SubResource( 10 )
 script = ExtResource( 3 )
 
 [node name="Particles" type="Particles" parent="Objects" index="0"]
-transform = Transform( 0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, -2.04796, 0 )
+transform = Transform( 0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 1.2485, 0 )
 amount = 400
 lifetime = 10.0
 speed_scale = 2.0
@@ -74,7 +74,7 @@ process_material = SubResource( 5 )
 draw_pass_1 = SubResource( 9 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Objects" index="1"]
-transform = Transform( 0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, -2.04796, 0 )
+transform = Transform( 0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 1.2485, 0 )
 mesh = SubResource( 11 )
 material/0 = null
 

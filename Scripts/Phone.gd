@@ -28,8 +28,9 @@ func _ready():
 	surface_off = _mesh.surface_get_material(0).duplicate()
 	surface_on = _mesh.surface_get_material(0).duplicate()
 	surface_on.set("flags_disable_ambient_light", true)
-	surface_on.set("flags_transparent", true)
+#	surface_on.set("flags_transparent", true)
 	surface_on.set("flags_unshaded", true)
+	surface_on.set("flags_albedo_tex_force_srgb", true)
 	surface_on.set("albedo_color", Color.white)
 	
 #	# Test button prompts
@@ -42,6 +43,11 @@ func _ready():
 #	var test_prompt4 = prompt_scene.instance()
 #	test_prompt4.set_prompt_button("Y", "testony testino")
 #	display_prompts([test_prompt1, test_prompt2, test_prompt3, test_prompt4])
+
+func _process(delta):
+	# Chck if phone is toggled
+	if Input.is_action_just_pressed("phone_toggle"):
+		toggle()
 
 func change_screen(tex):
 	if typeof(tex) == typeof(Texture):
@@ -67,7 +73,7 @@ func is_on():
 	return on
 
 func move_phone():
-	var diff = 5.5 if on else -5.5
+	var diff = 14 if on else -14
 	var tween = get_node("MovementTween")
 	tween.interpolate_property(_model, "translation:y",
 			_model.transform.origin.y, _model.transform.origin.y + diff, 0.3,

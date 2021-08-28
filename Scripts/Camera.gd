@@ -40,13 +40,16 @@ func _process(delta):
 	var look_at = setup.look_target
 	var up_down_axis = Vector3.RIGHT.rotated(Vector3.UP, setup.rotation.y)
 	
-	# Apply Yaw
+	# Apply yaw
 	target_offset = target_offset.rotated(Vector3.UP, setup.rotation.y)
 	look_at = look_at.rotated(Vector3.UP, setup.rotation.y)
 	
-	# Apply Pitch
+	# Apply pitch
 	target_offset = target_offset.rotated(up_down_axis, setup.rotation.x)
 	look_at = look_at.rotated(up_down_axis, setup.rotation.x)
+	
+	# Add target transform to look_at to prevent warping at large distances from the origin
+	look_at += target.transform.origin
 	
 	# Move to offset and look at target
 	self.transform.origin += target_offset

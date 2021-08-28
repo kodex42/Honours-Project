@@ -4,12 +4,9 @@ extends KinematicBody
 export(NodePath) onready var _anim_tree = get_node(_anim_tree)
 export(NodePath) onready var camera = get_node(camera)
 
-# Sibling nodes
-onready var phone = owner.get_node("Phone")
-
 # Constants
 const GRAV_FORCE = -25
-const SNAP = Vector3(0, -0.25, 0)
+const SNAP = Vector3(0, -1, 0)
 
 # State variables
 var activated = false
@@ -51,9 +48,6 @@ func _physics_process(delta):
 			up = get_floor_normal()
 		else:
 			up = Vector3.UP
-
-		# Check auxilliary controls
-		aux_controls()
 
 func movement_controls(delta, v):
 	var current_anim = _anim_tree.get("parameters/playback").get_current_node()
@@ -97,11 +91,6 @@ func movement_controls(delta, v):
 		v = v.rotated(Vector3.UP, self.rotation.y)
 	
 	return v
-
-func aux_controls():
-	# Phone
-	if Input.is_action_just_pressed("phone_toggle"):
-		phone.toggle()
 
 func activate():
 	activated = true

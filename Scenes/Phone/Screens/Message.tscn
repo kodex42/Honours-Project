@@ -5,43 +5,43 @@
 [ext_resource path="res://Scripts/Message.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/Control/LabelWithWrapping.gd" type="Script" id=4]
 
-[sub_resource type="AtlasTexture" id=13]
+[sub_resource type="AtlasTexture" id=1]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="Shader" id=14]
+[sub_resource type="Shader" id=2]
 
-[sub_resource type="ShaderMaterial" id=15]
-shader = SubResource( 14 )
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
 
-[sub_resource type="AtlasTexture" id=16]
+[sub_resource type="AtlasTexture" id=4]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 64, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=17]
+[sub_resource type="AtlasTexture" id=5]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 576, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=18]
+[sub_resource type="AtlasTexture" id=6]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 0, 64, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=19]
+[sub_resource type="AtlasTexture" id=7]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 64, 64, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=8]
 flags = 23
 atlas = ExtResource( 1 )
 region = Rect2( 576, 64, 64, 64 )
 
-[sub_resource type="DynamicFont" id=20]
-size = 90
+[sub_resource type="DynamicFont" id=9]
+size = 120
 font_data = ExtResource( 2 )
 
 [sub_resource type="AtlasTexture" id=10]
@@ -71,21 +71,21 @@ __meta__ = {
 backgrounds = [ NodePath("BackgroundVBox/UBorderHBox/ULBorder"), NodePath("BackgroundVBox/UBorderHBox/MarginContainer/UCBorder"), NodePath("BackgroundVBox/UBorderHBox/URBorder"), NodePath("BackgroundVBox/CenterContainer/CenterHBox/LBorder"), NodePath("BackgroundVBox/CenterContainer/CenterHBox/MarginContainer/Center"), NodePath("BackgroundVBox/CenterContainer/CenterHBox/RBorder"), NodePath("BackgroundVBox/DBorderHBox/DLBorder"), NodePath("BackgroundVBox/DBorderHBox/MarginContainer/DCBorder"), NodePath("BackgroundVBox/DBorderHBox/DRBorder") ]
 
 [node name="BackgroundVBox" type="VBoxContainer" parent="."]
-margin_right = 1196.0
-margin_bottom = 234.0
+margin_right = 1582.0
+margin_bottom = 270.0
 rect_min_size = Vector2( 192, 0 )
 size_flags_horizontal = 0
 custom_constants/separation = 0
 
 [node name="UBorderHBox" type="HBoxContainer" parent="BackgroundVBox"]
-margin_right = 1196.0
+margin_right = 1582.0
 margin_bottom = 64.0
 custom_constants/separation = 0
 
 [node name="ULBorder" type="TextureRect" parent="BackgroundVBox/UBorderHBox"]
 margin_right = 64.0
 margin_bottom = 64.0
-texture = SubResource( 13 )
+texture = SubResource( 1 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -93,23 +93,23 @@ __meta__ = {
 
 [node name="MarginContainer" type="MarginContainer" parent="BackgroundVBox/UBorderHBox"]
 margin_left = 64.0
-margin_right = 1132.0
+margin_right = 1518.0
 margin_bottom = 64.0
 size_flags_horizontal = 3
 
 [node name="UCBorder" type="TextureRect" parent="BackgroundVBox/UBorderHBox/MarginContainer"]
-material = SubResource( 15 )
-margin_right = 1068.0
+material = SubResource( 3 )
+margin_right = 1454.0
 margin_bottom = 64.0
-texture = SubResource( 16 )
+texture = SubResource( 4 )
 expand = true
 stretch_mode = 2
 
 [node name="URBorder" type="TextureRect" parent="BackgroundVBox/UBorderHBox"]
-margin_left = 1132.0
-margin_right = 1196.0
+margin_left = 1518.0
+margin_right = 1582.0
 margin_bottom = 64.0
-texture = SubResource( 17 )
+texture = SubResource( 5 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -117,18 +117,18 @@ __meta__ = {
 
 [node name="CenterContainer" type="MarginContainer" parent="BackgroundVBox"]
 margin_top = 64.0
-margin_right = 1196.0
-margin_bottom = 170.0
+margin_right = 1582.0
+margin_bottom = 206.0
 
 [node name="CenterHBox" type="HBoxContainer" parent="BackgroundVBox/CenterContainer"]
-margin_right = 1196.0
-margin_bottom = 106.0
+margin_right = 1582.0
+margin_bottom = 142.0
 custom_constants/separation = 0
 
 [node name="LBorder" type="TextureRect" parent="BackgroundVBox/CenterContainer/CenterHBox"]
 margin_right = 64.0
-margin_bottom = 106.0
-texture = SubResource( 18 )
+margin_bottom = 142.0
+texture = SubResource( 6 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -136,15 +136,15 @@ __meta__ = {
 
 [node name="MarginContainer" type="MarginContainer" parent="BackgroundVBox/CenterContainer/CenterHBox"]
 margin_left = 64.0
-margin_right = 1132.0
-margin_bottom = 106.0
+margin_right = 1518.0
+margin_bottom = 142.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Center" type="TextureRect" parent="BackgroundVBox/CenterContainer/CenterHBox/MarginContainer"]
-margin_right = 1068.0
-margin_bottom = 106.0
-texture = SubResource( 19 )
+margin_right = 1454.0
+margin_bottom = 142.0
+texture = SubResource( 7 )
 expand = true
 stretch_mode = 2
 __meta__ = {
@@ -152,29 +152,29 @@ __meta__ = {
 }
 
 [node name="RBorder" type="TextureRect" parent="BackgroundVBox/CenterContainer/CenterHBox"]
-margin_left = 1132.0
-margin_right = 1196.0
-margin_bottom = 106.0
-texture = SubResource( 9 )
+margin_left = 1518.0
+margin_right = 1582.0
+margin_bottom = 142.0
+texture = SubResource( 8 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="BackgroundVBox/CenterContainer"]
-margin_right = 1196.0
-margin_bottom = 106.0
+margin_right = 1582.0
+margin_bottom = 142.0
 size_flags_horizontal = 0
 custom_constants/margin_right = 16
 custom_constants/margin_left = 16
 
 [node name="Label" type="Label" parent="BackgroundVBox/CenterContainer/MarginContainer"]
 margin_left = 16.0
-margin_right = 1180.0
-margin_bottom = 106.0
+margin_right = 1566.0
+margin_bottom = 142.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-custom_fonts/font = SubResource( 20 )
+custom_fonts/font = SubResource( 9 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 0
 text = "I'm a label with dynamic size!"
@@ -184,9 +184,9 @@ __meta__ = {
 }
 
 [node name="DBorderHBox" type="HBoxContainer" parent="BackgroundVBox"]
-margin_top = 170.0
-margin_right = 1196.0
-margin_bottom = 234.0
+margin_top = 206.0
+margin_right = 1582.0
+margin_bottom = 270.0
 custom_constants/separation = 0
 
 [node name="DLBorder" type="TextureRect" parent="BackgroundVBox/DBorderHBox"]
@@ -200,12 +200,12 @@ __meta__ = {
 
 [node name="MarginContainer" type="MarginContainer" parent="BackgroundVBox/DBorderHBox"]
 margin_left = 64.0
-margin_right = 1132.0
+margin_right = 1518.0
 margin_bottom = 64.0
 size_flags_horizontal = 3
 
 [node name="DCBorder" type="TextureRect" parent="BackgroundVBox/DBorderHBox/MarginContainer"]
-margin_right = 1068.0
+margin_right = 1454.0
 margin_bottom = 64.0
 texture = SubResource( 11 )
 expand = true
@@ -215,8 +215,8 @@ __meta__ = {
 }
 
 [node name="DRBorder" type="TextureRect" parent="BackgroundVBox/DBorderHBox"]
-margin_left = 1132.0
-margin_right = 1196.0
+margin_left = 1518.0
+margin_right = 1582.0
 margin_bottom = 64.0
 texture = SubResource( 12 )
 stretch_mode = 3

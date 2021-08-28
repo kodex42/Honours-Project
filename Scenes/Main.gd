@@ -1,5 +1,10 @@
 extends Spatial
 
+# Nodes
+onready var _player_character = $PlayerCharacter
+onready var _camera = $Camera
+onready var _phone = $PhoneViewport/Phone
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	set_input(false)
@@ -10,8 +15,6 @@ func _ready():
 		Server.connect("failed", self, "_on_server_failed")
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().quit()
 	if Input.is_action_just_pressed("debug_upload"):
 		print("debug_upload: input triggered")
 #		send_level_package("TestLevel")
@@ -35,10 +38,16 @@ func _process(delta):
 #	level.unpack(pkg)
 #	$PlayerCharacter.activate()
 
+func get_player():
+	return _player_character
+
+func get_phone():
+	return _phone
+
 func set_input(b):
-	$PlayerCharacter.set_process(b)
-	$Camera.set_process(b)
-	$Phone.set_process(b)
+	_player_character.set_process(b)
+	_camera.set_process(b)
+	_phone.set_process(b)
 
 func _on_server_connected():
 	set_input(true)
