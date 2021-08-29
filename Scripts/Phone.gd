@@ -27,10 +27,10 @@ var current_prompts = []
 func _ready():
 	surface_off = _mesh.surface_get_material(0).duplicate()
 	surface_on = _mesh.surface_get_material(0).duplicate()
-	surface_on.set("flags_disable_ambient_light", true)
+#	surface_on.set("flags_disable_ambient_light", true)
 #	surface_on.set("flags_transparent", true)
 	surface_on.set("flags_unshaded", true)
-	surface_on.set("flags_albedo_tex_force_srgb", true)
+#	surface_on.set("flags_albedo_tex_force_srgb", true)
 	surface_on.set("albedo_color", Color.white)
 	
 #	# Test button prompts
@@ -147,16 +147,18 @@ func _on_MovementTween_tween_started(object, key):
 	togglable = false
 	if not on:
 		_mesh.surface_set_material(0, surface_off)
-		_model.get_node("PhoneIcon").flip_v = false
 
 func _on_MovementTween_tween_completed(object, key):
 	togglable = true
 	if on and rotating:
+		$Model/PhoneTabIconDown.show()
+		$Model/PhoneTabIconUp.hide()
 		rotating = false
 		_mesh.surface_set_material(0, surface_on)
-		_model.get_node("PhoneIcon").flip_v = true
 	elif on and not rotating:
 		rotate_phone()
 	elif not on and rotating:
+		$Model/PhoneTabIconDown.hide()
+		$Model/PhoneTabIconUp.show()
 		rotating = false
 		move_phone()

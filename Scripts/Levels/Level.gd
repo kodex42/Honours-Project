@@ -18,6 +18,14 @@ func _ready():
 #	unpack(pkg)
 	pass
 
+func _unhandled_input(event):
+	if Input.is_action_just_pressed("show_hide_grid"):
+		var vg = $StaticObjects/VisualGrid
+		if vg.visible:
+			vg.hide()
+		else:
+			vg.show()
+
 func pack():
 	var pkg = package.duplicate(true)
 	pkg.level = filename
