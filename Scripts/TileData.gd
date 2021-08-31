@@ -17,3 +17,11 @@ func _init(td_pos = Vector3(0, 0, 0), td_mac = null, td_occ = false, td_pow = 0.
 	_machine = td_mac
 	_occupied = td_occ
 	_power = td_pow
+
+func _to_string():
+	print({
+		"position" : _position,
+		"machine" : _machine,
+		"occupied" : _occupied,
+		"power" : _power
+	})

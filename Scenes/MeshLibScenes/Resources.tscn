@@ -1,0 +1,303 @@
+[gd_scene load_steps=51 format=2]
+
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stump_square.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stump_squareDetailedWide.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/tree_default_dark.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stump_squareDetailed.obj" type="ArrayMesh" id=4]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/tree_default.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/tree_detailed.obj" type="ArrayMesh" id=6]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stump_roundDetailed.obj" type="ArrayMesh" id=7]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/tree_cone_dark.obj" type="ArrayMesh" id=8]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/tree_oak.obj" type="ArrayMesh" id=9]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/tree_oak_dark.obj" type="ArrayMesh" id=10]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/tree_cone.obj" type="ArrayMesh" id=11]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stump_old.obj" type="ArrayMesh" id=12]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stump_oldTall.obj" type="ArrayMesh" id=13]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stump_round.obj" type="ArrayMesh" id=14]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_tallI.obj" type="ArrayMesh" id=15]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_tallC.obj" type="ArrayMesh" id=16]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_tallD.obj" type="ArrayMesh" id=17]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_tallE.obj" type="ArrayMesh" id=18]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_tallF.obj" type="ArrayMesh" id=19]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_tallH.obj" type="ArrayMesh" id=20]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_tallG.obj" type="ArrayMesh" id=21]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_tallI.obj" type="ArrayMesh" id=22]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_smallC.obj" type="ArrayMesh" id=23]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_smallF.obj" type="ArrayMesh" id=24]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_smallG.obj" type="ArrayMesh" id=25]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_smallB.obj" type="ArrayMesh" id=26]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_tallA.obj" type="ArrayMesh" id=27]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_tallB.obj" type="ArrayMesh" id=28]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_smallC.obj" type="ArrayMesh" id=29]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_smallE.obj" type="ArrayMesh" id=30]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_smallH.obj" type="ArrayMesh" id=31]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_smallF.obj" type="ArrayMesh" id=32]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_smallI.obj" type="ArrayMesh" id=33]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_tallB.obj" type="ArrayMesh" id=34]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_tallC.obj" type="ArrayMesh" id=35]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_tallD.obj" type="ArrayMesh" id=36]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_smallA.obj" type="ArrayMesh" id=37]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_smallG.obj" type="ArrayMesh" id=38]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_tallE.obj" type="ArrayMesh" id=39]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_tallF.obj" type="ArrayMesh" id=40]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_tallG.obj" type="ArrayMesh" id=41]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_smallD.obj" type="ArrayMesh" id=42]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_smallE.obj" type="ArrayMesh" id=43]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_smallA.obj" type="ArrayMesh" id=44]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_smallH.obj" type="ArrayMesh" id=45]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_smallB.obj" type="ArrayMesh" id=46]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/stone_smallI.obj" type="ArrayMesh" id=47]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_smallD.obj" type="ArrayMesh" id=48]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_tallA.obj" type="ArrayMesh" id=49]
+[ext_resource path="res://Data/Models/KenneyAssetsNatureKit/OBJ format/rock_tallH.obj" type="ArrayMesh" id=50]
+
+[node name="Resources" type="Spatial"]
+
+[node name="rock_smallA" type="MeshInstance" parent="."]
+mesh = ExtResource( 37 )
+material/0 = null
+material/1 = null
+
+[node name="rock_smallB" type="MeshInstance" parent="."]
+mesh = ExtResource( 46 )
+material/0 = null
+material/1 = null
+
+[node name="rock_smallC" type="MeshInstance" parent="."]
+mesh = ExtResource( 29 )
+material/0 = null
+material/1 = null
+
+[node name="rock_smallD" type="MeshInstance" parent="."]
+mesh = ExtResource( 48 )
+material/0 = null
+material/1 = null
+
+[node name="rock_smallE" type="MeshInstance" parent="."]
+mesh = ExtResource( 30 )
+material/0 = null
+material/1 = null
+
+[node name="rock_smallF" type="MeshInstance" parent="."]
+mesh = ExtResource( 32 )
+material/0 = null
+material/1 = null
+
+[node name="rock_smallG" type="MeshInstance" parent="."]
+mesh = ExtResource( 38 )
+material/0 = null
+material/1 = null
+
+[node name="rock_smallH" type="MeshInstance" parent="."]
+mesh = ExtResource( 31 )
+material/0 = null
+material/1 = null
+
+[node name="rock_smallI" type="MeshInstance" parent="."]
+mesh = ExtResource( 33 )
+material/0 = null
+material/1 = null
+
+[node name="rock_tallA" type="MeshInstance" parent="."]
+mesh = ExtResource( 49 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="rock_tallB" type="MeshInstance" parent="."]
+mesh = ExtResource( 34 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="rock_tallC" type="MeshInstance" parent="."]
+mesh = ExtResource( 35 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="rock_tallD" type="MeshInstance" parent="."]
+mesh = ExtResource( 36 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="rock_tallE" type="MeshInstance" parent="."]
+mesh = ExtResource( 39 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="rock_tallF" type="MeshInstance" parent="."]
+mesh = ExtResource( 40 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="rock_tallG" type="MeshInstance" parent="."]
+mesh = ExtResource( 41 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="rock_tallH" type="MeshInstance" parent="."]
+mesh = ExtResource( 50 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="rock_tallI" type="MeshInstance" parent="."]
+mesh = ExtResource( 15 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="stone_smallA" type="MeshInstance" parent="."]
+mesh = ExtResource( 44 )
+material/0 = null
+
+[node name="stone_smallB" type="MeshInstance" parent="."]
+mesh = ExtResource( 26 )
+material/0 = null
+
+[node name="stone_smallC" type="MeshInstance" parent="."]
+mesh = ExtResource( 23 )
+material/0 = null
+
+[node name="stone_smallD" type="MeshInstance" parent="."]
+mesh = ExtResource( 42 )
+material/0 = null
+
+[node name="stone_smallE" type="MeshInstance" parent="."]
+mesh = ExtResource( 43 )
+material/0 = null
+
+[node name="stone_smallF" type="MeshInstance" parent="."]
+mesh = ExtResource( 24 )
+material/0 = null
+
+[node name="stone_smallG" type="MeshInstance" parent="."]
+mesh = ExtResource( 25 )
+material/0 = null
+
+[node name="stone_smallH" type="MeshInstance" parent="."]
+mesh = ExtResource( 45 )
+material/0 = null
+
+[node name="stone_smallI" type="MeshInstance" parent="."]
+mesh = ExtResource( 47 )
+material/0 = null
+
+[node name="stone_tallA" type="MeshInstance" parent="."]
+mesh = ExtResource( 27 )
+material/0 = null
+material/1 = null
+
+[node name="stone_tallB" type="MeshInstance" parent="."]
+mesh = ExtResource( 28 )
+material/0 = null
+material/1 = null
+
+[node name="stone_tallC" type="MeshInstance" parent="."]
+mesh = ExtResource( 16 )
+material/0 = null
+material/1 = null
+
+[node name="stone_tallD" type="MeshInstance" parent="."]
+mesh = ExtResource( 17 )
+material/0 = null
+material/1 = null
+
+[node name="stone_tallE" type="MeshInstance" parent="."]
+mesh = ExtResource( 18 )
+material/0 = null
+material/1 = null
+
+[node name="stone_tallF" type="MeshInstance" parent="."]
+mesh = ExtResource( 19 )
+material/0 = null
+material/1 = null
+
+[node name="stone_tallG" type="MeshInstance" parent="."]
+mesh = ExtResource( 21 )
+material/0 = null
+material/1 = null
+
+[node name="stone_tallH" type="MeshInstance" parent="."]
+mesh = ExtResource( 20 )
+material/0 = null
+material/1 = null
+
+[node name="stone_tallI" type="MeshInstance" parent="."]
+mesh = ExtResource( 22 )
+material/0 = null
+material/1 = null
+
+[node name="stumpA" type="MeshInstance" parent="."]
+mesh = ExtResource( 12 )
+material/0 = null
+
+[node name="stumpB" type="MeshInstance" parent="."]
+mesh = ExtResource( 13 )
+material/0 = null
+
+[node name="stumpC" type="MeshInstance" parent="."]
+mesh = ExtResource( 14 )
+material/0 = null
+material/1 = null
+
+[node name="stumpD" type="MeshInstance" parent="."]
+mesh = ExtResource( 7 )
+material/0 = null
+material/1 = null
+
+[node name="stumpE" type="MeshInstance" parent="."]
+mesh = ExtResource( 1 )
+material/0 = null
+material/1 = null
+
+[node name="stumpF" type="MeshInstance" parent="."]
+mesh = ExtResource( 4 )
+material/0 = null
+material/1 = null
+
+[node name="stumpG" type="MeshInstance" parent="."]
+mesh = ExtResource( 2 )
+material/0 = null
+material/1 = null
+
+[node name="treeA" type="MeshInstance" parent="."]
+mesh = ExtResource( 11 )
+material/0 = null
+material/1 = null
+
+[node name="treeB" type="MeshInstance" parent="."]
+mesh = ExtResource( 8 )
+material/0 = null
+material/1 = null
+
+[node name="treeC" type="MeshInstance" parent="."]
+mesh = ExtResource( 5 )
+material/0 = null
+material/1 = null
+
+[node name="treeD" type="MeshInstance" parent="."]
+mesh = ExtResource( 3 )
+material/0 = null
+material/1 = null
+
+[node name="treeE" type="MeshInstance" parent="."]
+mesh = ExtResource( 6 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="treeF" type="MeshInstance" parent="."]
+mesh = ExtResource( 9 )
+material/0 = null
+material/1 = null
+
+[node name="treeG" type="MeshInstance" parent="."]
+mesh = ExtResource( 10 )
+material/0 = null
+material/1 = null
