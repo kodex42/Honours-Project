@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/button_prompts_Esc.png-6c4934b1792e4b1e2c0e28ffeb5d23c2.stex"
+path="res://.import/button_prompts_G.png-0f34e8c16a6dadd4b39fa9baecbae5c7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Data/Textures/UI/Prompts/button_prompts_Esc.png"
-dest_files=[ "res://.import/button_prompts_Esc.png-6c4934b1792e4b1e2c0e28ffeb5d23c2.stex" ]
+source_file="res://Data/Textures/UI/Prompts/button_prompts_G.png"
+dest_files=[ "res://.import/button_prompts_G.png-0f34e8c16a6dadd4b39fa9baecbae5c7.stex" ]
 
 [params]
 

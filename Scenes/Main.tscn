@@ -123,7 +123,10 @@ render_target_v_flip = true
 size = Vector2( 1920, 1080 )
 own_world = true
 transparent_bg = true
-keep_3d_linear = true
+msaa = 3
+hdr = false
+disable_3d = true
+usage = 0
 render_target_v_flip = true
 
 [node name="GUI" parent="Camera/HUD/GUIViewport" instance=ExtResource( 10 )]
@@ -135,7 +138,7 @@ material/0 = null
 script = ExtResource( 8 )
 
 [node name="GUIQuad" type="MeshInstance" parent="Camera"]
-transform = Transform( 0.124, 0, 0, 0, 0.124, 0, 0, 0, 1, 0, 0, -0.804 )
+transform = Transform( 0.124, 0, 0, 0, 0.124, 0, 0, 0, 1, 2.98023e-08, 0, -0.804 )
 mesh = SubResource( 9 )
 material/0 = null
 

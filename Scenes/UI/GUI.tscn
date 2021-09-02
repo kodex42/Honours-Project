@@ -1,40 +1,60 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Data/Textures/UI/Prompts/button_prompts_Esc.png" type="Texture" id=1]
 [ext_resource path="res://Data/Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scripts/UI/GUI.gd" type="Script" id=3]
+[ext_resource path="res://Data/Textures/UI/Prompts/button_prompts_G.png" type="Texture" id=5]
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.592157 )
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 40
 use_filter = true
 font_data = ExtResource( 2 )
 
+[sub_resource type="StreamTexture" id=3]
+flags = 4
+load_path = "res://.import/button_prompts_E.png-ed38f0498d0201955ec37d7424dbe53e.stex"
+
 [node name="GUI" type="Control"]
 margin_right = 1920.0
 margin_bottom = 1080.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="."]
-margin_right = 178.0
-margin_bottom = 95.0
-custom_styles/panel = SubResource( 2 )
+[node name="ControlsInfo" type="PanelContainer" parent="."]
+margin_right = 283.0
+margin_bottom = 164.0
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
-anchor_right = 1.0
+[node name="MarginContainer" type="MarginContainer" parent="ControlsInfo"]
+margin_right = 283.0
+margin_bottom = 164.0
+custom_constants/margin_right = 16
+custom_constants/margin_top = 16
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ControlsInfo/MarginContainer"]
 margin_left = 16.0
 margin_top = 16.0
+margin_right = 267.0
+margin_bottom = 148.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlsInfo/MarginContainer/VBoxContainer"]
+margin_right = 251.0
+margin_bottom = 64.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer"]
 margin_right = 64.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
@@ -43,11 +63,127 @@ size_flags_vertical = 0
 texture = ExtResource( 1 )
 expand = true
 
-[node name="Label" type="Label" parent="Panel/HBoxContainer"]
+[node name="Label" type="Label" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer"]
 margin_left = 68.0
 margin_top = 8.0
 margin_right = 141.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Quit"
 valign = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ControlsInfo/MarginContainer/VBoxContainer"]
+margin_top = 68.0
+margin_right = 251.0
+margin_bottom = 132.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 5 )
+expand = true
+
+[node name="Label" type="Label" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 68.0
+margin_top = 8.0
+margin_right = 251.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 2 )
+text = "Show Grid"
+valign = 1
+
+[node name="InteractableInfo" type="PanelContainer" parent="."]
+margin_left = 320.0
+margin_right = 557.0
+margin_bottom = 276.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="InteractableInfo"]
+margin_right = 237.0
+margin_bottom = 276.0
+custom_constants/margin_right = 16
+custom_constants/margin_top = 16
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InteractableInfo/MarginContainer"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 221.0
+margin_bottom = 260.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="InteractableInfo/MarginContainer/VBoxContainer"]
+margin_right = 205.0
+margin_bottom = 48.0
+custom_fonts/font = SubResource( 2 )
+text = "Name"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Type" type="Label" parent="InteractableInfo/MarginContainer/VBoxContainer"]
+margin_top = 52.0
+margin_right = 205.0
+margin_bottom = 100.0
+custom_fonts/font = SubResource( 2 )
+text = "Type"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tile" type="Label" parent="InteractableInfo/MarginContainer/VBoxContainer"]
+margin_top = 104.0
+margin_right = 205.0
+margin_bottom = 152.0
+custom_fonts/font = SubResource( 2 )
+text = "Tile"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="InteractableInfo/MarginContainer/VBoxContainer"]
+margin_top = 156.0
+margin_right = 205.0
+margin_bottom = 244.0
+custom_constants/margin_top = 24
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InteractableInfo/MarginContainer/VBoxContainer/MarginContainer"]
+margin_top = 24.0
+margin_right = 205.0
+margin_bottom = 88.0
+
+[node name="TextureRect" type="TextureRect" parent="InteractableInfo/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource( 3 )
+expand = true
+
+[node name="Label" type="Label" parent="InteractableInfo/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+margin_left = 68.0
+margin_top = 8.0
+margin_right = 205.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 2 )
+text = "Interact"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

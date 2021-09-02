@@ -219,4 +219,5 @@ show_hide_grid={
 [rendering]
 
 quality/filters/msaa=3
+quality/depth/hdr=false
 environment/default_environment="res://default_env.tres"

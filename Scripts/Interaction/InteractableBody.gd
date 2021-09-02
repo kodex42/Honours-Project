@@ -7,8 +7,10 @@ var _data = {
 	"tile" : null
 }
 
-func build(occupying_tile : TileData, mesh : Mesh, pos : Vector3):
-	# Set tile data
+func build(occupying_tile : TileData, mesh : Mesh, pos : Vector3, body_name : String, body_type : String):
+	# Set data
+	self._data.name = body_name
+	self._data.type = body_type
 	self._data.tile = occupying_tile
 	# Set the mesh to the mesh instance
 	$MeshInstance.mesh = mesh
@@ -21,6 +23,9 @@ func build(occupying_tile : TileData, mesh : Mesh, pos : Vector3):
 	s_body.queue_free()
 	# Scale to correct size
 	global_scale(Vector3(2, 2, 2))
+
+func interact():
+	print("Interact")
 
 func get_data():
 	return self._data

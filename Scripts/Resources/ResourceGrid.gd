@@ -21,7 +21,7 @@ func put_resource(res_name, pos = Vector3(0, 0, 0)):
 	
 	# Create an InteractableBody
 	var body = _interactable_body.instance()
-	body.build(_grid.get_tile_data_from_coords(pos), mesh, pos)
+	body.build(_grid.get_tile_data_from_coords(pos), mesh, pos, res_name, "Resource")
 	add_child(body)
 	# Translate to position
 	body.global_translate(pos * 2 + Vector3(1, 0, 1))
