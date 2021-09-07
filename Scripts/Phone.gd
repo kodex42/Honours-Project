@@ -55,16 +55,18 @@ func change_screen(tex):
 	set_prompts_active(screens.current_app == screens.get_node("MessagesScreen"))
 
 func toggle():
-	if togglable:
+	if togglable and ((Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and not on) or (Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED and on)):
 		# Change flag
 		on = not on
 		
 		# Move phone using tween
 		if on:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			screens.show()
 			set_prompts_active(screens.current_app == screens.get_node("MessagesScreen"))
 			move_phone()
 		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			screens.hide()
 			set_prompts_active(false)
 			rotate_phone()

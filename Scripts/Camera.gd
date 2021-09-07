@@ -63,7 +63,7 @@ func _process(delta):
 
 func _input(event):
 	var diff : Vector2
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		diff = -event.relative
 		diff *= MOUSE_LOOK_MOD
 		setup.rotation.y += diff.x

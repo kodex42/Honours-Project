@@ -4,8 +4,19 @@ extends Spatial
 onready var _player_character = $PlayerCharacter
 onready var _camera = $Camera
 onready var _phone = $PhoneViewport/Phone
+onready var _gui = $Camera/HUD/GUIViewport/GUI
+
+# State
+var wood = Big.new(0)
+var water = Big.new(0)
+var coal = Big.new(0)
+var rock_chunks = Big.new(0)
+var metal = Big.new(0)
+var cash = Big.new(0)
+var bytes = Big.new(0)
 
 func _ready():
+	update_trackables()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	set_input(false)
 	if Server.ignore_server:
@@ -37,6 +48,12 @@ func _process(delta):
 #func _on_level_loaded(level, pkg):
 #	level.unpack(pkg)
 #	$PlayerCharacter.activate()
+
+func _unhandled_input(event):
+	$Camera/HUD/GUIViewport.input(event)
+
+func update_trackables():
+	_gui.update_trackables(wood, water, coal, rock_chunks, metal, cash, bytes)
 
 func get_player():
 	return _player_character

@@ -1,11 +1,19 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Data/Textures/UI/Prompts/button_prompts_Esc.png" type="Texture" id=1]
 [ext_resource path="res://Data/Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Scripts/UI/GUI.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/UI/InteractableObjectUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Data/Textures/UI/Prompts/button_prompts_G.png" type="Texture" id=5]
+[ext_resource path="res://Data/Textures/Resources/rock_chunk.png" type="Texture" id=6]
+[ext_resource path="res://Data/Textures/Resources/water.png" type="Texture" id=7]
+[ext_resource path="res://Data/Textures/Resources/metal.png" type="Texture" id=8]
+[ext_resource path="res://Data/Textures/Resources/byte.png" type="Texture" id=9]
+[ext_resource path="res://Data/Textures/Resources/cash.png" type="Texture" id=10]
+[ext_resource path="res://Data/Textures/Resources/wood.png" type="Texture" id=11]
+[ext_resource path="res://Data/Textures/Resources/coal.png" type="Texture" id=12]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0, 0, 0, 0.592157 )
 
 [sub_resource type="DynamicFont" id=2]
@@ -28,7 +36,7 @@ __meta__ = {
 [node name="ControlsInfo" type="PanelContainer" parent="."]
 margin_right = 283.0
 margin_bottom = 164.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -63,7 +71,7 @@ size_flags_vertical = 0
 texture = ExtResource( 1 )
 expand = true
 
-[node name="Label" type="Label" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="QuitLabel" type="Label" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer"]
 margin_left = 68.0
 margin_top = 8.0
 margin_right = 141.0
@@ -89,7 +97,7 @@ size_flags_vertical = 0
 texture = ExtResource( 5 )
 expand = true
 
-[node name="Label" type="Label" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="ShowGridLabel" type="Label" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 68.0
 margin_top = 8.0
 margin_right = 251.0
@@ -102,7 +110,7 @@ valign = 1
 margin_left = 320.0
 margin_right = 557.0
 margin_bottom = 276.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -187,3 +195,204 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ResourcesAndCurrencies" type="PanelContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -80.0
+margin_bottom = 64.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="ResourcesAndCurrencies"]
+margin_right = 118.0
+margin_bottom = 488.0
+size_flags_horizontal = 8
+custom_constants/margin_right = 8
+custom_constants/margin_top = 8
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ResourcesAndCurrencies/MarginContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 110.0
+margin_bottom = 480.0
+size_flags_horizontal = 8
+custom_constants/separation = 4
+
+[node name="Wood" type="HBoxContainer" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer"]
+margin_right = 102.0
+margin_bottom = 64.0
+size_flags_horizontal = 8
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Wood"]
+margin_top = 8.0
+margin_right = 22.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 2 )
+text = "0"
+
+[node name="TextureRect" type="TextureRect" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Wood"]
+margin_left = 38.0
+margin_right = 102.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 11 )
+expand = true
+
+[node name="Water" type="HBoxContainer" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer"]
+margin_top = 68.0
+margin_right = 102.0
+margin_bottom = 132.0
+size_flags_horizontal = 8
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Water"]
+margin_top = 8.0
+margin_right = 22.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 2 )
+text = "0"
+
+[node name="TextureRect" type="TextureRect" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Water"]
+margin_left = 38.0
+margin_right = 102.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 7 )
+expand = true
+
+[node name="Coal" type="HBoxContainer" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer"]
+margin_top = 136.0
+margin_right = 102.0
+margin_bottom = 200.0
+size_flags_horizontal = 8
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Coal"]
+margin_top = 8.0
+margin_right = 22.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 2 )
+text = "0"
+
+[node name="TextureRect" type="TextureRect" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Coal"]
+margin_left = 38.0
+margin_right = 102.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 12 )
+expand = true
+
+[node name="RockChunks" type="HBoxContainer" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer"]
+margin_top = 204.0
+margin_right = 102.0
+margin_bottom = 268.0
+size_flags_horizontal = 8
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/RockChunks"]
+margin_top = 8.0
+margin_right = 22.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 2 )
+text = "0"
+
+[node name="TextureRect" type="TextureRect" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/RockChunks"]
+margin_left = 38.0
+margin_right = 102.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 6 )
+expand = true
+
+[node name="Metal" type="HBoxContainer" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer"]
+margin_top = 272.0
+margin_right = 102.0
+margin_bottom = 336.0
+size_flags_horizontal = 8
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Metal"]
+margin_top = 8.0
+margin_right = 22.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 2 )
+text = "0"
+
+[node name="TextureRect" type="TextureRect" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Metal"]
+margin_left = 38.0
+margin_right = 102.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 8 )
+expand = true
+
+[node name="Cash" type="HBoxContainer" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer"]
+margin_top = 340.0
+margin_right = 102.0
+margin_bottom = 404.0
+size_flags_horizontal = 8
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Cash"]
+margin_top = 8.0
+margin_right = 22.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 2 )
+text = "0"
+
+[node name="TextureRect" type="TextureRect" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Cash"]
+margin_left = 38.0
+margin_right = 102.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 10 )
+expand = true
+
+[node name="Bytes" type="HBoxContainer" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer"]
+margin_top = 408.0
+margin_right = 102.0
+margin_bottom = 472.0
+size_flags_horizontal = 8
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Bytes"]
+margin_top = 8.0
+margin_right = 22.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 2 )
+text = "0"
+
+[node name="TextureRect" type="TextureRect" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Bytes"]
+margin_left = 38.0
+margin_right = 102.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 9 )
+expand = true
+
+[node name="InteractableObjectUI" parent="." instance=ExtResource( 4 )]
+visible = false
+margin_top = 40.0
+margin_bottom = 40.0
