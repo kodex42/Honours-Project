@@ -13,7 +13,7 @@
 [ext_resource path="res://Data/Textures/Resources/wood.png" type="Texture" id=11]
 [ext_resource path="res://Data/Textures/Resources/coal.png" type="Texture" id=12]
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.592157 )
 
 [sub_resource type="DynamicFont" id=2]
@@ -36,7 +36,7 @@ __meta__ = {
 [node name="ControlsInfo" type="PanelContainer" parent="."]
 margin_right = 283.0
 margin_bottom = 164.0
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -110,7 +110,7 @@ valign = 1
 margin_left = 320.0
 margin_right = 557.0
 margin_bottom = 276.0
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -203,7 +203,7 @@ margin_left = -80.0
 margin_bottom = 64.0
 grow_horizontal = 0
 size_flags_horizontal = 8
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -394,5 +394,4 @@ expand = true
 
 [node name="InteractableObjectUI" parent="." instance=ExtResource( 4 )]
 visible = false
-margin_top = 40.0
-margin_bottom = 40.0
+[connection signal="resource_count_changed" from="InteractableObjectUI" to="." method="_on_InteractableObjectUI_resource_count_changed"]

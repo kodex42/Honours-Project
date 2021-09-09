@@ -52,6 +52,25 @@ func _process(delta):
 func _unhandled_input(event):
 	$Camera/HUD/GUIViewport.input(event)
 
+func add_resource(res_type : String, amount : int):
+	match res_type:
+		"wood":
+			wood.plus(amount)
+		"water":
+			water.plus(amount)
+		"coal":
+			coal.plus(amount)
+		"rock chunk":
+			rock_chunks.plus(amount)
+		"metal":
+			metal.plus(amount)
+		"cash":
+			cash.plus(amount)
+		"byte":
+			bytes.plus(amount)
+	update_trackables()
+	print("Player recieves " + str(amount) + " " + res_type + "!")
+
 func update_trackables():
 	_gui.update_trackables(wood, water, coal, rock_chunks, metal, cash, bytes)
 

@@ -1,5 +1,8 @@
 extends Control
 
+# Exports
+export(NodePath) onready var main = get_node(main)
+
 # Nodes
 onready var int_info = $InteractableInfo
 onready var int_ui = $InteractableObjectUI
@@ -56,3 +59,6 @@ func hide_interactable_ui():
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer/QuitLabel.set_text("Quit")
 	GlobalControls.exit_captured = false
 	int_ui.hide()
+
+func _on_InteractableObjectUI_resource_count_changed(type, amount):
+	main.add_resource(type, amount)
