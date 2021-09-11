@@ -28,6 +28,8 @@ func build(occupying_tile : TileData, pos : Vector3, body_name : String, body_ty
 	s_body.queue_free()
 	# Scale to correct size
 	global_scale(Vector3(2, 2, 2))
+	# Set tile as occupied
+	self._data.tile.set_occupied(true)
 
 func generate_mesh(mesh_name):
 	# Find mesh by name

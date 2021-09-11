@@ -1,4 +1,7 @@
 extends "res://Scripts/Levels/Level.gd"
 
+# Nodes
+onready var resource_grid = get_node("ResourceGrid")
+
 func _ready():
-	pass # Replace with function body.
+	resource_grid.generate_resources()

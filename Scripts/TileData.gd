@@ -18,8 +18,11 @@ func _init(td_pos = Vector3(0, 0, 0), td_mac = null, td_occ = false, td_pow = 0.
 	_occupied = td_occ
 	_power = td_pow
 
+func set_occupied(b):
+	_occupied = b
+
 func get_pos():
-	return _position
+	return Vector2(_position.x, _position.z)
 
 func _to_string():
 	print({

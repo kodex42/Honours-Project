@@ -17,7 +17,7 @@ func _process(delta):
 	pass
 
 func get_tile_data_from_coords(pos : Vector3):
-	return get_tile_data(pos.x - (GRID_SIZE/2), pos.z - (GRID_SIZE/2))
+	return get_tile_data(pos.x, pos.z)
 
 func get_tile_data(x, z):
 	return _grid_info[x][z]

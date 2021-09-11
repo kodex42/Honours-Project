@@ -52,13 +52,13 @@ func create(type : int, pos : Vector3, tile : TileData):
 			generate_mesh("tree" + letters[randi() % 7])
 		ResourceType.WATER:
 			# NEED TO FIX LATER
-			body_name = "Tree"
+			body_name = "Water"
 			resource = "water"
-			generate_mesh("tree" + letters[randi() % 7])
+			generate_mesh("ground_riverTile")
 		ResourceType.COAL:
 			body_name = "Sooty Rock"
 			resource = "coal"
-			generate_mesh("stone_tall" + letters[randi() % 9])
+			generate_mesh("coal_stone_tall" + letters[randi() % 9])
 		ResourceType.ROCK_CHUNK:
 			body_name = "Shiny Rock"
 			resource = "rock chunk"
