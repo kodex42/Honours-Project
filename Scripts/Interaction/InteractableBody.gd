@@ -27,9 +27,7 @@ func build(occupying_tile : TileData, pos : Vector3, body_name : String, body_ty
 	add_child(c_shape.duplicate())
 	s_body.queue_free()
 	# Scale to correct size
-	global_scale(Vector3(2, 2, 2))
-	# Set tile as occupied
-	self._data.tile.set_occupied(true)
+	set_deferred("scale", Vector3(2, 2, 2))
 
 func generate_mesh(mesh_name):
 	# Find mesh by name
@@ -40,6 +38,11 @@ func generate_mesh(mesh_name):
 	# Set the mesh to the mesh instance
 	$MeshInstance.mesh = mesh
 	$MeshInstance.create_trimesh_collision()
+
+func replace_mesh(mesh_name):
+	if $MeshInstance.get_child_count() > 0:
+		$MeshInstance.remove_child($MeshInstance.get_child(0))
+	generate_mesh(mesh_name)
 
 func add_to_inventory(amount):
 	self._inventory.amount += amount

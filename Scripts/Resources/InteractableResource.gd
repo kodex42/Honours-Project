@@ -63,6 +63,7 @@ func create(type : int, pos : Vector3, tile : TileData):
 			body_name = "Shiny Rock"
 			resource = "rock chunk"
 			generate_mesh("stone_tall" + letters[randi() % 9])
+	tile.set_resource(type)
 	build(tile, pos, body_name, "Resource", resource)
 
 func interact():

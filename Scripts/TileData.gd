@@ -7,6 +7,7 @@ export(Vector3) var _position
 
 # Occupying machine
 export(NodePath) var _machine
+export(int) var _resource_type
 export(bool) var _occupied
 
 # Power mechanic
@@ -18,8 +19,18 @@ func _init(td_pos = Vector3(0, 0, 0), td_mac = null, td_occ = false, td_pow = 0.
 	_occupied = td_occ
 	_power = td_pow
 
+func set_resource(r):
+	_resource_type = r
+	set_occupied(true)
+
 func set_occupied(b):
 	_occupied = b
+
+func get_resource():
+	return _resource_type
+
+func is_occupied():
+	return _occupied
 
 func get_pos():
 	return Vector2(_position.x, _position.z)

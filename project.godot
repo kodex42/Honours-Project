@@ -40,7 +40,7 @@ run/main_scene="res://Scenes/Main.tscn"
 Server="*res://Scripts/AutoLoadSingletons/Server.gd"
 ControlDecider="*res://Scripts/AutoLoadSingletons/ControlDecider.gd"
 GlobalControls="*res://Scripts/AutoLoadSingletons/GlobalControls.gd"
-Initializer="*res://Scripts/AutoLoadSingletons/Initializer.gd"
+Randomizer="*res://Scripts/AutoLoadSingletons/Randomizer.gd"
 
 [display]
 

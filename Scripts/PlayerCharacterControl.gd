@@ -82,7 +82,7 @@ func movement_controls(delta, v):
 		# Apply rotation to body and velocity
 		self.rotation.y += phi
 		v = v.rotated(Vector3.UP, self.rotation.y)
-		if Input.is_action_pressed("sprint"):
+		if not Input.is_action_pressed("sprint"):
 			_anim_tree["parameters/playback"].travel("Running")
 		else:
 			_anim_tree["parameters/playback"].travel("Walking")

@@ -1,10 +1,11 @@
-# The Level class is able to deconstruct into and reconstruct from String data
-# It accomplishes this with the pack() and unpack(.) functions which return or
-# require a dictionary of String data representing the positions and state of
-# all objects in the Level.
-# Levels must both extend this class and be instanced from this scene.
-
 extends Spatial
+
+# Preloads
+var _invis_box = preload("res://Scenes/State/InvisibleBox.tscn")
+
+# Nodes
+onready var resource_grid = get_node("ResourceGrid")
+onready var stat_objects = get_node("StaticObjects")
 
 # State
 var package = {
@@ -14,9 +15,7 @@ var package = {
 }
 
 func _ready():
-#	var pkg = pack()
-#	unpack(pkg)
-	pass
+	resource_grid.generate_resources()
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("show_hide_grid"):
@@ -26,36 +25,41 @@ func _unhandled_input(event):
 		else:
 			vg.show()
 
-func pack():
-	var pkg = package.duplicate(true)
-	pkg.level = filename
-	# Pack rigidbodies
-	for m in $Movables.get_children():
-		var obj = {
-			"name" : m.name,
-			"trans" : m.transform
-		}
-		pkg.movables.append(obj)
-	# Pack special objects
-	for s in $Special.get_children():
-		var obj = {
-			"name" : s.name,
-			"state" : s.get_state(),
-			"type" : s.get_type(),
-			"desc" : s.get_desc()
-		}
-		pkg.special.append(obj)
-	print(pkg)
-	return pkg
+func place_invis_box(pos):
+	var box = _invis_box.instance()
+	stat_objects.add_child(box)
+	box.global_translate(pos)
 
-func unpack(pkg):
-	# Unpack rigidbodies
-	for m in pkg.movables:
-		var n = get_node("Movables/" + m.name)
-		n.transform = m.trans
-	# Unpack special nodes
-	for s in pkg.special:
-		var n = get_node("Special/" + s.name)
-		n.set_state(s.state)
-		n.set_type(s.type)
-		n.set_desc(s.desc)
+#func pack():
+#	var pkg = package.duplicate(true)
+#	pkg.level = filename
+#	# Pack rigidbodies
+#	for m in $Movables.get_children():
+#		var obj = {
+#			"name" : m.name,
+#			"trans" : m.transform
+#		}
+#		pkg.movables.append(obj)
+#	# Pack special objects
+#	for s in $Special.get_children():
+#		var obj = {
+#			"name" : s.name,
+#			"state" : s.get_state(),
+#			"type" : s.get_type(),
+#			"desc" : s.get_desc()
+#		}
+#		pkg.special.append(obj)
+#	print(pkg)
+#	return pkg
+#
+#func unpack(pkg):
+#	# Unpack rigidbodies
+#	for m in pkg.movables:
+#		var n = get_node("Movables/" + m.name)
+#		n.transform = m.trans
+#	# Unpack special nodes
+#	for s in pkg.special:
+#		var n = get_node("Special/" + s.name)
+#		n.set_state(s.state)
+#		n.set_type(s.type)
+#		n.set_desc(s.desc)

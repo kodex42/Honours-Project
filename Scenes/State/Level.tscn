@@ -92,6 +92,10 @@ shape = SubResource( 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
 mesh = SubResource( 7 )
 
+[node name="Subtractor" type="CSGCombiner" parent="StaticObjects/Floor/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
+operation = 2
+
 [node name="CollisionShape" type="CollisionShape" parent="StaticObjects/Floor"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
 shape = SubResource( 8 )

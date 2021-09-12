@@ -94,7 +94,7 @@ func collide():
 	var start = target.transform.origin + setup.anchor_offset
 	var end = self.transform.origin
 	var space_state = get_world().direct_space_state
-	var col = space_state.intersect_ray(start, end)
+	var col = space_state.intersect_ray(start, end, [], 2)
 	if not col.empty():
 		self.transform.origin = col.position
 
