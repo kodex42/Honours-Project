@@ -26,12 +26,23 @@ func generate_resources():
 	
 	# Each resource type is clustered in random locations on the grid
 	for r_type in [ResourceType.WOOD, ResourceType.WATER, ResourceType.COAL, ResourceType.ROCK_CHUNK]:
-		# Only allow unoccupied cells
-		while(cell_is_occupied(x, y)):
-			x = randi() % lim
-			y = randi() % lim
 		# Place resource cluster
-		cluster_resource(x, y, lim, r_type)
+		var num_clusters
+		match r_type:
+			ResourceType.WOOD:
+				num_clusters = 3 if Randomizer.randb() else 2
+			ResourceType.WATER:
+				num_clusters = 1
+			ResourceType.COAL:
+				num_clusters = 2 if Randomizer.randb() else 1
+			ResourceType.ROCK_CHUNK:
+				num_clusters = 2 if Randomizer.randb() else 1
+		for i in range(num_clusters):
+			# Only allow unoccupied cells
+			while(cell_is_occupied(x, y)):
+				x = randi() % lim
+				y = randi() % lim
+			cluster_resource(x, y, lim, r_type)
 	# Remake the water tiles to look better connected
 	tile_water()
 
@@ -39,27 +50,39 @@ func cluster_resource(x, y, lim, r_type):
 	# Assume the given coordinates are not occupied and within bounds
 	var chance = 1.0
 	var chance_mod
+	var minimum_tiles
 	match r_type:
 		ResourceType.WOOD:
 			chance_mod = 0.95
+			minimum_tiles = 3
 		ResourceType.WATER:
 			chance_mod = 0.98
+			minimum_tiles = 20
 		ResourceType.COAL:
 			chance_mod = 0.92
+			minimum_tiles = 2
 		ResourceType.ROCK_CHUNK:
 			chance_mod = 0.90
+			minimum_tiles = 2
 	while(rand_range(0.0, 1.0) <= chance):
 		put_resource(r_type, Vector3(x, 0, y))
 		# Give each subsequent resource in the cluster 80% the chance of the previous
-		chance *= chance_mod
+		if minimum_tiles > 0:
+			minimum_tiles -= 1
+		else:
+			chance *= chance_mod
 		# Calculate next cell
-		while(cell_is_occupied(x, y)):
+		var nx = x
+		var ny = y
+		while(cell_is_occupied(nx, ny)):
 			# Add or subtract 1 from either x or y at random
 			var mod = 1 if Randomizer.randb() else -1
 			if (Randomizer.randb()):
-				x = clamp(x + mod, 0, lim-1)
+				nx = clamp(x + mod, 0, lim-1)
 			else:
-				y = clamp(y + mod, 0, lim-1)
+				ny = clamp(y + mod, 0, lim-1)
+		x = nx
+		y = ny
 
 func cell_is_occupied(x, y):
 	# Disallow reserved tiles for player spawn area
@@ -88,24 +111,30 @@ func put_resource(type : int, pos = Vector3(0, 0, 0)):
 		water_bodies.append(body)
 		# Add an invisible collision box over top the water tile
 		parent.place_invis_box(global_pos)
+	# Offset non water tiles for aesthetics
+	else:
+		body.global_translate(Vector3(rand_range(0.0, 0.5), 0, rand_range(0.0, 0.5)))
+		body.rotate_y(rand_range(0, 2*PI))
 
 func tile_water():
 	for b in water_bodies:
 		var neighbours = get_neighbours(b)
-		var num = count_neighbours(neighbours)
+		var num_neighbours = count_neighbours(neighbours)
+		var corners = get_corners(b)
+		var num_corners = count_corners(corners)
 		
 		# Time for a terribly long match case statement
-		match num:
+		match num_neighbours:
 			1:
 				# Ends
 				b.replace_mesh("ground_riverEndClosed")
 				if neighbours[0]:
 					b.rotate_y(PI)
-				elif neighbours[1]:
+				if neighbours[1]:
 					b.rotate_y(-PI/2)
-				elif neighbours[2]:
+				if neighbours[2]:
 					b.rotate_y(0)
-				elif neighbours[3]:
+				if neighbours[3]:
 					b.rotate_y(PI/2)
 			2:
 				# Corners
@@ -114,6 +143,7 @@ func tile_water():
 						b.replace_mesh("ground_riverBend")
 					else:
 						b.replace_mesh("ground_riverCorner")
+					
 					if neighbours[0] and neighbours[1]:
 						b.rotate_y(PI)
 					if neighbours[1] and neighbours[2]:
@@ -126,9 +156,83 @@ func tile_water():
 					b.replace_mesh("ground_riverStraight")
 					if neighbours[1]:
 						b.rotate_y(PI/2)
+			3:
+				# Splits
+				b.replace_mesh("ground_riverSide")
+				if not neighbours[0]:
+					b.rotate_y(0)
+					if corners[1] and not corners[2]:
+						b.replace_mesh("ground_riverSideLeft")
+					if not corners[1] and corners[2]:
+						b.replace_mesh("ground_riverSideRight")
+					if not corners[1] and not corners[2]:
+						b.replace_mesh("ground_riverSideStraight")
+				if not neighbours[1]:
+					b.rotate_y(PI/2)
+					if corners[2] and not corners[3]:
+						b.replace_mesh("ground_riverSideLeft")
+					if not corners[2] and corners[3]:
+						b.replace_mesh("ground_riverSideRight")
+					if not corners[2] and not corners[3]:
+						b.replace_mesh("ground_riverSideStraight")
+				if not neighbours[2]:
+					b.rotate_y(PI)
+					if corners[3] and not corners[0]:
+						b.replace_mesh("ground_riverSideLeft")
+					if not corners[3] and corners[0]:
+						b.replace_mesh("ground_riverSideRight")
+					if not corners[3] and not corners[0]:
+						b.replace_mesh("ground_riverSideStraight")
+				if not neighbours[3]:
+					b.rotate_y(-PI/2)
+					if corners[0] and not corners[1]:
+						b.replace_mesh("ground_riverSideLeft")
+					if not corners[0] and corners[1]:
+						b.replace_mesh("ground_riverSideRight")
+					if not corners[0] and not corners[1]:
+						b.replace_mesh("ground_riverSideStraight")
 			4:
-				b.replace_mesh("ground_riverOpen")
-				6
+				# Fills
+				match(num_corners):
+					0:
+						b.replace_mesh("ground_riverOpen")
+					1:
+						b.replace_mesh("ground_riverCornerSmall")
+						if not corners[0]:
+							b.rotate_y(-PI/2)
+						if not corners[1]:
+							b.rotate_y(0)
+						if not corners[2]:
+							b.rotate_y(PI/2)
+						if not corners[3]:
+							b.rotate_y(PI)
+					2:
+						b.replace_mesh("ground_riverSideOpen")
+						if (corners[0] and corners[2]) or (corners[1] and corners[3]):
+							b.replace_mesh("ground_riverCrissCross")
+							if corners[1]:
+								b.rotate_y(PI/2)
+						else:
+							if corners[0] and corners[1]:
+								b.rotate_y(PI/2)
+							if corners[1] and corners[2]:
+								b.rotate_y(PI)
+							if corners[2] and corners[3]:
+								b.rotate_y(-PI/2)
+							if corners[3] and corners[0]:
+								b.rotate_y(0)
+					3:
+						b.replace_mesh("ground_riverBendOpen")
+						if corners[0]:
+							b.rotate_y(PI/2)
+						if corners[1]:
+							b.rotate_y(PI)
+						if corners[2]:
+							b.rotate_y(-PI/2)
+						if corners[3]:
+							b.rotate_y(0)
+					_:
+						b.replace_mesh("ground_riverCross")
 			_:
 				pass
 
@@ -137,8 +241,8 @@ func get_neighbours(water_body):
 	var tile_pos = water_body.get_data().tile.get_pos()
 	var un = _grid.get_tile_data(tile_pos.x, tile_pos.y + 1) if tile_pos.y < lim - 1 else null
 	var rn = _grid.get_tile_data(tile_pos.x + 1, tile_pos.y) if tile_pos.x < lim - 1 else null
-	var dn = _grid.get_tile_data(tile_pos.x, tile_pos.y - 1) if tile_pos.y > 1 else null
-	var ln = _grid.get_tile_data(tile_pos.x - 1, tile_pos.y) if tile_pos.x > 1 else null
+	var dn = _grid.get_tile_data(tile_pos.x, tile_pos.y - 1) if tile_pos.y > 0 else null
+	var ln = _grid.get_tile_data(tile_pos.x - 1, tile_pos.y) if tile_pos.x > 0 else null
 	
 	var neighbours = [
 		un != null and un.is_occupied() and un.get_resource() == ResourceType.WATER,	# Up
@@ -153,6 +257,29 @@ func count_neighbours(neighbours):
 	var i = 0
 	for n in neighbours:
 		i += 1 if n else 0
+	return i
+
+func get_corners(water_body):
+	var lim = _grid.GRID_SIZE
+	var tile_pos = water_body.get_data().tile.get_pos()
+	var ur = _grid.get_tile_data(tile_pos.x + 1, tile_pos.y + 1) if tile_pos.x < lim - 1 and tile_pos.y < lim - 1 else null
+	var dr = _grid.get_tile_data(tile_pos.x + 1, tile_pos.y - 1) if tile_pos.x < lim - 1 and tile_pos.y > 0 else null
+	var dl = _grid.get_tile_data(tile_pos.x - 1, tile_pos.y - 1) if tile_pos.x > 0 and tile_pos.y > 0 else null
+	var ul = _grid.get_tile_data(tile_pos.x - 1, tile_pos.y + 1) if tile_pos.x > 0 and tile_pos.y < lim - 1 else null
+	
+	var corners = [
+		ur != null and ur.is_occupied() and ur.get_resource() == ResourceType.WATER,	# Up Right
+		dr != null and dr.is_occupied() and dr.get_resource() == ResourceType.WATER,	# Down Right
+		dl != null and dl.is_occupied() and dl.get_resource() == ResourceType.WATER,	# Down Left
+		ul != null and ul.is_occupied() and ul.get_resource() == ResourceType.WATER 	# Up Left
+	]
+	
+	return corners
+
+func count_corners(corners):
+	var i = 0
+	for c in corners:
+		i += 1 if not c else 0
 	return i
 
 func is_bend(body, neighbours):

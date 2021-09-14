@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/ground_riverCrissCross.obj-f07f7a6c886baa94d46ae0019b74566d.mesh"
+
+[deps]
+
+files=[ "res://.import/ground_riverCrissCross.obj-f07f7a6c886baa94d46ae0019b74566d.mesh" ]
+
+source_file="res://Data/Models/KenneyAssetsNatureKit/OBJ format/ground_riverCrissCross.obj"
+dest_files=[ "res://.import/ground_riverCrissCross.obj-f07f7a6c886baa94d46ae0019b74566d.mesh", "res://.import/ground_riverCrissCross.obj-f07f7a6c886baa94d46ae0019b74566d.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
