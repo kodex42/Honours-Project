@@ -19,6 +19,10 @@ func _init(td_pos = Vector3(0, 0, 0), td_mac = null, td_occ = false, td_pow = 0.
 	_occupied = td_occ
 	_power = td_pow
 
+func set_machine(m):
+	_machine = m
+	set_occupied(true)
+
 func set_resource(r):
 	_resource_type = r
 	set_occupied(true)

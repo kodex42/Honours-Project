@@ -4,7 +4,7 @@ extends Spatial
 var _invis_box = preload("res://Scenes/State/InvisibleBox.tscn")
 
 # Nodes
-onready var resource_grid = get_node("ResourceGrid")
+onready var interactables_grid = get_node("InteractablesGrid")
 onready var stat_objects = get_node("StaticObjects")
 
 # State
@@ -15,7 +15,8 @@ var package = {
 }
 
 func _ready():
-	resource_grid.generate_resources()
+	interactables_grid.generate_resources()
+	interactables_grid.put_machine("Excavator", Vector3(24, 0, 24))
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("show_hide_grid"):

@@ -3,6 +3,14 @@ extends StaticBody
 # Resources
 var _res_lib : MeshLibrary = preload("res://Data/MeshLibraries/Resources.meshlib")
 
+# Enums
+enum ResourceType {
+	WOOD,
+	WATER,
+	COAL,
+	ROCK_CHUNK,
+}
+
 # State
 var _inventory = {
 	"item_type" : "",
@@ -20,14 +28,18 @@ func build(occupying_tile : TileData, pos : Vector3, body_name : String, body_ty
 	self._data.type = body_type
 	self._data.tile = occupying_tile
 	self._inventory.item_type = inventory_type
-	# A static body with the collisionshape we need was created in the last line
-	var s_body = $MeshInstance.get_child(0) # The mesh instance now has a StaticBody child
-	var c_shape = s_body.get_child(0) # The StaticBody has the CollisionShape we need for the Area
-	# Remove the StaticBody and copy the CollisionShape under the Area as its collision
-	add_child(c_shape.duplicate())
-	s_body.queue_free()
-	# Scale to correct size
-	set_deferred("scale", Vector3(2, 2, 2))
+	if body_type == "Resource":
+		# Assume resources generate their own meshes and collision procedurally
+		var s_body = $MeshInstance.get_child(0) # The mesh instance now has a StaticBody child
+		var c_shape = s_body.get_child(0) # The StaticBody has the CollisionShape we need for the Area
+		# Remove the StaticBody and copy the CollisionShape under the Area as its collision
+		add_child(c_shape.duplicate())
+		s_body.queue_free()
+		# Scale to correct size
+		set_deferred("scale", Vector3(2, 2, 2))
+	else:
+		# Scale to correct size
+		set_deferred("scale", Vector3(1.2, 1.2, 1.2))
 
 func generate_mesh(mesh_name):
 	# Find mesh by name

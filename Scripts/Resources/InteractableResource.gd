@@ -1,13 +1,5 @@
 extends "res://Scripts/Interaction/InteractableBody.gd"
 
-# Enums
-enum ResourceType {
-	WOOD,
-	WATER,
-	COAL,
-	ROCK_CHUNK,
-}
-
 # Constants
 const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
 
@@ -51,7 +43,6 @@ func create(type : int, pos : Vector3, tile : TileData):
 			resource = "wood"
 			generate_mesh("tree" + letters[randi() % 7])
 		ResourceType.WATER:
-			# NEED TO FIX LATER
 			body_name = "Water"
 			resource = "water"
 			generate_mesh("ground_riverTile")

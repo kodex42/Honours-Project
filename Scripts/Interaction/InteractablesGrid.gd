@@ -10,6 +10,9 @@ enum ResourceType {
 
 # Scenes
 var _interactable_resource = preload("res://Scenes/Interaction/InteractableResource.tscn")
+var _interactable_machines = {
+	"Excavator" : preload("res://Scenes/Interaction/Excavator.tscn")
+}
 
 # Nodes
 onready var parent = get_parent()
@@ -47,6 +50,7 @@ func generate_resources():
 	tile_water()
 
 func cluster_resource(x, y, lim, r_type):
+	print("Generating resource cluster for resource type " + str(r_type) + " at (" + str(x) + ", " + str(y) + ")")
 	# Assume the given coordinates are not occupied and within bounds
 	var chance = 1.0
 	var chance_mod
@@ -72,17 +76,14 @@ func cluster_resource(x, y, lim, r_type):
 		else:
 			chance *= chance_mod
 		# Calculate next cell
-		var nx = x
-		var ny = y
-		while(cell_is_occupied(nx, ny)):
+		while(cell_is_occupied(x, y)):
 			# Add or subtract 1 from either x or y at random
 			var mod = 1 if Randomizer.randb() else -1
 			if (Randomizer.randb()):
-				nx = clamp(x + mod, 0, lim-1)
+				x = clamp(x + mod, 0, lim-1)
 			else:
-				ny = clamp(y + mod, 0, lim-1)
-		x = nx
-		y = ny
+				y = clamp(y + mod, 0, lim-1)
+			print("Attempting next cell (" + str(x) + ", " + str(y) + ")")
 
 func cell_is_occupied(x, y):
 	# Disallow reserved tiles for player spawn area
@@ -91,11 +92,15 @@ func cell_is_occupied(x, y):
 	return _grid.get_tile_data(x, y).is_occupied()
 
 func put_resource(type : int, pos = Vector3(0, 0, 0)):
+	print("Placing resource type " + str(type) + " at " + str(pos))
 	var lim = _grid.GRID_SIZE
 	# Get tile data
 	var tile = _grid.get_tile_data_from_coords(pos)
+	if not tile:
+		return
 	# Create an InteractableResource
 	var body = _interactable_resource.instance()
+	# Generate the resource procedurally
 	body.create(type, pos, tile)
 	add_child(body)
 	# Translate to position
@@ -115,6 +120,21 @@ func put_resource(type : int, pos = Vector3(0, 0, 0)):
 	else:
 		body.global_translate(Vector3(rand_range(0.0, 0.5), 0, rand_range(0.0, 0.5)))
 		body.rotate_y(rand_range(0, 2*PI))
+
+func put_machine(type : String, pos = Vector3(0, 0, 0)):
+	print("Placing machine type " + type + " at " + str(pos))
+	var lim = _grid.GRID_SIZE
+	# Get tile data
+	var tile = _grid.get_tile_data_from_coords(pos)
+	if not tile:
+		return
+	# Instance the correct machine scene and build it
+	var body = _interactable_machines[type].instance()
+	body.create(tile, pos)
+	add_child(body)
+	# Translate to position
+	var global_pos = pos * 2 + Vector3(1, 0, 1) - Vector3(lim, 0, lim)
+	body.global_translate(global_pos)
 
 func tile_water():
 	for b in water_bodies:

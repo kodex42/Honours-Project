@@ -4,7 +4,7 @@
 [ext_resource path="res://Data/Textures/Level/tile.png" type="Texture" id=2]
 [ext_resource path="res://Data/MeshLibraries/ResourcesAndTiles.meshlib" type="MeshLibrary" id=3]
 [ext_resource path="res://Scripts/Mechanics/Grid.gd" type="Script" id=4]
-[ext_resource path="res://Scripts/Resources/ResourceGrid.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Interaction/InteractablesGrid.gd" type="Script" id=5]
 
 [sub_resource type="SpatialMaterial" id=1]
 render_priority = -10
@@ -63,7 +63,7 @@ __meta__ = {
 "_editor_floor_": Vector3( 0, 0, 0 )
 }
 
-[node name="ResourceGrid" type="Spatial" parent="."]
+[node name="InteractablesGrid" type="Spatial" parent="."]
 script = ExtResource( 5 )
 
 [node name="StaticObjects" type="Spatial" parent="."]

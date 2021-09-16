@@ -17,6 +17,8 @@ func _process(delta):
 	pass
 
 func get_tile_data_from_coords(pos : Vector3):
+	if pos.x >= GRID_SIZE or pos.z >= GRID_SIZE or pos.x < 0 or pos.z < 0:
+		return null
 	return get_tile_data(pos.x, pos.z)
 
 func get_tile_data(x, y):

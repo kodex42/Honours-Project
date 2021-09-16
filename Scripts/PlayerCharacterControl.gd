@@ -61,14 +61,15 @@ func movement_controls(delta, v):
 	# Check directional input
 	var dir : Vector3 = Vector3.ZERO
 	
-	if Input.is_action_pressed("forward"):
-		dir.z += 1.0
-	if Input.is_action_pressed("backward"):
-		dir.z -= 1.0
-	if Input.is_action_pressed("left"):
-		dir.x += 1.0
-	if Input.is_action_pressed("right"):
-		dir.x -= 1.0
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		if Input.is_action_pressed("forward"):
+			dir.z += 1.0
+		if Input.is_action_pressed("backward"):
+			dir.z -= 1.0
+		if Input.is_action_pressed("left"):
+			dir.x += 1.0
+		if Input.is_action_pressed("right"):
+			dir.x -= 1.0
 	
 	if dir.length_squared() > 0.01:
 		dir = dir.rotated(Vector3.UP, camera.setup.rotation.y)
