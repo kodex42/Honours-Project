@@ -1,9 +1,9 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Data/Textures/UI/Prompts/button_prompts_Esc.png" type="Texture" id=1]
 [ext_resource path="res://Data/Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Scripts/UI/GUI.gd" type="Script" id=3]
-[ext_resource path="res://Scenes/UI/InteractableObjectUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/UI/InteractableResource.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Data/Textures/UI/Prompts/button_prompts_G.png" type="Texture" id=5]
 [ext_resource path="res://Data/Textures/Resources/rock_chunk.png" type="Texture" id=6]
 [ext_resource path="res://Data/Textures/Resources/water.png" type="Texture" id=7]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Data/Textures/Resources/cash.png" type="Texture" id=10]
 [ext_resource path="res://Data/Textures/Resources/wood.png" type="Texture" id=11]
 [ext_resource path="res://Data/Textures/Resources/coal.png" type="Texture" id=12]
+[ext_resource path="res://Scenes/UI/InteractableMachine.tscn" type="PackedScene" id=13]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.592157 )
@@ -392,6 +393,10 @@ size_flags_vertical = 0
 texture = ExtResource( 9 )
 expand = true
 
-[node name="InteractableObjectUI" parent="." instance=ExtResource( 4 )]
+[node name="InteractableResource" parent="." instance=ExtResource( 4 )]
 visible = false
-[connection signal="resource_count_changed" from="InteractableObjectUI" to="." method="_on_InteractableObjectUI_resource_count_changed"]
+
+[node name="InteractableMachine" parent="." instance=ExtResource( 13 )]
+visible = false
+[connection signal="resource_count_changed" from="InteractableResource" to="." method="_on_InteractableObject_resource_count_changed"]
+[connection signal="resource_count_changed" from="InteractableMachine" to="." method="_on_InteractableObject_resource_count_changed"]

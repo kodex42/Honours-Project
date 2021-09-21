@@ -11,7 +11,10 @@ enum ResourceType {
 # Scenes
 var _interactable_resource = preload("res://Scenes/Interaction/InteractableResource.tscn")
 var _interactable_machines = {
-	"Excavator" : preload("res://Scenes/Interaction/Excavator.tscn")
+	"Excavator" : preload("res://Scenes/Interaction/Excavator.tscn"),
+	"Pump" : preload("res://Scenes/Interaction/Pump.tscn"),
+	"Sawmill" : preload("res://Scenes/Interaction/Sawmill.tscn"),
+	"Miner" : preload("res://Scenes/Interaction/Miner.tscn")
 }
 
 # Nodes
@@ -50,7 +53,7 @@ func generate_resources():
 	tile_water()
 
 func cluster_resource(x, y, lim, r_type):
-	print("Generating resource cluster for resource type " + str(r_type) + " at (" + str(x) + ", " + str(y) + ")")
+#	print("Generating resource cluster for resource type " + str(r_type) + " at (" + str(x) + ", " + str(y) + ")")
 	# Assume the given coordinates are not occupied and within bounds
 	var chance = 1.0
 	var chance_mod
@@ -83,7 +86,7 @@ func cluster_resource(x, y, lim, r_type):
 				x = clamp(x + mod, 0, lim-1)
 			else:
 				y = clamp(y + mod, 0, lim-1)
-			print("Attempting next cell (" + str(x) + ", " + str(y) + ")")
+#			print("Attempting next cell (" + str(x) + ", " + str(y) + ")")
 
 func cell_is_occupied(x, y):
 	# Disallow reserved tiles for player spawn area
@@ -92,7 +95,7 @@ func cell_is_occupied(x, y):
 	return _grid.get_tile_data(x, y).is_occupied()
 
 func put_resource(type : int, pos = Vector3(0, 0, 0)):
-	print("Placing resource type " + str(type) + " at " + str(pos))
+#	print("Placing resource type " + str(type) + " at " + str(pos))
 	var lim = _grid.GRID_SIZE
 	# Get tile data
 	var tile = _grid.get_tile_data_from_coords(pos)
@@ -122,7 +125,7 @@ func put_resource(type : int, pos = Vector3(0, 0, 0)):
 		body.rotate_y(rand_range(0, 2*PI))
 
 func put_machine(type : String, pos = Vector3(0, 0, 0)):
-	print("Placing machine type " + type + " at " + str(pos))
+#	print("Placing machine type " + type + " at " + str(pos))
 	var lim = _grid.GRID_SIZE
 	# Get tile data
 	var tile = _grid.get_tile_data_from_coords(pos)

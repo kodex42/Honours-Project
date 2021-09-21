@@ -14,15 +14,17 @@ var resource_textures = {
 	"byte" : preload("res://Data/Textures/Resources/byte.png")
 }
 
-# Nodes
-onready var gather_cont = $PanelContainer/HBoxContainer/CenterContainer
-onready var label_cont = $PanelContainer/HBoxContainer/LeftContainer/VBoxContainer
-onready var inv_cont = $PanelContainer/HBoxContainer/RightContainer/InventoryContainer
-onready var rad_progresss = $PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/RadialProgress
-onready var button = $PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/Button
+# Exports
+export(NodePath) onready var label_cont = get_node(label_cont)
+export(NodePath) onready var rad_progress = get_node(rad_progress)
+export(NodePath) onready var gather_button = get_node(gather_button)
+export(NodePath) onready var retrieve_button = get_node(retrieve_button)
+export(NodePath) onready var power_button = get_node(power_button)
 
 # State
 var _interactable_object = null
+var _type = ""
+var _powered = false
 
 # Data is structured as below for InteractableBody
 #var _data = {
@@ -37,16 +39,29 @@ func build_from_interactable_object(obj):
 	label_cont.get_node("Type").set_text(data.type)
 	label_cont.get_node("Tile").set_text("Tile: (" + str(data.tile.get_pos().x) + ", " + str(data.tile.get_pos().y) + ")")
 	update_inventory()
+	
+	self._type = data.type
+	if self._type == "Machine":
+		update_power_button()
 
 func update_inventory():
 	var inventory = _interactable_object.get_inventory()
 	var res = resource_textures[inventory.item_type]
-	var icon = inv_cont.get_node("Button/ItemTypeIcon")
+	var icon = retrieve_button.get_node("ItemTypeIcon")
 	icon.texture = res
 	icon.modulate.a = 0.4 if inventory.amount == 0 else 1.0
 	
 	var label = icon.get_node("AmountLabel")
 	label.set_text(str(inventory.amount))
+
+func update_power_button():
+	_powered = _interactable_object.is_on()
+	power_button.set("pressed", _powered)
+	set_power_button_colour(Color(0.025, 0.8, 0.1) if _powered else Color(0.5, 0.5, 0.5))
+
+func set_power_button_colour(c : Color):
+	var img = power_button.get_node("PowerIcon")
+	img.modulate = c
 
 func _on_Retrieve_Button_pressed():
 	var gains = _interactable_object.remove_from_inventory(10)
@@ -54,17 +69,21 @@ func _on_Retrieve_Button_pressed():
 	emit_signal("resource_count_changed", _interactable_object.get_inventory().item_type, gains)
 
 func _on_Gather_Button_pressed():
-	button.disabled = true
-	rad_progresss.start()
+	gather_button.disabled = true
+	rad_progress.start()
 
 func _on_RadialProgress_ended():
-	button.disabled = false
+	gather_button.disabled = false
 	_interactable_object.interact()
 	update_inventory()
 
 func _on_RadialProgress_halted():
-	button.disabled = false
+	gather_button.disabled = false
 
-func _on_InteractableObjectUI_visibility_changed():
+func _on_InteractableResource_visibility_changed():
 	if not visible:
-		rad_progresss.stop()
+		rad_progress.stop()
+
+func _on_Power_Button_pressed():
+	_interactable_object.toggle()
+	update_power_button()

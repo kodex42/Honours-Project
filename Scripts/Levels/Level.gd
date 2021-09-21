@@ -17,6 +17,9 @@ var package = {
 func _ready():
 	interactables_grid.generate_resources()
 	interactables_grid.put_machine("Excavator", Vector3(24, 0, 24))
+	interactables_grid.put_machine("Pump", Vector3(25, 0, 25))
+	interactables_grid.put_machine("Sawmill", Vector3(24, 0, 25))
+	interactables_grid.put_machine("Miner", Vector3(25, 0, 24))
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("show_hide_grid"):

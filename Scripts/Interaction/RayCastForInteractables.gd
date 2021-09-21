@@ -12,4 +12,3 @@ func _process(delta):
 		gui.show_interactable_info(colliding_body)
 	elif not is_colliding():
 		colliding_body = null
-		gui.hide_interactable_info()

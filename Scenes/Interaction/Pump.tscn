@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Interaction/Machine.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Data/Models/Blender/Pump.escn" type="PackedScene" id=2]
+
+[node name="Pump" instance=ExtResource( 1 )]
+body_name = "Pump"
+produced_resource = 1
+
+[node name="Pump" parent="Machine" index="0" instance=ExtResource( 2 )]
