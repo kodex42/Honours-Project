@@ -14,7 +14,8 @@ enum ResourceType {
 # State
 var _inventory = {
 	"item_type" : "",
-	"amount" : 0
+	"amount" : 0,
+	"max" : Big.MAX_MANTISSA
 }
 var _data = {
 	"name" : "",
@@ -57,7 +58,7 @@ func replace_mesh(mesh_name):
 	generate_mesh(mesh_name)
 
 func add_to_inventory(amount):
-	self._inventory.amount += amount
+	self._inventory.amount = clamp(self._inventory.amount + amount, 0, self._inventory.max)
 
 func remove_from_inventory(amount):
 	var val

@@ -7,9 +7,14 @@ export(NodePath) onready var main = get_node(main)
 onready var int_info = $InteractableInfo
 onready var int_res_ui = $InteractableResource
 onready var int_mac_ui = $InteractableMachine
+onready var trackables = $ResourcesAndCurrencies
 
 # State
 var _interactable_object
+
+func _ready():
+	int_res_ui.deactivate()
+	int_mac_ui.deactivate()
 
 func _process(delta):
 	if Input.is_action_just_pressed("Selection 1") and _interactable_object and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -26,7 +31,7 @@ func _process(delta):
 		int_info.show()
 
 func update_trackables(wood : Big, water : Big, coal : Big, rock_chunks : Big, metal : Big, cash : Big, bytes : Big):
-	var trackables_cont = $ResourcesAndCurrencies/MarginContainer/VBoxContainer
+	var trackables_cont = trackables.get_node("MarginContainer/VBoxContainer")
 	trackables_cont.get_node("Wood/Label").set_text(wood.toString())
 	trackables_cont.get_node("Water/Label").set_text(water.toString())
 	trackables_cont.get_node("Coal/Label").set_text(coal.toString())
@@ -34,6 +39,10 @@ func update_trackables(wood : Big, water : Big, coal : Big, rock_chunks : Big, m
 	trackables_cont.get_node("Metal/Label").set_text(metal.toString())
 	trackables_cont.get_node("Cash/Label").set_text(cash.toString())
 	trackables_cont.get_node("Bytes/Label").set_text(bytes.toString())
+	yield(get_tree(), "idle_frame")
+	trackables.rect_size.x = 0
+	trackables.margin_left = 0
+	trackables.margin_right = 0
 
 # Data is structured as below for InteractableBody
 #var _data = {
@@ -55,7 +64,7 @@ func show_interactable_resource_ui():
 	int_res_ui.build_from_interactable_object(_interactable_object)
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer/QuitLabel.set_text("Close")
 	GlobalControls.exit_captured = true
-	int_res_ui.show()
+	int_res_ui.activate()
 	hide_interactable_info()
 
 func show_interactable_machine_ui():
@@ -63,7 +72,7 @@ func show_interactable_machine_ui():
 	int_mac_ui.build_from_interactable_object(_interactable_object)
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer/QuitLabel.set_text("Close")
 	GlobalControls.exit_captured = true
-	int_mac_ui.show()
+	int_mac_ui.activate()
 	hide_interactable_info()
 
 func hide_interactable_info():
@@ -73,13 +82,13 @@ func hide_interactable_resource_ui():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer/QuitLabel.set_text("Quit")
 	GlobalControls.exit_captured = false
-	int_res_ui.hide()
+	int_res_ui.deactivate()
 
 func hide_interactable_machine_ui():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer/QuitLabel.set_text("Quit")
 	GlobalControls.exit_captured = false
-	int_mac_ui.hide()
+	int_mac_ui.deactivate()
 
 func _on_InteractableObject_resource_count_changed(type, amount):
 	main.add_resource(type, amount)

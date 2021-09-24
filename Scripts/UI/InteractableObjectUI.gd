@@ -63,6 +63,20 @@ func set_power_button_colour(c : Color):
 	var img = power_button.get_node("PowerIcon")
 	img.modulate = c
 
+func deactivate():
+	hide()
+	set_process(false)
+	set_physics_process(false)
+	set_process_unhandled_input(false)
+	set_process_input(false)
+
+func activate():
+	show()
+	set_process(true)
+	set_physics_process(true)
+	set_process_unhandled_input(true)
+	set_process_input(true)
+
 func _on_Retrieve_Button_pressed():
 	var gains = _interactable_object.remove_from_inventory(10)
 	update_inventory()

@@ -130,6 +130,7 @@ margin_top = 320.0
 margin_right = 256.0
 margin_bottom = 384.0
 rect_min_size = Vector2( 256, 64 )
+mouse_filter = 1
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 2
 custom_fonts/font = SubResource( 3 )
@@ -141,7 +142,6 @@ margin_right = 1024.0
 margin_bottom = 512.0
 rect_min_size = Vector2( 256, 0 )
 rect_pivot_offset = Vector2( -1425, 89 )
-mouse_filter = 1
 
 [node name="InventoryContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/RightContainer"]
 margin_left = 64.0
@@ -150,7 +150,6 @@ margin_right = 192.0
 margin_bottom = 320.0
 rect_min_size = Vector2( 128, 128 )
 rect_pivot_offset = Vector2( 64, 64 )
-mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
@@ -159,6 +158,7 @@ margin_left = 7.0
 margin_top = 7.0
 margin_right = 121.0
 margin_bottom = 121.0
+mouse_filter = 1
 mouse_default_cursor_shape = 2
 
 [node name="ItemTypeIcon" type="TextureRect" parent="PanelContainer/HBoxContainer/RightContainer/InventoryContainer/Button"]
@@ -168,6 +168,9 @@ mouse_filter = 2
 texture = ExtResource( 1 )
 expand = true
 stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AmountLabel" type="Label" parent="PanelContainer/HBoxContainer/RightContainer/InventoryContainer/Button/ItemTypeIcon"]
 anchor_left = 1.0
@@ -190,6 +193,9 @@ margin_left = 448.0
 margin_top = 284.0
 margin_right = 1472.0
 margin_bottom = 796.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="visibility_changed" from="." to="." method="_on_InteractableResource_visibility_changed"]
 [connection signal="ended" from="PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/RadialProgress" to="." method="_on_RadialProgress_ended"]
 [connection signal="halted" from="PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/RadialProgress" to="." method="_on_RadialProgress_halted"]

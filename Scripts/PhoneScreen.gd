@@ -16,6 +16,10 @@ func _process(delta):
 		if Input.is_action_just_pressed("phone_left"):
 			phone_left()
 
+func _unhandled_input(event):
+	if event is InputEventMouseButton:
+		$PhoneScreenGUIViewport.input(event)
+
 func phone_up():
 	print(name + ": Phone Up")
 

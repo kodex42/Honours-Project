@@ -5,29 +5,22 @@
 [ext_resource path="res://Scenes/Phone/Screens/MessageCollection.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ViewportTexture" id=1]
-viewport_path = NodePath("MessageCollectionViewport")
+viewport_path = NodePath("PhoneScreenGUIViewport")
 
 [node name="MessagesScreen" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 
-[node name="MessageCollectionViewport" type="Viewport" parent="." index="1"]
-size = Vector2( 1536, 3584 )
-render_target_v_flip = true
-
-[node name="MessageCollection" parent="MessageCollectionViewport" index="0" instance=ExtResource( 4 )]
-
-[node name="Objects" parent="." index="2"]
+[node name="Objects" parent="." index="1"]
 transform = Transform( 0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 0, 0, 0 )
 
 [node name="Sprite3D" type="Sprite3D" parent="Objects" index="0"]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, -1.1921e-07, 0, 5.96046e-08, 1, 0, 0, 0 )
 opacity = 0.5
 texture = SubResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 1536, 3584 )
 
-[node name="Camera" parent="Viewport" index="0"]
-size = 3.55
-
-[node name="PromptOrbitPoint" type="Spatial" parent="." index="4"]
+[node name="PromptOrbitPoint" type="Spatial" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 100, 5 )
+
+[node name="MessageCollection" parent="PhoneScreenGUIViewport" index="0" instance=ExtResource( 4 )]

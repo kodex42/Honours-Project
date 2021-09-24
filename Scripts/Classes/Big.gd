@@ -232,7 +232,7 @@ func log10(x):
 
 func toString():
 	if exponent < 10:
-		return str(mantissa * pow(10, exponent))
+		return str(int(mantissa * pow(10, exponent))) # Forced to integer to avoid unintended decimals
 	else:
 		return toScientific()
 

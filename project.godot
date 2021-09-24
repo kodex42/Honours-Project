@@ -41,6 +41,7 @@ Server="*res://Scripts/AutoLoadSingletons/Server.gd"
 ControlDecider="*res://Scripts/AutoLoadSingletons/ControlDecider.gd"
 GlobalControls="*res://Scripts/AutoLoadSingletons/GlobalControls.gd"
 Randomizer="*res://Scripts/AutoLoadSingletons/Randomizer.gd"
+Time="*res://Scripts/AutoLoadSingletons/Time.gd"
 
 [display]
 

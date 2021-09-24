@@ -1,7 +1,7 @@
 extends "res://Scripts/PhoneScreen.gd"
 
 # Nodes
-onready var message_collection = get_node("MessageCollectionViewport/MessageCollection")
+onready var message_collection = get_node("PhoneScreenGUIViewport/MessageCollection")
 
 # Constants
 const orbit_speed = PI/256

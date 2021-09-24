@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scenes/State/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Placeholder/AnimatedLoadingScreen.tscn" type="PackedScene" id=2]
@@ -6,8 +6,8 @@
 [ext_resource path="res://Scenes/Main.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/Camera.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/CameraData.gd" type="Script" id=6]
-[ext_resource path="res://Scenes/Phone/Phone.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scripts/PhoneQuad.gd" type="Script" id=8]
+[ext_resource path="res://Scenes/UI/PhoneGUI.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scripts/UI/GUIQuad.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/Lighting/Sun.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/UI/GUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/Interaction/RayCastForInteractables.gd" type="Script" id=11]
@@ -50,23 +50,6 @@ albedo_texture = SubResource( 4 )
 [sub_resource type="QuadMesh" id=6]
 resource_local_to_scene = true
 material = SubResource( 5 )
-size = Vector2( 16, 9 )
-
-[sub_resource type="ViewportTexture" id=7]
-viewport_path = NodePath("Camera/HUD/GUIViewport")
-
-[sub_resource type="SpatialMaterial" id=8]
-resource_local_to_scene = true
-render_priority = 15
-flags_transparent = true
-flags_unshaded = true
-flags_no_depth_test = true
-flags_albedo_tex_force_srgb = true
-albedo_texture = SubResource( 7 )
-
-[sub_resource type="QuadMesh" id=9]
-resource_local_to_scene = true
-material = SubResource( 8 )
 size = Vector2( 16, 9 )
 
 [node name="Main" type="Spatial"]
@@ -123,26 +106,20 @@ render_target_v_flip = true
 size = Vector2( 1920, 1080 )
 own_world = true
 transparent_bg = true
-handle_input_locally = false
 msaa = 3
-hdr = false
 disable_3d = true
-usage = 0
 render_target_v_flip = true
 
 [node name="GUI" parent="Camera/HUD/GUIViewport" instance=ExtResource( 10 )]
 main = NodePath("../../../..")
 
-[node name="PhoneQuad" type="MeshInstance" parent="Camera"]
-transform = Transform( 0.12625, 0, 0, 0, 0.12625, 0, 0, 0, 1, -8.9407e-08, 0, -0.804991 )
+[node name="PhoneGUI" parent="Camera/HUD/GUIViewport" instance=ExtResource( 7 )]
+
+[node name="GUIQuad" type="MeshInstance" parent="Camera"]
+transform = Transform( 0.12625, 0, 0, 0, 0.12625, 0, 0, 0, 1, 0, 0, -0.804 )
 mesh = SubResource( 6 )
 material/0 = null
 script = ExtResource( 8 )
-
-[node name="GUIQuad" type="MeshInstance" parent="Camera"]
-transform = Transform( 0.124, 0, 0, 0, 0.124, 0, 0, 0, 1, 2.98023e-08, 0, -0.804 )
-mesh = SubResource( 9 )
-material/0 = null
 
 [node name="RayCast" type="RayCast" parent="Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1 )
@@ -153,14 +130,4 @@ collision_mask = 4
 script = ExtResource( 11 )
 
 [node name="Tween" type="Tween" parent="Camera"]
-
-[node name="PhoneViewport" type="Viewport" parent="."]
-size = Vector2( 3840, 2160 )
-own_world = true
-transparent_bg = true
-msaa = 3
-render_target_v_flip = true
-
-[node name="Phone" parent="PhoneViewport" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0 )
 [connection signal="timeout" from="CloseTimer" to="." method="_on_CloseTimer_timeout"]

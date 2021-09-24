@@ -27,3 +27,9 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.50
 environment = SubResource( 1 )
 projection = 1
 current = true
+size = 3.55
+
+[node name="PhoneScreenGUIViewport" type="Viewport" parent="."]
+size = Vector2( 1536, 3584 )
+handle_input_locally = false
+render_target_v_flip = true

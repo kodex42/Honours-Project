@@ -25,6 +25,14 @@ onready var _floor = get_parent().get_node("StaticObjects/Floor")
 # State
 var water_bodies = []
 
+func benchmark():
+	var lim = _grid.GRID_SIZE
+	
+	for y in range(lim):
+		for x in range(lim):
+			var machine = ["Excavator", "Pump", "Sawmill", "Miner"][randi()%4]
+			put_machine(machine, Vector3(x, 0, y), true)
+
 func generate_resources():
 	var lim = _grid.GRID_SIZE
 	var x = randi() % lim
@@ -124,7 +132,7 @@ func put_resource(type : int, pos = Vector3(0, 0, 0)):
 		body.global_translate(Vector3(rand_range(0.0, 0.5), 0, rand_range(0.0, 0.5)))
 		body.rotate_y(rand_range(0, 2*PI))
 
-func put_machine(type : String, pos = Vector3(0, 0, 0)):
+func put_machine(type : String, pos = Vector3(0, 0, 0), start_active = false):
 #	print("Placing machine type " + type + " at " + str(pos))
 	var lim = _grid.GRID_SIZE
 	# Get tile data
@@ -138,6 +146,9 @@ func put_machine(type : String, pos = Vector3(0, 0, 0)):
 	# Translate to position
 	var global_pos = pos * 2 + Vector3(1, 0, 1) - Vector3(lim, 0, lim)
 	body.global_translate(global_pos)
+	
+	if start_active:
+		body.interact()
 
 func tile_water():
 	for b in water_bodies:

@@ -49,6 +49,11 @@ func _process(delta):
 	if Input.is_action_just_pressed("phone_toggle"):
 		toggle()
 
+func _input(event):
+	if event is InputEventMouseButton:
+		for n in screens.get_children():
+			n.get_node("PhoneScreenGUIViewport").input(event)
+
 func change_screen(tex):
 	if typeof(tex) == typeof(Texture):
 		surface_on.set("albedo_texture", tex)
@@ -75,7 +80,7 @@ func is_on():
 	return on
 
 func move_phone():
-	var diff = 14 if on else -14
+	var diff = 16 if on else -16
 	var tween = get_node("MovementTween")
 	tween.interpolate_property(_model, "translation:y",
 			_model.transform.origin.y, _model.transform.origin.y + diff, 0.3,
