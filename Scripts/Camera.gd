@@ -99,8 +99,9 @@ func collide():
 		self.transform.origin = col.position
 
 func zoom(amount):
-	var mod = clamp(1/(time_between_zooms*10) if time_between_zooms > 0 else 1, 1, 10)
-	var new_zoom = clamp(zoom + ZOOM_TICK * amount * mod, MIN_ZOOM, MAX_ZOOM)
-	time_between_zooms = 0
-	$Tween.interpolate_property(self, "zoom", zoom, new_zoom, 0.2, Tween.TRANS_QUAD, Tween.EASE_OUT)
-	$Tween.start()
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		var mod = clamp(1/(time_between_zooms*10) if time_between_zooms > 0 else 1, 1, 10)
+		var new_zoom = clamp(zoom + ZOOM_TICK * amount * mod, MIN_ZOOM, MAX_ZOOM)
+		time_between_zooms = 0
+		$Tween.interpolate_property(self, "zoom", zoom, new_zoom, 0.2, Tween.TRANS_QUAD, Tween.EASE_OUT)
+		$Tween.start()

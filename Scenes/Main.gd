@@ -14,7 +14,6 @@ var rock_chunks = Big.new(0)
 var metal = Big.new(0)
 var cash = Big.new(0)
 var bytes = Big.new(0)
-var debug = true
 
 func _ready():
 	update_trackables()
@@ -53,7 +52,7 @@ func _ready():
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		$Camera/HUD/GUIViewport.input(event)
-	if debug:
+	if Constants.DEBUG:
 		if Input.is_action_pressed("spawn_resource"):
 			var amount = Big.new("1e9")
 			match event.scancode:

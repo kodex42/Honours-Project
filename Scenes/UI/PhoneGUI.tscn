@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/UI/PhoneGUI.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Phone/Phone.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Phone/Screens/HomeScreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Phone/Screens/MessagesScreen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/UI/ScreenCollection.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/ChatBot/Hapax.gd" type="Script" id=6]
 
 [sub_resource type="ViewportTexture" id=1]
 flags = 4
@@ -28,20 +32,90 @@ render_target_update_mode = 3
 
 [node name="Phone" parent="PhoneViewport" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0 )
+parent = NodePath("../..")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="PhoneView" type="TextureRect" parent="."]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -504.0
-margin_top = -704.0
-margin_right = -204.0
-margin_bottom = -3.99988
+margin_left = -500.0
+margin_top = -700.0
+margin_right = -200.0
 texture = SubResource( 1 )
 expand = true
 stretch_mode = 7
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="gui_input" from="TextureRect" to="." method="_on_TextureRect_gui_input"]
+
+[node name="Screen" type="MarginContainer" parent="PhoneView"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 24.0
+margin_top = 92.0
+margin_right = -24.0
+margin_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OrbitPoint" type="VBoxContainer" parent="PhoneView"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -20.0
+margin_right = -260.0
+margin_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_constants/separation = 154
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScreenCollection" type="Control" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -40.0
+script = ExtResource( 5 )
+
+[node name="MessagesScreen" parent="ScreenCollection" instance=ExtResource( 4 )]
+
+[node name="HomeScreen" parent="ScreenCollection" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -386.0
+margin_top = -522.0
+margin_right = -386.0
+margin_bottom = -34.0
+
+[node name="Hapax" type="Node" parent="."]
+script = ExtResource( 6 )
+
+[node name="ReplyTimer" type="Timer" parent="Hapax"]
+one_shot = true
+[connection signal="message_received" from="." to="ScreenCollection/MessagesScreen" method="_on_PhoneGUI_message_received"]
+[connection signal="message_sent" from="." to="ScreenCollection/MessagesScreen" method="_on_PhoneGUI_message_sent"]
+[connection signal="message_sent" from="." to="Hapax" method="_on_Phone_message_sent"]
+[connection signal="ready" from="." to="ScreenCollection" method="_on_PhoneGUI_ready"]
+[connection signal="ready" from="." to="Hapax" method="_on_Phone_ready"]
+[connection signal="toggled" from="PhoneViewport/Phone" to="." method="_on_Phone_toggled"]
+[connection signal="toggled" from="PhoneViewport/Phone" to="ScreenCollection" method="_on_Phone_toggled"]
+[connection signal="gui_input" from="PhoneView" to="." method="_on_TextureRect_gui_input"]
+[connection signal="timeout" from="Hapax/ReplyTimer" to="Hapax" method="_on_ReplyTimer_timeout"]

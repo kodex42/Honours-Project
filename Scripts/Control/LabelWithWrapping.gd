@@ -1,5 +1,8 @@
 extends Label
 
+# Constants
+const MAX_SIZE = 212
+
 # Test variables
 var phrases = [
 	"Hello World",
@@ -26,9 +29,9 @@ func set_text(msg):
 
 func _on_Label_resized():
 	var rect = get("rect_size")
-	if rect.x > 1248:
-		set("rect_min_size", Vector2(1248, 0))
+	if rect.x > MAX_SIZE:
+		set("rect_min_size", Vector2(MAX_SIZE, 0))
 		autowrap = true
-	elif rect.x < 1248:
-		set("rect_min_size", Vector2(160, 0))
+	elif rect.x < MAX_SIZE:
+		set("rect_min_size", Vector2(0, 0))
 		autowrap = false

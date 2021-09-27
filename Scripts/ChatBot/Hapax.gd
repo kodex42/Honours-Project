@@ -7,8 +7,11 @@ var prompt_scene = preload("res://Scenes/Interaction/Prompt.tscn")
 var holding_response = {}
 var sent_message = ""
 
+# Nodes
+onready var parent = get_parent()
+
 func reply(msg):
-	owner.receive_message(msg)
+	parent.receive_message(msg)
 
 func set_prompts(prompts):
 	var prompt_scenes = []
@@ -25,9 +28,9 @@ func set_prompts(prompts):
 				b = "X"
 			3:
 				b = "Y"
-		s.set_prompt_button(b, p)
+		s.set_prompt_button_deferred(b, p)
 		prompt_scenes.append(s)
-	owner.display_prompts(prompt_scenes)
+	parent.display_prompts(prompt_scenes)
 
 # Responses made by Hapax are created in a dictionary format that includes the response message and possible player prompts
 func get_response(msg):
@@ -50,7 +53,7 @@ func _on_Phone_message_sent(msg):
 
 func _on_Phone_ready():
 	reply("Hello! My name is Hapax! I am a chatbot created by Satyr industries, ask me anything!")
-	set_prompts(["Hello?"])
+	set_prompts(["Hello?", "Hello?", "Hello?", "Hello?"])
 
 func _on_ReplyTimer_timeout():
 	if not holding_response.empty():

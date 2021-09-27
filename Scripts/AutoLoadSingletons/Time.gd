@@ -8,10 +8,11 @@ func toggle_twelve_hour():
 	twelve_hour = not twelve_hour
 
 func get_clock_time():
-	var biased_time = get_biased_time_in_seconds()
-	var minutes = int(biased_time / 60) % 60
-	var hours = int(biased_time / 3600) % 24
-	var clock_time = "%02d:%02d"
+	var time = OS.get_time()
+	var hours = time.hour
+	var minutes = time.minute
+	var seconds = time.second
+	var clock_time = "%02d:%02d:%02d"
 	
 	if twelve_hour:
 		if hours > 12:
@@ -20,7 +21,7 @@ func get_clock_time():
 		else:
 			period = "am"
 	
-	return clock_time % [hours, minutes]
+	return clock_time % [hours, minutes, seconds]
 
 func get_time_zone_bias():
 	var result = OS.get_time_zone_info()
@@ -33,6 +34,3 @@ func get_time_zone_bias():
 
 func get_period():
 	return period
-
-func get_biased_time_in_seconds():
-	return OS.get_system_time_secs() + get_time_zone_bias() * 60

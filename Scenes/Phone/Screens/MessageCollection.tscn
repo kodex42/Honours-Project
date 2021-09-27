@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Scripts/MessageCollection.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/UI/MessagesScreen.gd" type="Script" id=1]
 [ext_resource path="res://Data/Textures/UI/Phone/MessagesBackground.png" type="Texture" id=3]
 
-[node name="MessageCollection" type="Control"]
+[node name="MessageScreen" type="Control"]
 margin_right = 1536.0
 margin_bottom = 3584.0
 size_flags_horizontal = 0
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
