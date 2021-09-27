@@ -1,4 +1,4 @@
-extends GridMap
+extends Spatial
 
 # Constants
 var GRID_SIZE = 50
