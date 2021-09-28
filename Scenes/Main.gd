@@ -15,6 +15,12 @@ var metal = Big.new(0)
 var cash = Big.new(0)
 var bytes = Big.new(0)
 
+# Debug state
+var autoadding : String
+var autoamount : Big
+var autoaddtimer : Timer
+var timeradded = false
+
 func _ready():
 	update_trackables()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -24,11 +30,6 @@ func _ready():
 	else:
 		Server.connect("connected", self, "_on_server_connected")
 		Server.connect("failed", self, "_on_server_failed")
-
-#func _process(delta):
-#	if Input.is_action_just_pressed("debug_upload"):
-#		print("debug_upload: input triggered")
-#		send_level_package("TestLevel")
 
 #func request_level_package(level_name):
 #	$PlayerCharacter.deactivate()
@@ -52,25 +53,37 @@ func _ready():
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		$Camera/HUD/GUIViewport.input(event)
-	if Constants.DEBUG:
-		if Input.is_action_pressed("spawn_resource"):
-			var amount = Big.new("1e9")
-			match event.scancode:
-				KEY_1:
-					add_resource("wood", amount)
-				KEY_2:
-					add_resource("water", amount)
-				KEY_3:
-					add_resource("coal", amount)
-				KEY_4:
-					add_resource("rock chunk", amount)
-				KEY_5:
-					add_resource("metal", amount)
-				KEY_6:
-					add_resource("cash", amount)
-				_:
-					add_resource("byte", amount)
-			
+	if Input.is_action_just_pressed("spawn_resource") and Constants.DEBUG:
+		var key = event.scancode
+		match key:
+			KEY_1:
+				auto_add_resource("wood")
+			KEY_2:
+				auto_add_resource("water")
+			KEY_3:
+				auto_add_resource("coal")
+			KEY_4:
+				auto_add_resource("rock chunk")
+			KEY_5:
+				auto_add_resource("metal")
+			KEY_6:
+				auto_add_resource("cash")
+			KEY_7:
+				auto_add_resource("byte")
+
+func auto_add_resource(res_type : String):
+	autoadding = res_type
+	autoamount = Big.new("123456789")
+	
+	if not timeradded:
+		autoaddtimer = Timer.new()
+		autoaddtimer.set_wait_time(0.01)
+		autoaddtimer.set_one_shot(false)
+		autoaddtimer.connect("timeout", self, "_on_AutoAddTimer_timeout")
+		add_child(autoaddtimer)
+		timeradded = true
+	autoaddtimer.stop()
+	autoaddtimer.start()
 
 func add_resource(res_type : String, amount):
 	match res_type:
@@ -114,3 +127,6 @@ func _on_server_failed():
 
 func _on_CloseTimer_timeout():
 	get_tree().quit()
+
+func _on_AutoAddTimer_timeout():
+	add_resource(autoadding, autoamount)

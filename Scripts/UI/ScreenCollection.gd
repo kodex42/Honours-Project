@@ -8,12 +8,12 @@ onready var messages_app = $MessagesScreen
 var current_app
 var on = false
 
-func _process(delta):
-	if Constants.DEBUG and on:
-		if Input.is_action_just_pressed("OpenHomeApp"):
-			change_app(home_app)
-		if Input.is_action_just_pressed("OpenMessagesApp"):
-			change_app(messages_app)
+#func _process(delta):
+#	if Constants.DEBUG and on:
+#		if Input.is_action_just_pressed("OpenHomeApp"):
+#			change_app(home_app)
+#		if Input.is_action_just_pressed("OpenMessagesApp"):
+#			change_app(messages_app)
 
 func change_app(app):
 	if current_app != app:
@@ -33,3 +33,10 @@ func _on_PhoneGUI_ready():
 	# Initialize active screen
 	current_app = home_app
 	update_screen()
+
+func _on_app_opened(app_name):
+	match app_name:
+		"Home":
+			change_app(home_app)
+		"MessagingApp":
+			change_app(messages_app)

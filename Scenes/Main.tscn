@@ -11,7 +11,7 @@
 [ext_resource path="res://Scripts/Lighting/Sun.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/UI/GUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/Interaction/RayCastForInteractables.gd" type="Script" id=11]
-[ext_resource path="res://Data/wav/Life of Riley.wav" type="AudioStream" id=12]
+[ext_resource path="res://Data/wav/Komiku_-_04_-_Shopping_List.wav" type="AudioStream" id=12]
 
 [sub_resource type="ProceduralSky" id=1]
 ground_bottom_color = Color( 0, 0.392157, 0.780392, 1 )
@@ -81,15 +81,12 @@ script = ExtResource( 9 )
 [node name="World" type="Spatial" parent="."]
 
 [node name="Level" parent="World" instance=ExtResource( 1 )]
+_gui = NodePath("../../Camera/HUD/GUIViewport/GUI")
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="World"]
 stream = ExtResource( 12 )
 volume_db = -20.0
 autoplay = true
-
-[node name="PlayerCharacter" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0.085, 0 )
-camera = NodePath("../Camera")
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -1, 0, 1.50995e-07, 0, 1, 0, -1.50995e-07, 0, -1, -0.28, 1.55, -1.4 )
@@ -136,4 +133,10 @@ collision_mask = 4
 script = ExtResource( 11 )
 
 [node name="Tween" type="Tween" parent="Camera"]
+
+[node name="PlayerCharacter" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0.085, 0 )
+collision_layer = 1
+_camera = NodePath("../Camera")
+
 [connection signal="timeout" from="CloseTimer" to="." method="_on_CloseTimer_timeout"]

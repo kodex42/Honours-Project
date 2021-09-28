@@ -1,53 +1,49 @@
 extends KinematicBody
 
 # Exports
-export(NodePath) onready var _anim_tree = get_node(_anim_tree)
-export(NodePath) onready var camera = get_node(camera)
+export(NodePath) onready var _camera = get_node(_camera)
+
+# Nodes
+onready var _anim_tree = $AnimationTree
 
 # Constants
 const GRAV_FORCE = -25
-const SNAP = Vector3(0, -1, 0)
 
 # State variables
-var activated = false
 var jumping = false
-var jump_percentage = 0.0
-var _turning_speed = 5.0
+var turning_speed = 5.0
 var gravity = Vector3.ZERO
 var up = Vector3.UP
 
 func _ready():
-	activate()
+	print("readying player...")
 
 func _physics_process(delta):
-	if activated:
-		var root_motion : Transform = _anim_tree.get_root_motion_transform()
-		var v = root_motion.origin / delta
-		var snap
-
-		# Check movement
-		v = movement_controls(delta, v)
-
-		# Check jumping flag
-		if jumping:
-			gravity.y = 0
-			snap = Vector3.ZERO
-		elif is_on_floor():
-			gravity.y = 0
-			snap = SNAP
-		else:
-			gravity.y += GRAV_FORCE*delta
-			snap = SNAP
-
-		# Apply gravity
-		v += gravity
-
-		# Move character and change state based on result
-		move_and_slide_with_snap(v, snap, up, true)
-		if is_on_floor():
-			up = get_floor_normal()
-		else:
-			up = Vector3.UP
+	var root_motion : Transform = _anim_tree.get_root_motion_transform()
+	var v = root_motion.origin / delta
+	var snap = Vector3(0, -1, 0)
+	
+	# Check movement
+	v = movement_controls(delta, v)
+	
+	# Check jumping flag
+	if jumping:
+		gravity.y = 0
+		snap = Vector3.ZERO
+	elif is_on_floor():
+		gravity.y = 0
+	else:
+		gravity.y += GRAV_FORCE*delta
+	
+	# Apply gravity
+	v += gravity
+	
+	# Move character and change state based on result
+	move_and_slide_with_snap(v, snap, up, true)
+	if is_on_floor():
+		up = get_floor_normal()
+	else:
+		up = Vector3.UP
 
 func movement_controls(delta, v):
 	var current_anim = _anim_tree.get("parameters/playback").get_current_node()
@@ -72,14 +68,14 @@ func movement_controls(delta, v):
 			dir.x -= 1.0
 	
 	if dir.length_squared() > 0.01:
-		dir = dir.rotated(Vector3.UP, camera.setup.rotation.y)
+		dir = dir.rotated(Vector3.UP, _camera.setup.rotation.y)
 		
 		# Basis = matrix form
 		var player_heading_2d := Vector2(self.transform.basis.z.x, self.transform.basis.z.z)
 		var desired_heading_2d := Vector2(dir.x, dir.z)
 		# Angle of player rotation required
 		var phi : float = desired_heading_2d.angle_to(player_heading_2d)
-		phi = phi * delta * _turning_speed
+		phi = phi * delta * turning_speed
 		# Apply rotation to body and velocity
 		self.rotation.y += phi
 		v = v.rotated(Vector3.UP, self.rotation.y)
@@ -92,9 +88,3 @@ func movement_controls(delta, v):
 		v = v.rotated(Vector3.UP, self.rotation.y)
 	
 	return v
-
-func activate():
-	activated = true
-	
-func deactivate():
-	activated = false

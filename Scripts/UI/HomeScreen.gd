@@ -1,5 +1,8 @@
 extends Control
 
+# Signals
+signal app_opened(app_name)
+
 # Nodes
 onready var _clock = $MarginContainer/VBoxContainer/HBoxContainer/Clock
 onready var _seconds = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Seconds
@@ -29,3 +32,12 @@ func _on_clock_gui_input(event):
 func _on_MarginContainer_gui_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_LEFT:
 		print("clicked!")
+
+func _on_app_opened(app_name):
+	match app_name:
+		"QuitApp":
+			GlobalControls.quit()
+		"MachiningApp":
+			print("Open machining app")
+		_:
+			emit_signal("app_opened", app_name)

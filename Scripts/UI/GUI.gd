@@ -8,6 +8,7 @@ onready var int_info = $InteractableInfo
 onready var int_res_ui = $InteractableResource
 onready var int_mac_ui = $InteractableMachine
 onready var trackables = $ResourcesAndCurrencies
+onready var quit_prompt = $QuitPrompt
 
 # State
 var _interactable_object
@@ -15,6 +16,7 @@ var _interactable_object
 func _ready():
 	int_res_ui.deactivate()
 	int_mac_ui.deactivate()
+	GlobalControls.connect("prompt_quit", self, "_on_quit_prompted")
 
 func _process(delta):
 	if Input.is_action_just_pressed("Selection 1") and _interactable_object and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -50,6 +52,10 @@ func update_trackables(wood : Big, water : Big, coal : Big, rock_chunks : Big, m
 #	"type" : "",
 #	"tile" : null
 #}
+
+func set_grid_label_text(txt):
+	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer2/ShowGridLabel.set_text(txt)
+
 func show_interactable_info(obj):
 	_interactable_object = obj
 	var data = obj.get_data()
@@ -62,16 +68,14 @@ func show_interactable_info(obj):
 func show_interactable_resource_ui():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	int_res_ui.build_from_interactable_object(_interactable_object)
-	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer/QuitLabel.set_text("Close")
-	GlobalControls.exit_captured = true
+	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.show()
 	int_res_ui.activate()
 	hide_interactable_info()
 
 func show_interactable_machine_ui():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	int_mac_ui.build_from_interactable_object(_interactable_object)
-	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer/QuitLabel.set_text("Close")
-	GlobalControls.exit_captured = true
+	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.show()
 	int_mac_ui.activate()
 	hide_interactable_info()
 
@@ -80,15 +84,26 @@ func hide_interactable_info():
 
 func hide_interactable_resource_ui():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer/QuitLabel.set_text("Quit")
-	GlobalControls.exit_captured = false
+	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.hide()
+	$ControlsInfo.hide()
+	$ControlsInfo.call_deferred("set_visible", true)
 	int_res_ui.deactivate()
 
 func hide_interactable_machine_ui():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer/QuitLabel.set_text("Quit")
-	GlobalControls.exit_captured = false
+	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.hide()
+	$ControlsInfo.hide()
+	$ControlsInfo.call_deferred("set_visible", true)
 	int_mac_ui.deactivate()
 
 func _on_InteractableObject_resource_count_changed(type, amount):
 	main.add_resource(type, amount)
+
+func _on_quit_prompted():
+	quit_prompt.show()
+
+func _on_NoQuitButton_pressed():
+	quit_prompt.hide()
+
+func _on_YesQuitButton_pressed():
+	GlobalControls.quit(true)

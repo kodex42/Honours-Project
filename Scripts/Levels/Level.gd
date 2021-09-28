@@ -3,6 +3,9 @@ extends Spatial
 # Preloads
 var _invis_box = preload("res://Scenes/State/InvisibleBox.tscn")
 
+# Exports
+export(NodePath) onready var _gui = get_node(_gui)
+
 # Nodes
 onready var interactables_grid = get_node("InteractablesGrid")
 onready var stat_objects = get_node("StaticObjects")
@@ -27,8 +30,10 @@ func _unhandled_input(event):
 		var vg = $StaticObjects/VisualGrid
 		if vg.visible:
 			vg.hide()
+			_gui.set_grid_label_text("Show Grid")
 		else:
 			vg.show()
+			_gui.set_grid_label_text("Hide Grid")
 
 func place_invis_box(pos):
 	var box = _invis_box.instance()

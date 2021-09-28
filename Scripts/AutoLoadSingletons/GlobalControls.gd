@@ -1,8 +1,10 @@
 extends Node
 
-# Global State
-var exit_captured = false
+# Signals
+signal prompt_quit()
 
-func _unhandled_input(event):
-	if Input.is_action_just_pressed("ui_cancel") and not exit_captured:
+func quit(are_you_sure = false):
+	if are_you_sure:
 		get_tree().quit()
+	else:
+		emit_signal("prompt_quit")

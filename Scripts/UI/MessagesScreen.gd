@@ -1,5 +1,8 @@
 extends Control
 
+# Signals
+signal app_opened(app_name)
+
 # Preloads
 var message_scene = preload("res://Scenes/Phone/Screens/Message.tscn")
 
@@ -39,3 +42,6 @@ func _on_PhoneGUI_message_received(msg):
 
 func _on_PhoneGUI_message_sent(msg):
 	new_message(msg, 0)
+
+func _on_BackButton_pressed():
+	emit_signal("app_opened", "Home")

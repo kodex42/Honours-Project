@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Komiku_-_04_-_Shopping_List.wav-2709d004eb8ca491cfb3f8c325b8906d.sample"
+
+[deps]
+
+source_file="res://Data/wav/Komiku_-_04_-_Shopping_List.wav"
+dest_files=[ "res://.import/Komiku_-_04_-_Shopping_List.wav-2709d004eb8ca491cfb3f8c325b8906d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
