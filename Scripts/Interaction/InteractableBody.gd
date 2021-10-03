@@ -9,13 +9,16 @@ enum ResourceType {
 	WATER,
 	COAL,
 	ROCK_CHUNK,
+	METAL,
+	CASH,
+	BYTE
 }
 
 # State
 var _inventory = {
 	"item_type" : "",
 	"amount" : 0,
-	"max" : Big.MAX_MANTISSA
+	"max" : 999
 }
 var _data = {
 	"name" : "",
@@ -54,7 +57,7 @@ func generate_mesh(mesh_name):
 
 func replace_mesh(mesh_name):
 	if $MeshInstance.get_child_count() > 0:
-		$MeshInstance.remove_child($MeshInstance.get_child(0))
+		$MeshInstance.get_child(0).queue_free()
 	generate_mesh(mesh_name)
 
 func add_to_inventory(amount):

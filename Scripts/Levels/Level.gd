@@ -23,6 +23,9 @@ func _ready():
 #	interactables_grid.put_machine("Pump", Vector3(25, 0, 25))
 #	interactables_grid.put_machine("Sawmill", Vector3(24, 0, 25))
 #	interactables_grid.put_machine("Miner", Vector3(25, 0, 24))
+#	interactables_grid.put_machine("Market", Vector3(25, 0, 24))
+#	interactables_grid.put_machine("Smelter", Vector3(25, 0, 24))
+#	interactables_grid.put_machine("Burner", Vector3(25, 0, 24))
 #	interactables_grid.benchmark()
 
 func _unhandled_input(event):

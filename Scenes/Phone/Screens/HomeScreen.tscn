@@ -1,22 +1,23 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Data/Textures/UI/Phone/HomeScreenBackground.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/UI/HomeScreen.gd" type="Script" id=2]
 [ext_resource path="res://Data/Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Scenes/Particles/HomeScreenParticles.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Phone/Apps/QuitApp.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/Phone/Apps/MachiningApp.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Phone/Apps/RefiningMachiningApp.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Phone/Apps/MessagingApp.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Phone/Apps/GathererMachiningApp.tscn" type="PackedScene" id=8]
 
-[sub_resource type="ViewportTexture" id=3]
+[sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("Viewport")
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 75
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 28
 use_filter = true
 font_data = ExtResource( 3 )
@@ -62,12 +63,12 @@ __meta__ = {
 
 [node name="ParticlesTexture" type="TextureRect" parent="MarginContainer"]
 margin_left = 10.0
-margin_top = 178.0
+margin_top = 129.0
 margin_right = 242.0
-margin_bottom = 410.0
-rect_min_size = Vector2( 232, 232 )
+margin_bottom = 459.0
+rect_min_size = Vector2( 232, 330 )
 size_flags_vertical = 4
-texture = SubResource( 3 )
+texture = SubResource( 1 )
 expand = true
 stretch_mode = 5
 
@@ -88,7 +89,7 @@ alignment = 1
 margin_right = 186.0
 margin_bottom = 89.0
 size_flags_vertical = 8
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "00:00"
 valign = 2
 __meta__ = {
@@ -109,7 +110,7 @@ alignment = 1
 margin_right = 41.0
 margin_bottom = 33.0
 size_flags_vertical = 8
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "00"
 valign = 2
 __meta__ = {
@@ -121,7 +122,7 @@ margin_top = 30.0
 margin_right = 41.0
 margin_bottom = 63.0
 size_flags_vertical = 8
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "pm"
 
 [node name="AppContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
@@ -129,22 +130,32 @@ margin_top = 93.0
 margin_right = 232.0
 margin_bottom = 568.0
 size_flags_vertical = 3
+custom_constants/vseparation = 62
 custom_constants/hseparation = 0
 columns = 2
 
-[node name="MachiningApp" parent="MarginContainer/VBoxContainer/AppContainer" instance=ExtResource( 6 )]
-
 [node name="MessagingApp" parent="MarginContainer/VBoxContainer/AppContainer" instance=ExtResource( 7 )]
-margin_left = 116.0
-margin_right = 232.0
 margin_bottom = 116.0
 
 [node name="QuitApp" parent="MarginContainer/VBoxContainer/AppContainer" instance=ExtResource( 5 )]
-margin_top = 120.0
-margin_bottom = 231.0
+margin_left = 116.0
+margin_right = 232.0
+margin_bottom = 116.0
 rect_min_size = Vector2( 0, 0 )
+
+[node name="GathererMachiningApp" parent="MarginContainer/VBoxContainer/AppContainer" instance=ExtResource( 8 )]
+margin_top = 178.0
+margin_bottom = 294.0
+
+[node name="RefiningMachiningApp" parent="MarginContainer/VBoxContainer/AppContainer" instance=ExtResource( 6 )]
+margin_left = 116.0
+margin_top = 178.0
+margin_right = 232.0
+margin_bottom = 294.0
+
 [connection signal="gui_input" from="MarginContainer" to="." method="_on_MarginContainer_gui_input"]
 [connection signal="gui_input" from="MarginContainer/VBoxContainer/HBoxContainer" to="." method="_on_clock_gui_input"]
-[connection signal="app_opened" from="MarginContainer/VBoxContainer/AppContainer/MachiningApp" to="." method="_on_app_opened"]
 [connection signal="app_opened" from="MarginContainer/VBoxContainer/AppContainer/MessagingApp" to="." method="_on_app_opened"]
 [connection signal="app_opened" from="MarginContainer/VBoxContainer/AppContainer/QuitApp" to="." method="_on_app_opened"]
+[connection signal="app_opened" from="MarginContainer/VBoxContainer/AppContainer/GathererMachiningApp" to="." method="_on_app_opened"]
+[connection signal="app_opened" from="MarginContainer/VBoxContainer/AppContainer/RefiningMachiningApp" to="." method="_on_app_opened"]

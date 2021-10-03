@@ -6,6 +6,9 @@ enum ResourceType {
 	WATER,
 	COAL,
 	ROCK_CHUNK,
+	METAL,
+	CASH,
+	BYTE
 }
 
 # Scenes
@@ -14,7 +17,10 @@ var _interactable_machines = {
 	"Excavator" : preload("res://Scenes/Interaction/Excavator.tscn"),
 	"Pump" : preload("res://Scenes/Interaction/Pump.tscn"),
 	"Sawmill" : preload("res://Scenes/Interaction/Sawmill.tscn"),
-	"Miner" : preload("res://Scenes/Interaction/Miner.tscn")
+	"Miner" : preload("res://Scenes/Interaction/Miner.tscn"),
+	"Market" : preload("res://Scenes/Interaction/Market.tscn"),
+	"Smelter" : preload("res://Scenes/Interaction/Smelter.tscn"),
+	"Burner" : preload("res://Scenes/Interaction/Burner.tscn")
 }
 
 # Nodes

@@ -32,7 +32,10 @@ func remove_from_stores(amount):
 	return val
 
 func gather_from_stores():
-	return remove_from_stores(_stores.manual_gather_rate)
+	return remove_from_stores(1)
+
+func get_stores():
+	return _stores
 
 func create(type : int, pos : Vector3, tile : TileData):
 	var body_name = "resource" 
@@ -41,18 +44,23 @@ func create(type : int, pos : Vector3, tile : TileData):
 		ResourceType.WOOD:
 			body_name = "Tree"
 			resource = "wood"
+			_stores.manual_gather_rate = 1
 			generate_mesh("tree" + letters[randi() % 7])
 		ResourceType.WATER:
 			body_name = "Water"
 			resource = "water"
+			_stores.manual_gather_rate = 0
 			generate_mesh("ground_riverTile")
+			set_collision_layer_bit(2, false)
 		ResourceType.COAL:
 			body_name = "Sooty Rock"
 			resource = "coal"
+			_stores.manual_gather_rate = 0.2
 			generate_mesh("coal_stone_tall" + letters[randi() % 9])
 		ResourceType.ROCK_CHUNK:
 			body_name = "Shiny Rock"
 			resource = "rock chunk"
+			_stores.manual_gather_rate = 0.25
 			generate_mesh("stone_tall" + letters[randi() % 9])
 	tile.set_resource(type)
 	build(tile, pos, body_name, "Resource", resource)

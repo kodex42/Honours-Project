@@ -49,7 +49,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Screen" type="MarginContainer" parent="PhoneView"]
+[node name="ScreenCollection" type="MarginContainer" parent="PhoneView"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -62,9 +62,22 @@ grow_vertical = 2
 rect_clip_content = true
 size_flags_horizontal = 0
 size_flags_vertical = 0
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+parent = NodePath("../..")
+
+[node name="MessagesScreen" parent="PhoneView/ScreenCollection" instance=ExtResource( 4 )]
+visible = false
+margin_right = 0.0
+
+[node name="HomeScreen" parent="PhoneView/ScreenCollection" instance=ExtResource( 3 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 0.0
+margin_bottom = 588.0
 
 [node name="OrbitPoint" type="VBoxContainer" parent="PhoneView"]
 anchor_left = 0.5
@@ -85,39 +98,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScreenCollection" type="Control" parent="."]
-visible = false
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -40.0
-margin_top = -40.0
-script = ExtResource( 5 )
-
-[node name="MessagesScreen" parent="ScreenCollection" instance=ExtResource( 4 )]
-
-[node name="HomeScreen" parent="ScreenCollection" instance=ExtResource( 3 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = -386.0
-margin_top = -522.0
-margin_right = -386.0
-margin_bottom = -34.0
-
 [node name="Hapax" type="Node" parent="."]
 script = ExtResource( 6 )
 
 [node name="ReplyTimer" type="Timer" parent="Hapax"]
 one_shot = true
-[connection signal="message_received" from="." to="ScreenCollection/MessagesScreen" method="_on_PhoneGUI_message_received"]
-[connection signal="message_sent" from="." to="ScreenCollection/MessagesScreen" method="_on_PhoneGUI_message_sent"]
+
+[connection signal="message_received" from="." to="PhoneView/ScreenCollection/MessagesScreen" method="_on_PhoneGUI_message_received"]
+[connection signal="message_sent" from="." to="PhoneView/ScreenCollection/MessagesScreen" method="_on_PhoneGUI_message_sent"]
 [connection signal="message_sent" from="." to="Hapax" method="_on_Phone_message_sent"]
-[connection signal="ready" from="." to="ScreenCollection" method="_on_PhoneGUI_ready"]
 [connection signal="ready" from="." to="Hapax" method="_on_Phone_ready"]
-[connection signal="toggled" from="PhoneViewport/Phone" to="ScreenCollection" method="_on_Phone_toggled"]
+[connection signal="ready" from="." to="PhoneView/ScreenCollection" method="_on_PhoneGUI_ready"]
 [connection signal="toggled" from="PhoneViewport/Phone" to="." method="_on_Phone_toggled"]
+[connection signal="toggled" from="PhoneViewport/Phone" to="PhoneView/ScreenCollection" method="_on_Phone_toggled"]
 [connection signal="gui_input" from="PhoneView" to="." method="_on_TextureRect_gui_input"]
-[connection signal="app_opened" from="ScreenCollection/MessagesScreen" to="ScreenCollection" method="_on_app_opened"]
-[connection signal="app_opened" from="ScreenCollection/HomeScreen" to="ScreenCollection" method="_on_app_opened"]
+[connection signal="app_opened" from="PhoneView/ScreenCollection/MessagesScreen" to="PhoneView/ScreenCollection" method="_on_app_opened"]
+[connection signal="app_opened" from="PhoneView/ScreenCollection/HomeScreen" to="PhoneView/ScreenCollection" method="_on_app_opened"]
 [connection signal="timeout" from="Hapax/ReplyTimer" to="Hapax" method="_on_ReplyTimer_timeout"]

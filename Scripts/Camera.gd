@@ -2,10 +2,14 @@ extends Camera
 
 # Exports
 export(NodePath) onready var target = get_node(target)
+export(NodePath) onready var ghost = get_node(ghost)
 export(Resource) var setup
 
+# Nodes
+onready var _forward_ray = $GhostRaycast
+
 # Constants
-var MOUSE_LOOK_MOD = 0.003
+var MOUSE_LOOK_MOD = 0.002
 var STICK_LOOK_MOD = 0.1
 var RS_DEAD = 0.1
 var MAX_ZOOM = -1.4
@@ -26,6 +30,7 @@ func _ready():
 		setup.look_target = Vector3(0, 0, 100.0)
 	setup.pitch_limit.x = deg2rad(setup.pitch_limit.x)
 	setup.pitch_limit.y = deg2rad(setup.pitch_limit.y)
+	_forward_ray.add_exception(target)
 
 func _process(delta):
 	# Check controls
@@ -60,6 +65,21 @@ func _process(delta):
 	
 	# Increment timers
 	time_between_zooms += delta
+	
+	# Position ghost ray cast at target location
+	_forward_ray.global_transform.origin = target.global_transform.origin + Vector3(1, 2, 1)
+	# Position ghost at the end of the vector or at the collision point
+	var pos : Vector3
+	if _forward_ray.is_colliding():
+		pos = _forward_ray.get_collision_point()
+	else:
+		pos = _forward_ray.to_global(_forward_ray.cast_to) - _forward_ray.global_transform.origin + target.global_transform.origin
+	# Refine position such that the ghost always lies on the grid
+	pos.y = 0
+	pos.x = stepify(pos.x, 2) - 1
+	pos.z = stepify(pos.z, 2) - 1
+	
+	ghost.global_transform.origin = pos
 
 func _input(event):
 	var diff : Vector2

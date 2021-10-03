@@ -2,6 +2,7 @@ extends Control
 
 # Exports
 export(NodePath) onready var main = get_node(main)
+export(NodePath) onready var camera_raycast = get_node(camera_raycast)
 
 # Nodes
 onready var int_info = $InteractableInfo
@@ -12,6 +13,7 @@ onready var quit_prompt = $QuitPrompt
 
 # State
 var _interactable_object
+var mouse_mode_to_return_to
 
 func _ready():
 	int_res_ui.deactivate()
@@ -19,7 +21,7 @@ func _ready():
 	GlobalControls.connect("prompt_quit", self, "_on_quit_prompted")
 
 func _process(delta):
-	if Input.is_action_just_pressed("Selection 1") and _interactable_object and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+	if Input.is_action_just_pressed("Selection 1") and _interactable_object and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and camera_raycast.is_colliding():
 		if _interactable_object.get_data().type == "Resource":
 			show_interactable_resource_ui()
 		if _interactable_object.get_data().type == "Machine":
@@ -57,6 +59,9 @@ func set_grid_label_text(txt):
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer2/ShowGridLabel.set_text(txt)
 
 func show_interactable_info(obj):
+	if obj.get_data().name == "Water":
+		return
+	
 	_interactable_object = obj
 	var data = obj.get_data()
 	var label_cont = $InteractableInfo/MarginContainer/VBoxContainer
@@ -100,9 +105,12 @@ func _on_InteractableObject_resource_count_changed(type, amount):
 	main.add_resource(type, amount)
 
 func _on_quit_prompted():
+	mouse_mode_to_return_to = Input.get_mouse_mode()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	quit_prompt.show()
 
 func _on_NoQuitButton_pressed():
+	Input.set_mouse_mode(mouse_mode_to_return_to)
 	quit_prompt.hide()
 
 func _on_YesQuitButton_pressed():

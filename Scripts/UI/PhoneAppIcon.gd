@@ -1,5 +1,6 @@
 extends MarginContainer
 
+# Signals
 signal app_opened(app_name)
 
 func _on_Button_pressed():

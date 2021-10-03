@@ -6,9 +6,8 @@ signal message_received(msg)
 
 # Nodes
 onready var phone = $PhoneViewport/Phone
-onready var screen = $PhoneView/Screen
 onready var orbit_point = $PhoneView/OrbitPoint
-onready var screen_collection = $ScreenCollection
+onready var screen_collection = $PhoneView/ScreenCollection
 
 # State
 var current_prompts = []
@@ -17,14 +16,9 @@ func _ready():
 	yield(orbit_point, "ready")
 
 func change_screen(screen_node : Node):
-	# Move screens back to collection
-	if screen.get_child_count() > 0:
-		for n in screen.get_children():
-			screen_collection.add_child(n)
-			screen.remove_child(n)
-	# Move screen from collection to active screen
-	screen_collection.remove_child(screen_node)
-	screen.add_child(screen_node)
+	for n in screen_collection.get_children():
+		n.hide()
+	screen_node.show()
 	# Show prompts if screen is MessagesScreen
 	check_prompts_active()
 
@@ -80,7 +74,7 @@ func _on_TextureRect_gui_input(event):
 
 func _on_Phone_toggled(on):
 	if on:
-		screen.show()
+		screen_collection.show()
 	else:
-		screen.hide()
+		screen_collection.hide()
 	check_prompts_active()
