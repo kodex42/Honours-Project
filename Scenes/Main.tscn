@@ -94,6 +94,7 @@ volume_db = -20.0
 autoplay = true
 
 [node name="GhostMachine" parent="World" instance=ExtResource( 13 )]
+visible = false
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -1, 0, 1.50995e-07, 0, 1, 0, -1.50995e-07, 0, -1, -0.28, 1.55, -1.4 )
@@ -169,3 +170,4 @@ _camera = NodePath("../Camera")
 [connection signal="machine_placement_toggled" from="Camera" to="Camera/HUD/GUIViewport/GUI" method="_on_object_placement"]
 [connection signal="machine_placement_toggled" from="Camera" to="World/Level" method="_on_machine_placement_toggled"]
 [connection signal="machine_placement_toggled" from="Camera" to="World/GhostMachine" method="_on_machine_placement_toggled"]
+[connection signal="machining_window_opened" from="Camera/HUD/GUIViewport/PhoneGUI" to="Camera/HUD/GUIViewport/GUI" method="_on_PhoneGUI_machining_window_opened"]

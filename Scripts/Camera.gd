@@ -36,8 +36,6 @@ func _ready():
 		setup.look_target = Vector3(0, 0, 100.0)
 	setup.pitch_limit.x = deg2rad(setup.pitch_limit.x)
 	setup.pitch_limit.y = deg2rad(setup.pitch_limit.y)
-	
-	place("Miner")
 
 func _process(delta):
 	# Check controls

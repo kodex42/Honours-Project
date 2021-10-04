@@ -36,7 +36,5 @@ func _on_MarginContainer_gui_input(event):
 func _on_app_opened(app_name):
 	if app_name == "QuitApp":
 		GlobalControls.quit()
-	elif "Machining" in app_name:
-		print("Display Machining GUI for " + app_name)
 	else:
 		emit_signal("app_opened", app_name)

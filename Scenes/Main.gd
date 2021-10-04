@@ -107,6 +107,24 @@ func add_resource(res_type : String, amount):
 func update_trackables():
 	_gui.update_trackables(wood, water, coal, rock_chunks, metal, cash, bytes)
 
+func attempt_craft(machine_name):
+	var costs = Constants.MACHINE_COSTS[machine_name]
+	if player_can_pay(costs):
+		_camera.place(machine_name)
+		return true
+	else:
+		return false
+
+func player_can_pay(costs):
+	if wood.isLargerThanOrEqualTo(costs.wood) and water.isLargerThanOrEqualTo(costs.water) and metal.isLargerThanOrEqualTo(costs.metal) and coal.isLargerThanOrEqualTo(costs.coal):
+		wood.minus(costs.wood)
+		water.minus(costs.water)
+		metal.minus(costs.metal)
+		coal.minus(costs.coal)
+		update_trackables()
+		return true
+	return false
+
 func get_player():
 	return _player_character
 

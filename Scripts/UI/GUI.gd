@@ -8,6 +8,7 @@ export(NodePath) onready var camera_raycast = get_node(camera_raycast)
 onready var int_info = $InteractableInfo
 onready var int_res_ui = $InteractableResource
 onready var int_mac_ui = $InteractableMachine
+onready var machining_ui = $MachiningGUI
 onready var trackables = $ResourcesAndCurrencies
 onready var quit_prompt = $QuitPrompt
 
@@ -27,11 +28,13 @@ func _process(delta):
 		if _interactable_object.get_data().type == "Machine":
 			show_interactable_machine_ui()
 		hide_interactable_info()
-	if Input.is_action_just_pressed("ui_cancel") and (int_res_ui.visible or int_mac_ui.visible):
+	if Input.is_action_just_pressed("ui_cancel") and (int_res_ui.visible or int_mac_ui.visible or machining_ui.visible):
 		if int_res_ui.visible:
 			hide_interactable_resource_ui()
 		if int_mac_ui.visible:
 			hide_interactable_machine_ui()
+		if machining_ui.visible:
+			hide_machining_ui()
 		int_info.show()
 
 func update_trackables(wood : Big, water : Big, coal : Big, rock_chunks : Big, metal : Big, cash : Big, bytes : Big):
@@ -84,6 +87,13 @@ func show_interactable_machine_ui():
 	int_mac_ui.activate()
 	hide_interactable_info()
 
+func show_machining_ui(machine_type):
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	machining_ui.build_from_machine_type(machine_type)
+	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.show()
+	machining_ui.show()
+	machining_ui.set_process_input(true)
+
 func hide_interactable_info():
 	int_info.hide()
 
@@ -100,6 +110,14 @@ func hide_interactable_machine_ui():
 	$ControlsInfo.hide()
 	$ControlsInfo.call_deferred("set_visible", true)
 	int_mac_ui.deactivate()
+
+func hide_machining_ui():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.hide()
+	$ControlsInfo.hide()
+	$ControlsInfo.call_deferred("set_visible", true)
+	machining_ui.hide()
+	machining_ui.set_process_input(false)
 
 func _on_object_placement(is_placing, obj_name):
 	if is_placing:
@@ -125,3 +143,12 @@ func _on_NoQuitButton_pressed():
 
 func _on_YesQuitButton_pressed():
 	GlobalControls.quit(true)
+
+func _on_PhoneGUI_machining_window_opened(machine_type):
+	show_machining_ui(machine_type)
+
+func _on_MachiningGUI_machine_craft_requested(machine_name):
+	if main.attempt_craft(machine_name):
+		hide_machining_ui()
+	else:
+		$Toast.toast("You cannot afford to craft that machine", Color.red)
