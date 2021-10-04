@@ -30,18 +30,32 @@ func _ready():
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("show_hide_grid"):
-		var vg = $StaticObjects/VisualGrid
-		if vg.visible:
-			vg.hide()
-			_gui.set_grid_label_text("Show Grid")
+		if $StaticObjects/VisualGrid.visible:
+			hide_grid()
 		else:
-			vg.show()
-			_gui.set_grid_label_text("Hide Grid")
+			show_grid()
+
+func show_grid():
+	$StaticObjects/VisualGrid.show()
+	_gui.set_grid_label_text("Hide Grid")
+
+func hide_grid():
+	$StaticObjects/VisualGrid.hide()
+	_gui.set_grid_label_text("Show Grid")
 
 func place_invis_box(pos):
 	var box = _invis_box.instance()
 	stat_objects.add_child(box)
 	box.global_translate(pos)
+
+func _on_machine_placed(obj_name, pos, rot):
+	interactables_grid.put_machine(obj_name, pos, false, rot)
+
+func _on_machine_placement_toggled(is_placing, obj_name):
+	if is_placing:
+		show_grid()
+	else:
+		hide_grid()
 
 #func pack():
 #	var pkg = package.duplicate(true)

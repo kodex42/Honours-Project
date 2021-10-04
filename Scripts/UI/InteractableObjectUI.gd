@@ -35,16 +35,17 @@ var _powered = false
 func build_from_interactable_object(obj):
 	_interactable_object = obj
 	var data = obj.get_data()
-	var stores = obj.get_stores()
 	label_cont.get_node("Name").set_text(data.name)
 	label_cont.get_node("Type").set_text(data.type)
 	label_cont.get_node("Tile").set_text("Tile: (" + str(data.tile.get_pos().x) + ", " + str(data.tile.get_pos().y) + ")")
-	rad_progress.set_timer_mod(stores.manual_gather_rate)
 	update_inventory()
 	
 	self._type = data.type
 	if self._type == "Machine":
 		update_power_button()
+	else:
+		var stores = obj.get_stores()
+		rad_progress.set_timer_mod(stores.manual_gather_rate)
 
 func update_inventory():
 	var inventory = _interactable_object.get_inventory()

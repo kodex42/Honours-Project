@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scenes/State/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Placeholder/AnimatedLoadingScreen.tscn" type="PackedScene" id=2]
@@ -12,7 +12,7 @@
 [ext_resource path="res://Scenes/UI/GUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/Interaction/RayCastForInteractables.gd" type="Script" id=11]
 [ext_resource path="res://Data/wav/Komiku_-_04_-_Shopping_List.wav" type="AudioStream" id=12]
-[ext_resource path="res://Data/Models/Blender/Miner.escn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/Interaction/GhostMachine.tscn" type="PackedScene" id=13]
 
 [sub_resource type="ProceduralSky" id=1]
 ground_bottom_color = Color( 0, 0.392157, 0.780392, 1 )
@@ -54,6 +54,10 @@ resource_local_to_scene = true
 material = SubResource( 5 )
 size = Vector2( 16, 9 )
 
+[sub_resource type="SphereMesh" id=7]
+radius = 0.1
+height = 0.2
+
 [node name="Main" type="Spatial"]
 script = ExtResource( 4 )
 
@@ -89,10 +93,7 @@ stream = ExtResource( 12 )
 volume_db = -20.0
 autoplay = true
 
-[node name="GhostMachine" type="Position3D" parent="World"]
-transform = Transform( -1, 0, 1.50995e-07, 0, 1, 0, -1.50995e-07, 0, -1, -0.28, 1.55, -1.4 )
-
-[node name="Miner" parent="World/GhostMachine" instance=ExtResource( 13 )]
+[node name="GhostMachine" parent="World" instance=ExtResource( 13 )]
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -1, 0, 1.50995e-07, 0, 1, 0, -1.50995e-07, 0, -1, -0.28, 1.55, -1.4 )
@@ -143,8 +144,16 @@ script = ExtResource( 11 )
 [node name="GhostRaycast" type="RayCast" parent="Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01 )
 enabled = true
-cast_to = Vector3( 0, 0, -5 )
-collision_mask = 7
+cast_to = Vector3( 0, 0, -6.4 )
+collision_mask = 2
+
+[node name="EndPoint" type="Position3D" parent="Camera/GhostRaycast"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.4 )
+
+[node name="EndPointBall" type="MeshInstance" parent="Camera/GhostRaycast/EndPoint"]
+visible = false
+mesh = SubResource( 7 )
+material/0 = null
 
 [node name="Tween" type="Tween" parent="Camera"]
 
@@ -156,3 +165,7 @@ collision_layer = 1
 _camera = NodePath("../Camera")
 
 [connection signal="timeout" from="CloseTimer" to="." method="_on_CloseTimer_timeout"]
+[connection signal="machine_placed" from="Camera" to="World/Level" method="_on_machine_placed"]
+[connection signal="machine_placement_toggled" from="Camera" to="Camera/HUD/GUIViewport/GUI" method="_on_object_placement"]
+[connection signal="machine_placement_toggled" from="Camera" to="World/Level" method="_on_machine_placement_toggled"]
+[connection signal="machine_placement_toggled" from="Camera" to="World/GhostMachine" method="_on_machine_placement_toggled"]

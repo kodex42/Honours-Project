@@ -101,6 +101,16 @@ func hide_interactable_machine_ui():
 	$ControlsInfo.call_deferred("set_visible", true)
 	int_mac_ui.deactivate()
 
+func _on_object_placement(is_placing, obj_name):
+	if is_placing:
+		$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer3.show()
+		$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer4.show()
+	else:
+		$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer3.hide()
+		$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer4.hide()
+		$ControlsInfo.hide()
+		$ControlsInfo.call_deferred("set_visible", true)
+
 func _on_InteractableObject_resource_count_changed(type, amount):
 	main.add_resource(type, amount)
 

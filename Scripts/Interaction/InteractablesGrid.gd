@@ -138,7 +138,7 @@ func put_resource(type : int, pos = Vector3(0, 0, 0)):
 		body.global_translate(Vector3(rand_range(0.0, 0.5), 0, rand_range(0.0, 0.5)))
 		body.rotate_y(rand_range(0, 2*PI))
 
-func put_machine(type : String, pos = Vector3(0, 0, 0), start_active = false):
+func put_machine(type : String, pos = Vector3(0, 0, 0), start_active = false, rot = 0):
 #	print("Placing machine type " + type + " at " + str(pos))
 	var lim = _grid.GRID_SIZE
 	# Get tile data
@@ -152,6 +152,7 @@ func put_machine(type : String, pos = Vector3(0, 0, 0), start_active = false):
 	# Translate to position
 	var global_pos = pos * 2 + Vector3(1, 0, 1) - Vector3(lim, 0, lim)
 	body.global_translate(global_pos)
+	body.rotate(Vector3(0, 1, 0), rot)
 	
 	if start_active:
 		body.interact()

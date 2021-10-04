@@ -1,5 +1,6 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
+[ext_resource path="res://Data/Textures/UI/Prompts/button_prompts_E.png" type="Texture" id=1]
 [ext_resource path="res://Data/Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Scripts/UI/GUI.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/UI/InteractableResource.tscn" type="PackedScene" id=4]
@@ -12,6 +13,8 @@
 [ext_resource path="res://Data/Textures/Resources/wood.png" type="Texture" id=11]
 [ext_resource path="res://Data/Textures/Resources/coal.png" type="Texture" id=12]
 [ext_resource path="res://Scenes/UI/InteractableMachine.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Data/Textures/UI/Prompts/button_prompts_R.png" type="Texture" id=14]
+[ext_resource path="res://Data/Textures/UI/Prompts/button_prompts_Esc.png" type="Texture" id=15]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.592157 )
@@ -75,7 +78,7 @@ margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 5 )
+texture = ExtResource( 15 )
 expand = true
 
 [node name="CloseLabel" type="Label" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer"]
@@ -110,6 +113,58 @@ margin_right = 251.0
 margin_bottom = 56.0
 custom_fonts/font = SubResource( 2 )
 text = "Show Grid"
+valign = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ControlsInfo/MarginContainer/VBoxContainer"]
+visible = false
+margin_right = 251.0
+margin_bottom = 64.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 14 )
+expand = true
+
+[node name="RotateLabel" type="Label" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 68.0
+margin_top = 8.0
+margin_right = 169.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 2 )
+text = "Rotate"
+valign = 1
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="ControlsInfo/MarginContainer/VBoxContainer"]
+visible = false
+margin_right = 251.0
+margin_bottom = 64.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer4"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 1 )
+expand = true
+
+[node name="PlaceLabel" type="Label" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer4"]
+margin_left = 68.0
+margin_top = 8.0
+margin_right = 169.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 2 )
+text = "Place"
 valign = 1
 
 [node name="ResourcesAndCurrencies" type="PanelContainer" parent="."]

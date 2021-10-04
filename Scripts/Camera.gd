@@ -1,5 +1,9 @@
 extends Camera
 
+# Signals
+signal machine_placement_toggled(is_placing, obj_name)
+signal machine_placed(obj_name, pos, rot)
+
 # Exports
 export(NodePath) onready var target = get_node(target)
 export(NodePath) onready var ghost = get_node(ghost)
@@ -21,6 +25,8 @@ var last_mouse_pos = Vector2(960, 540)
 var stick_pos = Vector2(0, 0)
 var zoom : float = MAX_ZOOM
 var time_between_zooms = 0
+var is_placing = false
+var placing_machine = null
 
 func _ready():
 	# Camera setup
@@ -30,7 +36,8 @@ func _ready():
 		setup.look_target = Vector3(0, 0, 100.0)
 	setup.pitch_limit.x = deg2rad(setup.pitch_limit.x)
 	setup.pitch_limit.y = deg2rad(setup.pitch_limit.y)
-	_forward_ray.add_exception(target)
+	
+	place("Miner")
 
 func _process(delta):
 	# Check controls
@@ -66,20 +73,24 @@ func _process(delta):
 	# Increment timers
 	time_between_zooms += delta
 	
-	# Position ghost ray cast at target location
-	_forward_ray.global_transform.origin = target.global_transform.origin + Vector3(1, 2, 1)
-	# Position ghost at the end of the vector or at the collision point
-	var pos : Vector3
-	if _forward_ray.is_colliding():
-		pos = _forward_ray.get_collision_point()
-	else:
-		pos = _forward_ray.to_global(_forward_ray.cast_to) - _forward_ray.global_transform.origin + target.global_transform.origin
-	# Refine position such that the ghost always lies on the grid
-	pos.y = 0
-	pos.x = stepify(pos.x, 2) - 1
-	pos.z = stepify(pos.z, 2) - 1
-	
-	ghost.global_transform.origin = pos
+	if is_placing:
+		# Stretch raycast to zoom level
+		var end_point = _forward_ray.get_node("EndPoint")
+		_forward_ray.cast_to.z = self.zoom - 5
+		if _forward_ray.is_colliding():
+			end_point.global_transform.origin = _forward_ray.get_collision_point()
+		else:
+			end_point.global_transform.origin = Vector3.ZERO
+			end_point.transform.origin = _forward_ray.cast_to
+		
+		# Position ghost at the end of the vector or at the collision point
+		var pos = end_point.global_transform.origin
+		# Refine position such that the ghost always lies on the grid
+		pos.y = 0
+		pos.x = stepify(pos.x + 1, 2) - 1
+		pos.z = stepify(pos.z + 1, 2) - 1
+		
+		ghost.global_transform.origin = pos
 
 func _input(event):
 	var diff : Vector2
@@ -103,12 +114,31 @@ func _input(event):
 		else:
 			stick_pos = Vector2(0, 0)
 
+func place(obj_name):
+	placing_machine = obj_name
+	is_placing = true
+	emit_signal("machine_placement_toggled", is_placing, obj_name)
+
+func un_place():
+	placing_machine = null
+	is_placing = false
+	emit_signal("machine_placement_toggled", is_placing, null)
+
 func control():
 	if stick_pos.length() > 0:
 		var dir = stick_pos * STICK_LOOK_MOD
 		setup.rotation.y -= dir.x
 		setup.rotation.x += dir.y
 		setup.rotation.x = clamp(setup.rotation.x, setup.pitch_limit.x, setup.pitch_limit.y)
+	if is_placing:
+		if Input.is_action_just_pressed("Selection 3"):
+			ghost.rotate(Vector3(0, 1, 0), -PI/2)
+		if Input.is_action_just_pressed("Selection 1"):
+			var ghost_pos = ghost.global_transform.origin
+			var grid_pos = Vector3(clamp(ghost_pos.x / 2 - 0.5, -25, 25), 0, clamp(ghost_pos.z / 2 - 0.5, -25, 25)) + Vector3(25, 0, 25)
+			emit_signal("machine_placed", placing_machine, grid_pos, ghost.global_transform.basis.get_euler().y)
+			print(grid_pos)
+			call_deferred("un_place")
 
 func collide():
 	var start = target.transform.origin + setup.anchor_offset
