@@ -66,7 +66,7 @@ func get_response(msg):
 		"I can't gather water!":
 			res.msg = "Well of course you can't, silly! How did you think you could? In your hands? Once implemented, you'll be able to gather water using a Pump!"
 		"What do I do?":
-			res.msg = "Don't worry, I'll explain everything once all features are implemented. For now, just try to break things! If you break something, be sure to let my creator know what broke and how!"
+			res.msg = "For now, you can gather wood, coal, and rocks from the resources around you. You can use these resources to build machines to help you gather these resources faster!"
 		_:
 			return
 	res.new = true
