@@ -5,7 +5,7 @@
 
 [node name="Miner" instance=ExtResource( 1 )]
 body_name = "Miner"
-produced_resource = 3
+produced_resource = 2
 machine_category = "Gathering"
 
 [node name="Miner" parent="Machine" index="0" instance=ExtResource( 2 )]

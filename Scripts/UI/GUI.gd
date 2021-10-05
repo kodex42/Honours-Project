@@ -119,6 +119,9 @@ func hide_machining_ui():
 	machining_ui.hide()
 	machining_ui.set_process_input(false)
 
+func toast_err(message):
+	$Toast.toast(message, Color.red)
+
 func _on_object_placement(is_placing, obj_name):
 	if is_placing:
 		$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer3.show()
@@ -152,3 +155,6 @@ func _on_MachiningGUI_machine_craft_requested(machine_name):
 		hide_machining_ui()
 	else:
 		$Toast.toast("You cannot afford to craft that machine", Color.red)
+
+func _on_InteractableMachine_attempt_add_ingredient(res, amount, machine):
+	main.attempt_add_ingredient(res, amount, machine)

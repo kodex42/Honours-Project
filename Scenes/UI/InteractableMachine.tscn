@@ -37,6 +37,7 @@ rad_progress = NodePath("NullObj")
 gather_button = NodePath("NullObj")
 retrieve_button = NodePath("PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/InventoryContainer/Button")
 power_button = NodePath("PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/PowerIconContainer/Button")
+ingredient_cont = NodePath("PanelContainer/HBoxContainer/LeftContainer/VBoxContainer/GridContainer")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_left = 0.5
@@ -91,6 +92,13 @@ margin_right = 240.0
 margin_bottom = 160.0
 custom_fonts/font = SubResource( 2 )
 text = "Tile"
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/HBoxContainer/LeftContainer/VBoxContainer"]
+margin_top = 168.0
+margin_right = 240.0
+margin_bottom = 480.0
+rect_min_size = Vector2( 240, 312 )
+columns = 2
 
 [node name="CenterContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
 margin_left = 256.0
@@ -148,7 +156,7 @@ anchor_bottom = 1.0
 margin_left = -41.0
 margin_top = -21.0
 margin_right = -1.0
-margin_bottom = 1.0
+margin_bottom = 3.0
 custom_fonts/font = SubResource( 3 )
 text = "0"
 align = 2
@@ -189,5 +197,6 @@ __meta__ = {
 [node name="NullObj" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
+
 [connection signal="pressed" from="PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/InventoryContainer/Button" to="." method="_on_Retrieve_Button_pressed"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/PowerIconContainer/Button" to="." method="_on_Power_Button_pressed"]

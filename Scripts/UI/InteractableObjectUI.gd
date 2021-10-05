@@ -2,17 +2,11 @@ extends Control
 
 # Signals
 signal resource_count_changed(type, amount)
+signal attempt_add_ingredient(res, amount, machine)
 
 # Preloads
-var resource_textures = {
-	"wood" : preload("res://Data/Textures/Resources/wood.png"),
-	"water" : preload("res://Data/Textures/Resources/water.png"),
-	"coal" : preload("res://Data/Textures/Resources/coal.png"),
-	"rock chunk" : preload("res://Data/Textures/Resources/rock_chunk.png"),
-	"metal" : preload("res://Data/Textures/Resources/metal.png"),
-	"cash" : preload("res://Data/Textures/Resources/cash.png"),
-	"byte" : preload("res://Data/Textures/Resources/byte.png")
-}
+var ingredient_scene = preload("res://Scenes/UI/Ingredient.tscn")
+var resource_textures = Constants.RESOURCE_ICONS
 
 # Exports
 export(NodePath) onready var label_cont = get_node(label_cont)
@@ -20,6 +14,7 @@ export(NodePath) onready var rad_progress = get_node(rad_progress)
 export(NodePath) onready var gather_button = get_node(gather_button)
 export(NodePath) onready var retrieve_button = get_node(retrieve_button)
 export(NodePath) onready var power_button = get_node(power_button)
+export(NodePath) onready var ingredient_cont = get_node(ingredient_cont)
 
 # State
 var _interactable_object = null
@@ -38,14 +33,16 @@ func build_from_interactable_object(obj):
 	label_cont.get_node("Name").set_text(data.name)
 	label_cont.get_node("Type").set_text(data.type)
 	label_cont.get_node("Tile").set_text("Tile: (" + str(data.tile.get_pos().x) + ", " + str(data.tile.get_pos().y) + ")")
-	update_inventory()
 	
 	self._type = data.type
 	if self._type == "Machine":
 		update_power_button()
+		display_ingredients()
 	else:
 		var stores = obj.get_stores()
 		rad_progress.set_timer_mod(stores.manual_gather_rate)
+	
+	update_inventory()
 
 func update_inventory():
 	var inventory = _interactable_object.get_inventory()
@@ -56,17 +53,36 @@ func update_inventory():
 	
 	var label = icon.get_node("AmountLabel")
 	label.set_text(str(inventory.amount))
+	
+	if self._type == "Machine":
+		if _interactable_object.has_ingredients():
+			for n in ingredient_cont.get_children():
+				n.update()
+		else:
+			for n in ingredient_cont.get_children():
+				n.queue_free()
 
 func update_power_button():
 	_powered = _interactable_object.is_on()
 	power_button.set("pressed", _powered)
 	set_power_button_colour(Color(0.025, 0.8, 0.1) if _powered else Color(0.5, 0.5, 0.5))
 
+func display_ingredients():
+	if _interactable_object.has_ingredients():
+		var ingredients = _interactable_object.get_required_ingredients()
+		for i in ingredients.keys():
+			var n = ingredient_scene.instance()
+			n.build(_interactable_object, i, _interactable_object.get_required_ingredient(i))
+			n.connect("attempt_add_active_ingredient", self, "on_attempted_add_active_ingredient")
+			ingredient_cont.add_child(n)
+
 func set_power_button_colour(c : Color):
 	var img = power_button.get_node("PowerIcon")
 	img.modulate = c
 
 func deactivate():
+	if _interactable_object:
+		_interactable_object.disconnect("inventory_updated", self, "update_inventory")
 	hide()
 	set_process(false)
 	set_physics_process(false)
@@ -74,6 +90,8 @@ func deactivate():
 	set_process_input(false)
 
 func activate():
+	if _interactable_object:
+		_interactable_object.connect("inventory_updated", self, "update_inventory")
 	show()
 	set_process(true)
 	set_physics_process(true)
@@ -104,3 +122,6 @@ func _on_InteractableResource_visibility_changed():
 func _on_Power_Button_pressed():
 	_interactable_object.toggle()
 	update_power_button()
+
+func on_attempted_add_active_ingredient(res, amount):
+	emit_signal("attempt_add_ingredient", res, amount, _interactable_object)

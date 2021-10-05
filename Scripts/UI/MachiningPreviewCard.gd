@@ -23,6 +23,11 @@ func build_from_machine(machine_name):
 		_:
 			desc = "Description to be written later."
 	$MachineDesc.set_text(desc)
+	var costs = Constants.MACHINE_COSTS[machine_name]
+	$GridContainer/WoodCost/HBoxContainer/Label.set_text(str(costs.wood))
+	$GridContainer/WaterCost/HBoxContainer/Label.set_text(str(costs.water))
+	$GridContainer/CoalCost/HBoxContainer/Label.set_text(str(costs.coal))
+	$GridContainer/MetalCost/HBoxContainer/Label.set_text(str(costs.metal))
 
 func _on_CraftButton_pressed():
 	emit_signal("machine_craft_requested", self.mname)

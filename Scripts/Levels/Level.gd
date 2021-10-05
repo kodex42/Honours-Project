@@ -8,6 +8,7 @@ export(NodePath) onready var _gui = get_node(_gui)
 
 # Nodes
 onready var interactables_grid = get_node("InteractablesGrid")
+onready var tile_grid = get_node("TerrainGridMap")
 onready var stat_objects = get_node("StaticObjects")
 
 # State
@@ -48,8 +49,15 @@ func place_invis_box(pos):
 	stat_objects.add_child(box)
 	box.global_translate(pos)
 
+func is_placement_legal(pos):
+	var tile = tile_grid.get_tile_data_from_coords(pos)
+	return not tile.is_occupied()
+
 func _on_machine_placed(obj_name, pos, rot):
-	interactables_grid.put_machine(obj_name, pos, false, rot)
+	if is_placement_legal(pos):
+		interactables_grid.put_machine(obj_name, pos, false, rot)
+	else:
+		_gui.toast_err("That tile is occupied")
 
 func _on_machine_placement_toggled(is_placing, obj_name):
 	if is_placing:

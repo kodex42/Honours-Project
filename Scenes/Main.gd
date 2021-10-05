@@ -115,6 +115,12 @@ func attempt_craft(machine_name):
 	else:
 		return false
 
+func attempt_add_ingredient(res, amount, machine):
+	if player_can_input(res, amount):
+		var big = string_to_big(res)
+		big.minus(amount)
+		machine.add_active_ingredient(res)
+
 func player_can_pay(costs):
 	if wood.isLargerThanOrEqualTo(costs.wood) and water.isLargerThanOrEqualTo(costs.water) and metal.isLargerThanOrEqualTo(costs.metal) and coal.isLargerThanOrEqualTo(costs.coal):
 		wood.minus(costs.wood)
@@ -124,6 +130,29 @@ func player_can_pay(costs):
 		update_trackables()
 		return true
 	return false
+
+func player_can_input(res, amount):
+	var comparing = string_to_big(res)
+	return comparing.isLargerThanOrEqualTo(amount)
+
+func string_to_big(res):
+	var big : Big
+	match res:
+		"wood":
+			big = wood
+		"water":
+			big = water
+		"rock chunk":
+			big = rock_chunks
+		"coal":
+			big = coal
+		"metal":
+			big = metal
+		"cash":
+			big = cash
+		"byte":
+			big = bytes
+	return big
 
 func get_player():
 	return _player_character

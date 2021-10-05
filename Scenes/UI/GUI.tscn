@@ -615,6 +615,7 @@ playback/speed = 1.5
 [connection signal="pressed" from="QuitPrompt/VBoxContainer/MarginContainer/HBoxContainer/NoQuitButton" to="." method="_on_NoQuitButton_pressed"]
 [connection signal="pressed" from="QuitPrompt/VBoxContainer/MarginContainer/HBoxContainer/YesQuitButton" to="." method="_on_YesQuitButton_pressed"]
 [connection signal="resource_count_changed" from="InteractableResource" to="." method="_on_InteractableObject_resource_count_changed"]
+[connection signal="attempt_add_ingredient" from="InteractableMachine" to="." method="_on_InteractableMachine_attempt_add_ingredient"]
 [connection signal="resource_count_changed" from="InteractableMachine" to="." method="_on_InteractableObject_resource_count_changed"]
 [connection signal="machine_craft_requested" from="MachiningGUI" to="." method="_on_MachiningGUI_machine_craft_requested"]
 [connection signal="tween_all_completed" from="Toast/Tween" to="Toast" method="_on_Tween_tween_all_completed"]

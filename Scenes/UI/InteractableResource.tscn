@@ -42,6 +42,7 @@ rad_progress = NodePath("PanelContainer/HBoxContainer/CenterContainer/HBoxContai
 gather_button = NodePath("PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/Button")
 retrieve_button = NodePath("PanelContainer/HBoxContainer/RightContainer/InventoryContainer/Button")
 power_button = NodePath("NullObj")
+ingredient_cont = NodePath("NullObj")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_left = 0.5

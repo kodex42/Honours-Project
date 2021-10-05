@@ -1,5 +1,8 @@
 extends StaticBody
 
+# Signal
+signal inventory_updated()
+
 # Resources
 var _res_lib : MeshLibrary = preload("res://Data/MeshLibraries/Resources.meshlib")
 
@@ -62,6 +65,7 @@ func replace_mesh(mesh_name):
 
 func add_to_inventory(amount):
 	self._inventory.amount = clamp(self._inventory.amount + amount, 0, self._inventory.max)
+	emit_signal("inventory_updated")
 
 func remove_from_inventory(amount):
 	var val
@@ -72,6 +76,7 @@ func remove_from_inventory(amount):
 		val = amount
 		self._inventory.amount -= amount
 	return val
+	emit_signal("inventory_updated")
 
 func get_data():
 	return self._data

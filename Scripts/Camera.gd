@@ -7,10 +7,13 @@ signal machine_placed(obj_name, pos, rot)
 # Exports
 export(NodePath) onready var target = get_node(target)
 export(NodePath) onready var ghost = get_node(ghost)
+export(NodePath) onready var level = get_node(level)
+export(NodePath) onready var gui = get_node(gui)
 export(Resource) var setup
 
 # Nodes
 onready var _forward_ray = $GhostRaycast
+onready var _target_ray = $InteractableDetectingRaycast
 
 # Constants
 var MOUSE_LOOK_MOD = 0.002
@@ -115,11 +118,13 @@ func _input(event):
 func place(obj_name):
 	placing_machine = obj_name
 	is_placing = true
+	_target_ray.enabled = false
 	emit_signal("machine_placement_toggled", is_placing, obj_name)
 
 func un_place():
 	placing_machine = null
 	is_placing = false
+	_target_ray.enabled = true
 	emit_signal("machine_placement_toggled", is_placing, null)
 
 func control():
@@ -134,9 +139,11 @@ func control():
 		if Input.is_action_just_pressed("Selection 1"):
 			var ghost_pos = ghost.global_transform.origin
 			var grid_pos = Vector3(clamp(ghost_pos.x / 2 - 0.5, -25, 25), 0, clamp(ghost_pos.z / 2 - 0.5, -25, 25)) + Vector3(25, 0, 25)
-			emit_signal("machine_placed", placing_machine, grid_pos, ghost.global_transform.basis.get_euler().y)
-			print(grid_pos)
-			call_deferred("un_place")
+			if level.is_placement_legal(grid_pos):
+				emit_signal("machine_placed", placing_machine, grid_pos, ghost.global_transform.basis.get_euler().y)
+				call_deferred("un_place")
+			else:
+				gui.toast_err("Cannot place in occupied tile")
 
 func collide():
 	var start = target.transform.origin + setup.anchor_offset

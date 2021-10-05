@@ -152,7 +152,9 @@ func put_machine(type : String, pos = Vector3(0, 0, 0), start_active = false, ro
 	# Translate to position
 	var global_pos = pos * 2 + Vector3(1, 0, 1) - Vector3(lim, 0, lim)
 	body.global_translate(global_pos)
-	body.rotate(Vector3(0, 1, 0), rot)
+	body.rotate(Vector3.UP, rot)
+	if body.machine_category == "Gathering":
+		body.set_resources_in_range(request_resources_in_range(body, pos, Vector3(0, 0, 1).rotated(Vector3.UP, rot)))
 	
 	if start_active:
 		body.interact()
@@ -340,3 +342,17 @@ func is_bend(body, neighbours):
 
 func corner_is_water(tile):
 	return tile.is_occupied() and tile.get_resource() == ResourceType.WATER
+
+func request_resources_in_range(requester, pos, dir):
+	var in_range = []
+	var requester_data = requester.get_data()
+	var gather_range = requester.machine_stats.Range
+	var inc = Vector2(dir.x, dir.z)
+	var next_pos = Vector2(pos.x, pos.z) + inc
+	for i in range(gather_range):
+		var tile = _grid.get_tile_data_from_coords(Vector3(next_pos.x, 0, next_pos.y))
+		if tile.is_occupied() and not tile.has_machine():
+			var res = tile.get_resource()
+			if res == requester.get_production():
+				in_range.append(tile.get_resource_node())
+	return in_range
