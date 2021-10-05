@@ -1,6 +1,6 @@
 extends Node
 
-const DEBUG = true
+const DEBUG = false
 const BASE_MACHINE_STATS = {
 	"Power" : 1.0,
 	"Speed" : 1.0,
@@ -27,10 +27,10 @@ const MACHINE_COSTS = {
 		"coal": 0
 	},
 	"Pump": {
-		"wood": "1e6",
+		"wood": "10000",
 		"water": 0,
 		"metal": 0,
-		"coal": "1e5"
+		"coal": "1000"
 	},
 	"Burner": {
 		"wood": 0,
