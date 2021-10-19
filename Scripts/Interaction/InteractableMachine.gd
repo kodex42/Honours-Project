@@ -156,7 +156,6 @@ func interact():
 	play_anim()
 
 func play_anim():
-	get_tree().call_group("Conveyer", "anim_seek", 0)
 	_anim_player.play(anim)
 
 func stop_anim():
@@ -171,5 +170,5 @@ func on_animation_finished(anim_name):
 	if body_name == "Conveyer":
 		set_conveyer_in_range(_parent.request_conveyer_in_range(self, grid_pos, facing_dir))
 		if conveyer_in_range:
-#			print(str(conveyer_in_range) + " is in range of " + str(self))
+			conveyer_in_range.anim_seek(0)
 			pass
