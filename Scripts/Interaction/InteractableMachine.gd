@@ -6,12 +6,13 @@ export var produced_resource : int
 export var machine_category : String
 
 # Nodes
-onready var parent = get_parent()
+onready var _parent = get_parent()
 onready var _anim_player = $Machine.get_child(0).get_node("AnimationPlayer")
 
 # State
 var on = false
 var facing_dir
+var grid_pos
 var machine_stats
 var accumulated_time = 0.0
 var active_ingredients = {
@@ -24,17 +25,24 @@ var active_ingredients = {
 var ingredients_required
 var requires_ingredients = false
 var resources_in_range = []
+var conveyer_in_range
 var anim
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Ready animation
 	anim = _anim_player.get_animation_list()[0]
-	_anim_player.connect("animation_started", self, "on_animation_started")
 	_anim_player.connect("animation_finished", self, "on_animation_finished")
+	
+	# Apply state
 	machine_stats = Constants.BASE_MACHINE_STATS
 	ingredients_required = Constants.MACHINE_INGREDIENTS[body_name]
 	if ingredients_required:
 		requires_ingredients = true
+	
+	# Conditional
+	if body_name == "Conveyer":
+		play_anim()
 
 func create(tile, pos):
 	var resource
@@ -73,6 +81,9 @@ func _process(delta):
 func set_resources_in_range(resources):
 	resources_in_range = resources
 
+func set_conveyer_in_range(con):
+	conveyer_in_range = con
+
 func gather(delta):
 	for r in resources_in_range:
 		add_to_inventory(r.remove_from_stores(machine_stats.Power))
@@ -96,6 +107,18 @@ func all_ingredients_active():
 		if active_ingredients[i] < val:
 			return false
 	return true
+
+func set_direction(dir):
+	facing_dir = dir
+
+func set_grid_pos(pos):
+	grid_pos = pos
+
+func get_direction():
+	return facing_dir
+
+func get_grid_pos():
+	return grid_pos
 
 func get_active_ingredients():
 	return active_ingredients
@@ -143,10 +166,10 @@ func stop_anim():
 func anim_seek(frame):
 	_anim_player.seek(frame, true)
 
-func on_animation_started(anim_name):
-	pass
-#	print(anim_name + " started")
-
 func on_animation_finished(anim_name):
 	play_anim()
-#	print(anim_name + " finished")
+	if body_name == "Conveyer":
+		set_conveyer_in_range(_parent.request_conveyer_in_range(self, grid_pos, facing_dir))
+		if conveyer_in_range:
+#			print(str(conveyer_in_range) + " is in range of " + str(self))
+			pass

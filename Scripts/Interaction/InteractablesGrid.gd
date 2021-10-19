@@ -158,10 +158,13 @@ func put_machine(type : String, pos = Vector3(0, 0, 0), start_active = false, ro
 	add_child(body)
 	# Translate to position
 	var global_pos = pos * 2 + Vector3(1, 0, 1) - Vector3(lim, 0, lim)
+	var dir = Vector3(0, 0, 1).rotated(Vector3.UP, rot)
 	body.global_translate(global_pos)
 	body.rotate(Vector3.UP, rot)
+	body.set_direction(dir)
+	body.set_grid_pos(pos)
 	if body.machine_category == "Gathering":
-		body.set_resources_in_range(request_resources_in_range(body, pos, Vector3(0, 0, 1).rotated(Vector3.UP, rot)))
+		body.set_resources_in_range(request_resources_in_range(body, pos, dir))
 	
 	if start_active:
 		body.interact()
@@ -362,4 +365,15 @@ func request_resources_in_range(requester, pos, dir):
 			var res = tile.get_resource()
 			if res == requester.get_production():
 				in_range.append(tile.get_resource_node())
+	return in_range
+
+func request_conveyer_in_range(requester, pos, dir):
+	var in_range = null
+	var inc = Vector2(dir.x, dir.z)
+	var next_pos = Vector2(pos.x, pos.z) + inc
+	var tile = _grid.get_tile_data_from_coords(Vector3(next_pos.x, 0, next_pos.y))
+	if tile.is_occupied() and tile.has_machine():
+		var machine = tile.get_machine()
+		if machine.body_name == "Conveyer":
+			in_range = machine
 	return in_range
