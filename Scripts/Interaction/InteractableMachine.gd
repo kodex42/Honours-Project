@@ -9,7 +9,7 @@ export var machine_category : String
 onready var _anim_player = $Machine.get_child(0).get_node("AnimationPlayer")
 
 # State
-var powered = false
+var on = false
 var facing_dir
 var machine_stats
 var accumulated_time = 0.0
@@ -54,36 +54,38 @@ func create(tile, pos):
 	tile.set_machine(self)
 
 func _process(delta):
-	if powered:
-		accumulated_time += delta
-		match machine_category:
-			"Gathering":
-				gather(delta)
-			"Refining":
-				refine(delta)
+	if on:
+		if machine_category == "Moving":
+			move(delta)
+		else:
+			accumulated_time += delta
+			# Check if tick has passed
+			var tick = 1.0 / machine_stats.Speed
+			if accumulated_time >= tick:
+				accumulated_time -= tick
+				# Contextual process based on machine type
+				match machine_category:
+					"Gathering":
+						gather(delta)
+					"Refining":
+						refine(delta)
 
 func set_resources_in_range(resources):
 	resources_in_range = resources
 
 func gather(delta):
-	# Check if tick has passed
-	var tick = 1.0 / machine_stats.Speed
-	if accumulated_time >= tick:
-		accumulated_time -= tick
-		for r in resources_in_range:
-			add_to_inventory(r.remove_from_stores(machine_stats.Power))
-#		print("Gathering!")
+	for r in resources_in_range:
+		add_to_inventory(r.remove_from_stores(machine_stats.Power))
 
 func refine(delta):
-	# Check if tick has passed
-	var tick = 1.0 / machine_stats.Speed
-	if accumulated_time >= tick:
-		accumulated_time -= tick
-		if all_ingredients_active():
-			for i in ingredients_required.keys():
-				var val = ingredients_required[i]
-				active_ingredients[i] -= val
-			add_to_inventory(machine_stats.Power)
+	if all_ingredients_active():
+		for i in ingredients_required.keys():
+			var val = ingredients_required[i]
+			active_ingredients[i] -= val
+		add_to_inventory(machine_stats.Power)
+
+func move(delta):
+	pass
 
 func has_ingredients():
 	return requires_ingredients
@@ -112,18 +114,18 @@ func add_active_ingredient(res_name):
 	emit_signal("inventory_updated")
 
 func is_on():
-	return powered
+	return on
 
 func get_production():
 	return produced_resource
 
 func toggle():
-	powered = not powered
+	on = not on
 	update_anim()
 
 func update_anim():
 	var anim = _anim_player.get_animation_list()[0]
-	if powered:
+	if on:
 		_anim_player.play(anim)
 	else:
 		_anim_player.stop()

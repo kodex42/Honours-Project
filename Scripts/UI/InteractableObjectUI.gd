@@ -12,6 +12,7 @@ var resource_textures = Constants.RESOURCE_ICONS
 export(NodePath) onready var label_cont = get_node(label_cont)
 export(NodePath) onready var rad_progress = get_node(rad_progress)
 export(NodePath) onready var gather_button = get_node(gather_button)
+export(NodePath) onready var inv_cont = get_node(inv_cont)
 export(NodePath) onready var retrieve_button = get_node(retrieve_button)
 export(NodePath) onready var power_button = get_node(power_button)
 export(NodePath) onready var ingredient_cont = get_node(ingredient_cont)
@@ -58,6 +59,8 @@ func update_inventory():
 		if _interactable_object.has_ingredients():
 			for n in ingredient_cont.get_children():
 				n.update()
+		elif _interactable_object.machine_category == "Moving":
+			inv_cont.hide()
 		else:
 			for n in ingredient_cont.get_children():
 				n.queue_free()

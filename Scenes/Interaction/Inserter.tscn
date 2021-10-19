@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Data/Models/Blender/Inserter.escn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Interaction/Machine.tscn" type="PackedScene" id=2]
+
+[node name="Inserter" instance=ExtResource( 2 )]
+body_name = "Inserter"
+machine_category = "Moving"
+
+[node name="Inserter" parent="Machine" index="0" instance=ExtResource( 1 )]

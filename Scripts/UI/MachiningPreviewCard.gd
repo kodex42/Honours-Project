@@ -15,7 +15,7 @@ func build_from_machine(machine_name):
 		"Miner":
 			desc = "This double-action auto-pickaxe is perfect for extracting Coal from Sooty Rocks, though the mystery of why it does not work on Shiny Rocks is mildly baffling."
 		"Excavator":
-			desc = "Grinds Shiny Rocks into pieces... maybe a little too well. The Rock Chunks it extracts will have to be refined into Metal."
+			desc = "Grinds Shiny Rocks into pieces... maybe a little too well. The Rock Chunks it extracts will have to be refined into Metal with another machine."
 		"Pump":
 			desc = "With this machine you can finally collect Water! Though how it creates the buckets the water is held in is unknown."
 		"Sawmill":

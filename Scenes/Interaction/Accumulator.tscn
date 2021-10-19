@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Data/Models/Blender/Accumulator.escn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Interaction/Machine.tscn" type="PackedScene" id=2]
+
+[node name="Accumulator" instance=ExtResource( 2 )]
+body_name = "Accumulator"
+machine_category = "Moving"
+
+[node name="Accumulator" parent="Machine" index="0" instance=ExtResource( 1 )]

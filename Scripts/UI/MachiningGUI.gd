@@ -21,6 +21,11 @@ const MACHINE_TYPES = {
 		"Burner",
 		"Smelter",
 		"Market"
+	],
+	"Moving": [
+		"Conveyer",
+		"Inserter",
+		"Accumulator"
 	]
 }
 
