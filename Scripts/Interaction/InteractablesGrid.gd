@@ -20,7 +20,14 @@ var _interactable_machines = {
 	"Miner" : preload("res://Scenes/Interaction/Miner.tscn"),
 	"Market" : preload("res://Scenes/Interaction/Market.tscn"),
 	"Smelter" : preload("res://Scenes/Interaction/Smelter.tscn"),
-	"Burner" : preload("res://Scenes/Interaction/Burner.tscn")
+	"Burner" : preload("res://Scenes/Interaction/Burner.tscn"),
+	"Conveyer" : preload("res://Scenes/Interaction/Conveyer.tscn"),
+	"Inserter" : preload("res://Scenes/Interaction/Inserter.tscn"),
+	"Accumulator" : preload("res://Scenes/Interaction/Accumulator.tscn"),
+	"Power Tower" : preload("res://Scenes/Interaction/Power Tower.tscn"),
+	"Wheel" : preload("res://Scenes/Interaction/Wheel.tscn"),
+	"Steam Engine" : preload("res://Scenes/Interaction/Steam Engine.tscn"),
+	"Reactor" : preload("res://Scenes/Interaction/Reactor.tscn")
 }
 
 # Nodes

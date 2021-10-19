@@ -78,6 +78,14 @@ func remove_from_inventory(amount):
 	return val
 	emit_signal("inventory_updated")
 
+func set_inventory(rType, amount):
+	self._inventory.item_type = rType
+	self._inventory.amount = amount
+
+func unset_inventory():
+	self._inventory.item_type = ""
+	self._inventory.amount = 0
+
 func get_data():
 	return self._data
 

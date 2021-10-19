@@ -26,6 +26,12 @@ const MACHINE_TYPES = {
 		"Conveyer",
 		"Inserter",
 		"Accumulator"
+	],
+	"Powering": [
+		"Power Tower",
+		"Wheel",
+		"Steam Engine",
+		"Reactor"
 	]
 }
 

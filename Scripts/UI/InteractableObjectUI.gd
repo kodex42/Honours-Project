@@ -59,7 +59,7 @@ func update_inventory():
 		if _interactable_object.has_ingredients():
 			for n in ingredient_cont.get_children():
 				n.update()
-		elif _interactable_object.machine_category == "Moving":
+		elif _interactable_object.machine_category == "Moving" or _interactable_object.machine_category == "Powering":
 			inv_cont.hide()
 		else:
 			for n in ingredient_cont.get_children():

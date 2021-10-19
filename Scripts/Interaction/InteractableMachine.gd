@@ -6,6 +6,7 @@ export var produced_resource : int
 export var machine_category : String
 
 # Nodes
+onready var parent = get_parent()
 onready var _anim_player = $Machine.get_child(0).get_node("AnimationPlayer")
 
 # State
@@ -23,11 +24,13 @@ var active_ingredients = {
 var ingredients_required
 var requires_ingredients = false
 var resources_in_range = []
+var anim
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var anim = _anim_player.get_animation_list()[0]
-	_anim_player.get_animation(anim).set_loop(true)
+	anim = _anim_player.get_animation_list()[0]
+	_anim_player.connect("animation_started", self, "on_animation_started")
+	_anim_player.connect("animation_finished", self, "on_animation_finished")
 	machine_stats = Constants.BASE_MACHINE_STATS
 	ingredients_required = Constants.MACHINE_INGREDIENTS[body_name]
 	if ingredients_required:
@@ -55,20 +58,17 @@ func create(tile, pos):
 
 func _process(delta):
 	if on:
-		if machine_category == "Moving":
-			move(delta)
-		else:
-			accumulated_time += delta
-			# Check if tick has passed
-			var tick = 1.0 / machine_stats.Speed
-			if accumulated_time >= tick:
-				accumulated_time -= tick
-				# Contextual process based on machine type
-				match machine_category:
-					"Gathering":
-						gather(delta)
-					"Refining":
-						refine(delta)
+		accumulated_time += delta
+		# Check if tick has passed
+		var tick = 1.0 / machine_stats.Speed
+		if accumulated_time >= tick:
+			accumulated_time -= tick
+			# Contextual process based on machine type
+			match machine_category:
+				"Gathering":
+					gather(delta)
+				"Refining":
+					refine(delta)
 
 func set_resources_in_range(resources):
 	resources_in_range = resources
@@ -124,13 +124,29 @@ func toggle():
 	update_anim()
 
 func update_anim():
-	var anim = _anim_player.get_animation_list()[0]
 	if on:
-		_anim_player.play(anim)
+		play_anim()
 	else:
-		_anim_player.stop()
-		_anim_player.seek(0, true)
+		stop_anim()
 
 func interact():
-	var anim = _anim_player.get_animation_list()[0]
+	play_anim()
+
+func play_anim():
+	get_tree().call_group("Conveyer", "anim_seek", 0)
 	_anim_player.play(anim)
+
+func stop_anim():
+	_anim_player.stop()
+	anim_seek(0)
+
+func anim_seek(frame):
+	_anim_player.seek(frame, true)
+
+func on_animation_started(anim_name):
+	pass
+#	print(anim_name + " started")
+
+func on_animation_finished(anim_name):
+	play_anim()
+#	print(anim_name + " finished")

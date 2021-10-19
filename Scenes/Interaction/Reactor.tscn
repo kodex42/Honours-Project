@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Interaction/Machine.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Data/Models/Blender/Reactor.escn" type="PackedScene" id=2]
+
+[node name="Reactor" instance=ExtResource( 1 )]
+body_name = "Reactor"
+machine_category = "Powering"
+
+[node name="Reactor" parent="Machine" index="0" instance=ExtResource( 2 )]
+transform = Transform( 0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0.13 )

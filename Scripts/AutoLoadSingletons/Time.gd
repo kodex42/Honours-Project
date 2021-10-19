@@ -3,6 +3,7 @@ extends Node
 # State
 var twelve_hour = true
 var period : String
+var anim_tick_rate = 2.0
 
 func toggle_twelve_hour():
 	twelve_hour = not twelve_hour

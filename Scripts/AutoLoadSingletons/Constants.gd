@@ -69,7 +69,7 @@ const MACHINE_COSTS = {
 		"coal": 0
 	},
 	"Wheel": {
-		"wood": 100,
+		"wood": 10,
 		"water": 0,
 		"metal": 0,
 		"coal": 5
@@ -98,6 +98,13 @@ const MACHINE_INGREDIENTS = {
 	"Excavator": null,
 	"Sawmill": null,
 	"Pump": null,
+	"Conveyer": null,
+	"Inserter": null,
+	"Accumulator": null,
+	"Power Tower": null,
+	"Wheel": null,
+	"Steam Engine": null,
+	"Reactor": null,
 	"Burner": {
 		"wood": 2,
 	},

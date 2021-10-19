@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Interaction/Machine.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Data/Models/Blender/Wheel.escn" type="PackedScene" id=2]
+
+[node name="Wheel" instance=ExtResource( 1 )]
+body_name = "Wheel"
+machine_category = "Powering"
+
+[node name="Wheel" parent="Machine" index="0" instance=ExtResource( 2 )]

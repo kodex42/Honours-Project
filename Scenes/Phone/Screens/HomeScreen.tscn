@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Data/Textures/UI/Phone/HomeScreenBackground.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/UI/HomeScreen.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Scenes/Phone/Apps/RefiningMachiningApp.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Phone/Apps/MessagingApp.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Phone/Apps/GathererMachiningApp.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Phone/Apps/MovingMachiningApp.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Phone/Apps/PoweringMachiningApp.tscn" type="PackedScene" id=10]
 
 [sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("Viewport")
@@ -153,9 +155,21 @@ margin_top = 178.0
 margin_right = 232.0
 margin_bottom = 294.0
 
+[node name="MovingMachiningApp" parent="MarginContainer/VBoxContainer/AppContainer" instance=ExtResource( 9 )]
+margin_top = 356.0
+margin_bottom = 472.0
+
+[node name="PoweringMachiningApp" parent="MarginContainer/VBoxContainer/AppContainer" instance=ExtResource( 10 )]
+margin_left = 116.0
+margin_top = 356.0
+margin_right = 232.0
+margin_bottom = 472.0
+
 [connection signal="gui_input" from="MarginContainer" to="." method="_on_MarginContainer_gui_input"]
 [connection signal="gui_input" from="MarginContainer/VBoxContainer/HBoxContainer" to="." method="_on_clock_gui_input"]
 [connection signal="app_opened" from="MarginContainer/VBoxContainer/AppContainer/MessagingApp" to="." method="_on_app_opened"]
 [connection signal="app_opened" from="MarginContainer/VBoxContainer/AppContainer/QuitApp" to="." method="_on_app_opened"]
 [connection signal="app_opened" from="MarginContainer/VBoxContainer/AppContainer/GathererMachiningApp" to="." method="_on_app_opened"]
 [connection signal="app_opened" from="MarginContainer/VBoxContainer/AppContainer/RefiningMachiningApp" to="." method="_on_app_opened"]
+[connection signal="app_opened" from="MarginContainer/VBoxContainer/AppContainer/MovingMachiningApp" to="." method="_on_app_opened"]
+[connection signal="app_opened" from="MarginContainer/VBoxContainer/AppContainer/PoweringMachiningApp" to="." method="_on_app_opened"]
