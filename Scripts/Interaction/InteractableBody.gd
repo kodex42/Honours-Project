@@ -2,6 +2,7 @@ extends StaticBody
 
 # Signal
 signal inventory_updated()
+signal add_to_player_inventory(res_type, amount)
 
 # Resources
 var _res_lib : MeshLibrary = preload("res://Data/MeshLibraries/Resources.meshlib")
@@ -44,9 +45,6 @@ func build(occupying_tile : TileData, pos : Vector3, body_name : String, body_ty
 		s_body.queue_free()
 		# Scale to correct size
 		set_deferred("scale", Vector3(2, 2, 2))
-	else:
-		# Scale to correct size
-		set_deferred("scale", Vector3(1.2, 1.2, 1.2))
 
 func generate_mesh(mesh_name):
 	# Find mesh by name
@@ -75,8 +73,8 @@ func remove_from_inventory(amount):
 	else:
 		val = amount
 		self._inventory.amount -= amount
-	return val
 	emit_signal("inventory_updated")
+	return val
 
 func set_inventory(rType, amount):
 	self._inventory.item_type = rType

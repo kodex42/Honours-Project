@@ -129,7 +129,7 @@ const MACHINE_ICONS = {
 	"Smelter" : preload("res://Data/Textures/UI/Machines/SmelterIcon.png"),
 	"Conveyer" : preload("res://Data/Textures/UI/Machines/ConveyerIcon.png"),
 	"Inserter" : preload("res://Data/Textures/UI/Machines/InserterIcon.png"),
-	"Accumulator" : preload("res://Data/Textures/UI/Machines/ConveyerIcon.png"),
+	"Accumulator" : preload("res://Data/Textures/UI/Machines/AccumulatorIcon.png"),
 	"Wheel" : preload("res://Data/Textures/UI/Machines/WheelIcon.png"),
 	"Steam Engine" : preload("res://Data/Textures/UI/Machines/SteamEngineIcon.png"),
 	"Reactor" : preload("res://Data/Textures/UI/Machines/ReactorIcon.png"),

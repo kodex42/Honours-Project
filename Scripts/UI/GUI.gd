@@ -1,8 +1,8 @@
 extends Control
 
 # Exports
-export(NodePath) onready var main = get_node(main)
-export(NodePath) onready var camera_raycast = get_node(camera_raycast)
+export(NodePath) onready var _main = get_node(_main)
+export(NodePath) onready var _camera_raycast = get_node(_camera_raycast)
 
 # Nodes
 onready var int_info = $InteractableInfo
@@ -22,11 +22,15 @@ func _ready():
 	GlobalControls.connect("prompt_quit", self, "_on_quit_prompted")
 
 func _process(delta):
-	if Input.is_action_just_pressed("Selection 1") and _interactable_object and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and camera_raycast.is_colliding():
+	if Input.is_action_just_pressed("Selection 1") and _interactable_object != null and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and int_info.visible:
 		if _interactable_object.get_data().type == "Resource":
 			show_interactable_resource_ui()
 		if _interactable_object.get_data().type == "Machine":
 			show_interactable_machine_ui()
+		if _interactable_object.get_data().type == "Resource Stack":
+			var stack = _interactable_object.get_info()
+			_main.add_resource(stack.item_type, stack.amount)
+			_interactable_object.queue_free()
 		hide_interactable_info()
 	if Input.is_action_just_pressed("ui_cancel") and (int_res_ui.visible or int_mac_ui.visible or machining_ui.visible):
 		if int_res_ui.visible:
@@ -70,7 +74,11 @@ func show_interactable_info(obj):
 	var label_cont = $InteractableInfo/MarginContainer/VBoxContainer
 	label_cont.get_node("Name").set_text("Object: " + data.name)
 	label_cont.get_node("Type").set_text("Type: " + data.type)
-	label_cont.get_node("Tile").set_text("Tile: (" + str(data.tile.get_pos().x) + ", " + str(data.tile.get_pos().y) + ")")
+	if data.tile:
+		label_cont.get_node("Tile").show()
+		label_cont.get_node("Tile").set_text("Tile: (" + str(data.tile.get_pos().x) + ", " + str(data.tile.get_pos().y) + ")")
+	else:
+		label_cont.get_node("Tile").hide()
 	int_info.show()
 
 func show_interactable_resource_ui():
@@ -133,7 +141,7 @@ func _on_object_placement(is_placing, obj_name):
 		$ControlsInfo.call_deferred("set_visible", true)
 
 func _on_InteractableObject_resource_count_changed(type, amount):
-	main.add_resource(type, amount)
+	_main.add_resource(type, amount)
 
 func _on_quit_prompted():
 	mouse_mode_to_return_to = Input.get_mouse_mode()
@@ -151,10 +159,10 @@ func _on_PhoneGUI_machining_window_opened(machine_type):
 	show_machining_ui(machine_type)
 
 func _on_MachiningGUI_machine_craft_requested(machine_name):
-	if main.attempt_craft(machine_name):
+	if _main.attempt_craft(machine_name):
 		hide_machining_ui()
 	else:
 		$Toast.toast("You cannot afford to craft that machine", Color.red)
 
 func _on_InteractableMachine_attempt_add_ingredient(res, amount, machine):
-	main.attempt_add_ingredient(res, amount, machine)
+	_main.attempt_add_ingredient(res, amount, machine)

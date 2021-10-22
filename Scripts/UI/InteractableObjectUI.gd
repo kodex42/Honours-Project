@@ -13,6 +13,7 @@ export(NodePath) onready var label_cont = get_node(label_cont)
 export(NodePath) onready var rad_progress = get_node(rad_progress)
 export(NodePath) onready var gather_button = get_node(gather_button)
 export(NodePath) onready var inv_cont = get_node(inv_cont)
+export(NodePath) onready var power_icon_cont = get_node(power_icon_cont)
 export(NodePath) onready var retrieve_button = get_node(retrieve_button)
 export(NodePath) onready var power_button = get_node(power_button)
 export(NodePath) onready var ingredient_cont = get_node(ingredient_cont)
@@ -29,6 +30,9 @@ var _powered = false
 #	"tile" : null
 #}
 func build_from_interactable_object(obj):
+	inv_cont.show()
+	power_icon_cont.show()
+	
 	_interactable_object = obj
 	var data = obj.get_data()
 	label_cont.get_node("Name").set_text(data.name)
@@ -61,6 +65,7 @@ func update_inventory():
 				n.update()
 		elif _interactable_object.machine_category == "Moving" or _interactable_object.machine_category == "Powering":
 			inv_cont.hide()
+			power_icon_cont.hide()
 		else:
 			for n in ingredient_cont.get_children():
 				n.queue_free()

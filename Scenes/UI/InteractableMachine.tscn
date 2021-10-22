@@ -36,6 +36,7 @@ label_cont = NodePath("PanelContainer/HBoxContainer/LeftContainer/VBoxContainer"
 rad_progress = NodePath("NullObj")
 gather_button = NodePath("NullObj")
 inv_cont = NodePath("PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/InventoryContainer")
+power_icon_cont = NodePath("PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/PowerIconContainer")
 retrieve_button = NodePath("PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/InventoryContainer/Button")
 power_button = NodePath("PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/PowerIconContainer/Button")
 ingredient_cont = NodePath("PanelContainer/HBoxContainer/LeftContainer/VBoxContainer/GridContainer")

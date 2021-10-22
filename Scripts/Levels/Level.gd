@@ -5,6 +5,7 @@ var _invis_box = preload("res://Scenes/State/InvisibleBox.tscn")
 
 # Exports
 export(NodePath) onready var _gui = get_node(_gui)
+export(NodePath) onready var _main = get_node(_main)
 
 # Nodes
 onready var interactables_grid = get_node("InteractablesGrid")
@@ -98,3 +99,6 @@ func _on_machine_placement_toggled(is_placing, obj_name):
 #		n.set_state(s.state)
 #		n.set_type(s.type)
 #		n.set_desc(s.desc)
+
+func _on_InteractablesGrid_add_resources_to_player_inventory(res_type, amount):
+	_main.add_resource(res_type, amount)

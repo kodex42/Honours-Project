@@ -1,5 +1,8 @@
 extends Spatial
 
+# Signals
+signal add_resources_to_player_inventory(res_type, amount)
+
 # Enums
 enum ResourceType {
 	WOOD,
@@ -13,6 +16,7 @@ enum ResourceType {
 
 # Scenes
 var _interactable_resource = preload("res://Scenes/Interaction/InteractableResource.tscn")
+var _resource_stack = preload("res://Scenes/Interaction/ResourceStack.tscn")
 var _interactable_machines = {
 	"Excavator" : preload("res://Scenes/Interaction/Excavator.tscn"),
 	"Pump" : preload("res://Scenes/Interaction/Pump.tscn"),
@@ -45,6 +49,11 @@ func benchmark():
 		for x in range(lim):
 			var machine = ["Excavator", "Pump", "Sawmill", "Miner"][randi()%4]
 			put_machine(machine, Vector3(x, 0, y), true)
+
+func create_resource_stack(rType, amount):
+	var stack = _resource_stack.instance()
+	stack.create(rType, amount)
+	return stack
 
 func generate_resources():
 	var lim = _grid.GRID_SIZE
@@ -163,6 +172,7 @@ func put_machine(type : String, pos = Vector3(0, 0, 0), start_active = false, ro
 	body.rotate(Vector3.UP, rot)
 	body.set_direction(dir)
 	body.set_grid_pos(pos)
+	body.connect("add_to_player_inventory", self, "on_machine_adding_to_player_inventory")
 	if body.machine_category == "Gathering":
 		body.set_resources_in_range(request_resources_in_range(body, pos, dir))
 	
@@ -367,13 +377,14 @@ func request_resources_in_range(requester, pos, dir):
 				in_range.append(tile.get_resource_node())
 	return in_range
 
-func request_conveyer_in_range(requester, pos, dir):
+func request_machine_in_range(requester, pos, dir):
 	var in_range = null
 	var inc = Vector2(dir.x, dir.z)
 	var next_pos = Vector2(pos.x, pos.z) + inc
 	var tile = _grid.get_tile_data_from_coords(Vector3(next_pos.x, 0, next_pos.y))
 	if tile.is_occupied() and tile.has_machine():
-		var machine = tile.get_machine()
-		if machine.body_name == "Conveyer":
-			in_range = machine
+		in_range = tile.get_machine()
 	return in_range
+
+func on_machine_adding_to_player_inventory(rType, amount):
+	emit_signal("add_resources_to_player_inventory", rType, amount)
