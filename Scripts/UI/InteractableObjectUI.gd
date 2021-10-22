@@ -3,6 +3,7 @@ extends Control
 # Signals
 signal resource_count_changed(type, amount)
 signal attempt_add_ingredient(res, amount, machine)
+signal machine_dismantled(refund)
 
 # Preloads
 var ingredient_scene = preload("res://Scenes/UI/Ingredient.tscn")
@@ -17,6 +18,7 @@ export(NodePath) onready var power_icon_cont = get_node(power_icon_cont)
 export(NodePath) onready var retrieve_button = get_node(retrieve_button)
 export(NodePath) onready var power_button = get_node(power_button)
 export(NodePath) onready var ingredient_cont = get_node(ingredient_cont)
+export(NodePath) onready var dismantle_button = get_node(dismantle_button)
 
 # State
 var _interactable_object = null
@@ -106,6 +108,9 @@ func activate():
 	set_process_unhandled_input(true)
 	set_process_input(true)
 
+func on_attempted_add_active_ingredient(res, amount):
+	emit_signal("attempt_add_ingredient", res, amount, _interactable_object)
+
 func _on_Retrieve_Button_pressed():
 	var gains = _interactable_object.remove_from_inventory(10)
 	update_inventory()
@@ -131,5 +136,9 @@ func _on_Power_Button_pressed():
 	_interactable_object.toggle()
 	update_power_button()
 
-func on_attempted_add_active_ingredient(res, amount):
-	emit_signal("attempt_add_ingredient", res, amount, _interactable_object)
+func _on_Dismantle_Button_pressed():
+	var refund = _interactable_object.dismantle()
+	_interactable_object.get_data().tile.remove_machine()
+	_interactable_object.queue_free()
+	dismantle_button.set_pressed(false)
+	emit_signal("machine_dismantled", refund)

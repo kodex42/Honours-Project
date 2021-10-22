@@ -8,6 +8,7 @@
 [node name="Machine" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
 payload_parent = NodePath("NullNode")
+abandoned_node_parent = NodePath("NullNode")
 
 [node name="CollisionShape" type="CollisionShape" parent="." index="1"]
 transform = Transform( 0.6375, 0, 0, 0, 0.450623, 0, 0, 0, 0.6375, 0, 0.450797, 0 )

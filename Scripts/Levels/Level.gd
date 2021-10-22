@@ -21,13 +21,6 @@ var package = {
 
 func _ready():
 	interactables_grid.generate_resources()
-#	interactables_grid.put_machine("Excavator", Vector3(24, 0, 24))
-#	interactables_grid.put_machine("Pump", Vector3(25, 0, 25))
-#	interactables_grid.put_machine("Sawmill", Vector3(24, 0, 25))
-#	interactables_grid.put_machine("Miner", Vector3(25, 0, 24))
-#	interactables_grid.put_machine("Market", Vector3(25, 0, 24))
-#	interactables_grid.put_machine("Smelter", Vector3(25, 0, 24))
-#	interactables_grid.put_machine("Burner", Vector3(25, 0, 24))
 #	interactables_grid.benchmark()
 
 func _unhandled_input(event):
@@ -65,40 +58,6 @@ func _on_machine_placement_toggled(is_placing, obj_name):
 		show_grid()
 	else:
 		hide_grid()
-
-#func pack():
-#	var pkg = package.duplicate(true)
-#	pkg.level = filename
-#	# Pack rigidbodies
-#	for m in $Movables.get_children():
-#		var obj = {
-#			"name" : m.name,
-#			"trans" : m.transform
-#		}
-#		pkg.movables.append(obj)
-#	# Pack special objects
-#	for s in $Special.get_children():
-#		var obj = {
-#			"name" : s.name,
-#			"state" : s.get_state(),
-#			"type" : s.get_type(),
-#			"desc" : s.get_desc()
-#		}
-#		pkg.special.append(obj)
-#	print(pkg)
-#	return pkg
-#
-#func unpack(pkg):
-#	# Unpack rigidbodies
-#	for m in pkg.movables:
-#		var n = get_node("Movables/" + m.name)
-#		n.transform = m.trans
-#	# Unpack special nodes
-#	for s in pkg.special:
-#		var n = get_node("Special/" + s.name)
-#		n.set_state(s.state)
-#		n.set_type(s.type)
-#		n.set_desc(s.desc)
 
 func _on_InteractablesGrid_add_resources_to_player_inventory(res_type, amount):
 	_main.add_resource(res_type, amount)

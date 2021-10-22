@@ -20,6 +20,7 @@ func _ready():
 	int_res_ui.deactivate()
 	int_mac_ui.deactivate()
 	GlobalControls.connect("prompt_quit", self, "_on_quit_prompted")
+	GlobalControls.connect("unprompt_quit", self, "_on_quit_unprompted")
 
 func _process(delta):
 	if Input.is_action_just_pressed("Selection 1") and _interactable_object != null and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and int_info.visible:
@@ -28,8 +29,8 @@ func _process(delta):
 		if _interactable_object.get_data().type == "Machine":
 			show_interactable_machine_ui()
 		if _interactable_object.get_data().type == "Resource Stack":
-			var stack = _interactable_object.get_info()
-			_main.add_resource(stack.item_type, stack.amount)
+			for info in _interactable_object.get_info():
+				_main.add_resource(info.item_type, info.amount)
 			_interactable_object.queue_free()
 		hide_interactable_info()
 	if Input.is_action_just_pressed("ui_cancel") and (int_res_ui.visible or int_mac_ui.visible or machining_ui.visible):
@@ -144,13 +145,15 @@ func _on_InteractableObject_resource_count_changed(type, amount):
 	_main.add_resource(type, amount)
 
 func _on_quit_prompted():
-	mouse_mode_to_return_to = Input.get_mouse_mode()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	quit_prompt.show()
 
-func _on_NoQuitButton_pressed():
-	Input.set_mouse_mode(mouse_mode_to_return_to)
+func _on_quit_unprompted():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	quit_prompt.hide()
+
+func _on_NoQuitButton_pressed():
+	GlobalControls.unquit()
 
 func _on_YesQuitButton_pressed():
 	GlobalControls.quit(true)
@@ -166,3 +169,8 @@ func _on_MachiningGUI_machine_craft_requested(machine_name):
 
 func _on_InteractableMachine_attempt_add_ingredient(res, amount, machine):
 	_main.attempt_add_ingredient(res, amount, machine)
+
+func _on_InteractableMachine_machine_dismantled(refund):
+	hide_interactable_machine_ui()
+	for i in refund.keys():
+		_main.add_resource(i, refund[i])

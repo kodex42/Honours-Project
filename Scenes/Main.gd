@@ -123,13 +123,15 @@ func attempt_add_ingredient(res, amount, machine):
 
 func player_can_pay(costs):
 	if wood.isLargerThanOrEqualTo(costs.wood) and water.isLargerThanOrEqualTo(costs.water) and metal.isLargerThanOrEqualTo(costs.metal) and coal.isLargerThanOrEqualTo(costs.coal):
-		wood.minus(costs.wood)
-		water.minus(costs.water)
-		metal.minus(costs.metal)
-		coal.minus(costs.coal)
-		update_trackables()
 		return true
 	return false
+
+func player_pay(costs):
+	wood.minus(costs.wood)
+	water.minus(costs.water)
+	metal.minus(costs.metal)
+	coal.minus(costs.coal)
+	update_trackables()
 
 func player_can_input(res, amount):
 	var comparing = string_to_big(res)

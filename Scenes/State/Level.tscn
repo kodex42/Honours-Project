@@ -95,3 +95,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0 )
 shape = SubResource( 8 )
 
 [connection signal="add_resources_to_player_inventory" from="InteractablesGrid" to="." method="_on_InteractablesGrid_add_resources_to_player_inventory"]
+[connection signal="tree_exiting" from="InteractablesGrid" to="InteractablesGrid" method="_on_InteractablesGrid_tree_exiting"]

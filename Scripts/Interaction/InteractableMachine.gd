@@ -2,6 +2,7 @@ extends "res://Scripts/Interaction/InteractableBody.gd"
 
 # Exports
 export(NodePath) onready var payload_parent = get_node(payload_parent)
+export(NodePath) onready var abandoned_node_parent = get_node(abandoned_node_parent)
 export var body_name : String
 export var produced_resource : int
 export var machine_category : String
@@ -12,9 +13,10 @@ onready var _anim_player = $Machine.get_child(0).get_node("AnimationPlayer")
 
 # State
 var on = false
-var has_payload = false
+var payload_count = 0
 var transfer_ready = false
 var transfer_point = null
+var pulls_from_producer = false
 var facing_dir
 var grid_pos
 var machine_stats
@@ -46,9 +48,14 @@ func _ready():
 	# Conditional
 	if machine_category == "Moving":
 		on = true
-		if body_name == "Conveyer":
-			play_anim()
-			get_tree().call_group("Conveyer", "reset_anim")
+		match body_name:
+			"Conveyer":
+				play_anim()
+				get_tree().call_group("Conveyer", "reset_anim")
+			"Inserter":
+				move(0)
+			"Accumulator":
+				play_anim()
 
 func create(tile, pos):
 	var resource
@@ -83,12 +90,8 @@ func _process(delta):
 					gather(delta)
 				"Refining":
 					refine(delta)
-			if body_name == "Inserter" and not has_payload:
+			if body_name == "Inserter" and payload_count == 0:
 				move(delta)
-		if is_mover() and transfer_ready and not transfer_point.has_payload:
-			transfer_payload(transfer_point)
-#		if body_name == "Conveyer" and has_payload:
-#			payload_parent.get_child(0).add_force(facing_dir * delta * 10 * machine_stats.Power, Vector3.ZERO)
 
 func set_resources_in_range(resources):
 	resources_in_range = resources
@@ -106,36 +109,43 @@ func refine(delta):
 
 func move(delta):
 	var source_machine = _parent.request_machine_in_range(self, grid_pos, -facing_dir)
-	if source_machine and source_machine.is_producer() and source_machine.has_items():
-		var rType = source_machine.get_inventory().item_type
-		var amount = source_machine.remove_from_inventory(10 * self.machine_stats.Power)
-		var stack_instance = _parent.create_resource_stack(rType, amount)
-		accept_payload(stack_instance)
+	if source_machine and source_machine.is_producer():
+		if source_machine.has_items():
+			var rType = source_machine.get_inventory().item_type
+			var amount = source_machine.remove_from_inventory(10 * self.machine_stats.Power)
+			var stack_instance = _parent.create_resource_stack(rType, amount)
+			accept_payload(stack_instance)
+		if not pulls_from_producer:
+			pulls_from_producer = true
 
 func transfer_payload(machine):
-	var payload = payload_parent.get_child(0)
-	payload_parent.remove_child(payload)
-	payload.disconnect("tree_exited", self, "on_payload_destroyed")
-	machine.accept_payload(payload, self)
-	has_payload = false
+	for payload in payload_parent.get_children():
+		payload_parent.remove_child(payload)
+		machine.accept_payload(payload, self)
+	payload_count = 0
 	transfer_ready = false
 	transfer_point = null
 
 func accept_payload(payload : Node, from = null):
 	if is_mover():
 		if body_name == "Inserter":
-			payload.make_static()
-			payload_parent.add_child(payload)
-			payload.reset_pos()
-			reset_anim()
-			play_anim()
+			if payload_count == 0:
+				payload.make_static()
+				payload_parent.add_child(payload)
+				payload.reset_pos()
+				reset_anim()
+				play_anim()
+				payload_count += 1
+			else:
+				var cur_payload = payload_parent.get_child(0)
+				cur_payload.add_info(payload.get_info())
+				payload.queue_free()
 		else:
 			payload.make_kinematic()
 			payload_parent.add_child(payload)
-			payload.reset_pos()
+			shift_payloads()
 			payload.set_constant_velocity(facing_dir * machine_stats.Power)
-		has_payload = true
-		payload.connect("tree_exited", self, "on_payload_destroyed")
+			payload_count += 1
 	else:
 		if body_name == "Accumulator":
 			add_to_player_inventory(payload.get_info())
@@ -143,19 +153,33 @@ func accept_payload(payload : Node, from = null):
 			add_active_ingredient_stack(payload.get_info())
 		payload.queue_free()
 
+func shift_payloads():
+	for i in range(0, payload_parent.get_child_count()):
+		var payload = payload_parent.get_child(i)
+		payload.reset_pos()
+		payload.shift_up(i)
+
 func abandon_payload():
-	var payload = payload_parent.get_child(0)
-	var pos = payload.global_transform.origin
-	payload_parent.remove_child(payload)
-	payload.disconnect("tree_exited", self, "on_payload_destroyed")
-	payload.hide()
-	_parent.add_child(payload)
-	payload.set_global_pos(pos)
-	payload.make_rigid()
-	has_payload = false
+	var main_payload = payload_parent.get_child(0)
+	for payload in payload_parent.get_children():
+		if payload != main_payload:
+			main_payload.add_info(payload.get_info())
+			payload.queue_free()
+	payload_parent.remove_child(main_payload)
+	abandoned_node_parent.add_child(main_payload)
+	main_payload.make_rigid()
+	main_payload.abandon()
+	main_payload.apply_central_impulse(facing_dir + Vector3.UP)
+	payload_count = 0
 
 func accepts_payloads():
-	return machine_category == "Moving" or machine_category == "Refining"
+	return (machine_category == "Moving" or machine_category == "Refining") and not pulls_from_producer
+
+func dismantle():
+	var costs = Constants.MACHINE_COSTS[body_name].duplicate(true)
+	for i in costs.keys():
+		costs[i] = costs[i] / 2
+	return costs
 
 func has_items():
 	return _inventory.amount > 0
@@ -199,11 +223,13 @@ func add_active_ingredient(res_name):
 	emit_signal("inventory_updated")
 
 func add_active_ingredient_stack(stack):
-	active_ingredients[stack.item_type] += stack.amount
+	for info in stack:
+		active_ingredients[info.item_type] += info.amount
 	emit_signal("inventory_updated")
 
 func add_to_player_inventory(stack):
-	emit_signal("add_to_player_inventory", stack.item_type, stack.amount)
+	for info in stack:
+		emit_signal("add_to_player_inventory", info.item_type, info.amount)
 
 func is_on():
 	return on
@@ -245,21 +271,17 @@ func anim_seek(frame):
 
 func attempt_payload_transfer():
 	var in_range = _parent.request_machine_in_range(self, grid_pos, facing_dir)
-	if in_range and in_range.accepts_payloads() and in_range.body_name != "Inserter":
-		transfer_ready = true
-		transfer_point = in_range
-	elif not in_range:
+	if in_range and in_range.accepts_payloads():
+		transfer_payload(in_range)
+	else:
 		abandon_payload()
 
 func on_animation_finished(anim_name):
-	if body_name == "Inserter" and has_payload:
+	if body_name == "Inserter" and payload_count > 0:
 		attempt_payload_transfer()
 	if body_name != "Wheel" and body_name != "Inserter":
 		play_anim()
 
-func on_payload_destroyed():
-	has_payload = false
-
 func _on_ConveyerEndArea_body_entered(body):
-	if has_payload:
+	if payload_count > 0:
 		attempt_payload_transfer()

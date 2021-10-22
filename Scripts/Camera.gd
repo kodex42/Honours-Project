@@ -9,6 +9,7 @@ export(NodePath) onready var target = get_node(target)
 export(NodePath) onready var ghost = get_node(ghost)
 export(NodePath) onready var level = get_node(level)
 export(NodePath) onready var gui = get_node(gui)
+export(NodePath) onready var main = get_node(main)
 export(Resource) var setup
 
 # Nodes
@@ -91,7 +92,9 @@ func _process(delta):
 		pos.x = stepify(pos.x + 1, 2) - 1
 		pos.z = stepify(pos.z + 1, 2) - 1
 		
-		ghost.global_transform.origin = pos
+		if ghost.global_transform.origin != pos:
+			ghost.global_transform.origin = pos
+			display_placement_legality()
 
 func _input(event):
 	var diff : Vector2
@@ -115,13 +118,25 @@ func _input(event):
 		else:
 			stick_pos = Vector2(0, 0)
 
+func display_placement_legality():
+	var ghost_pos = ghost.global_transform.origin
+	var grid_pos = Vector3(clamp(ghost_pos.x / 2 - 0.5, -25, 25), 0, clamp(ghost_pos.z / 2 - 0.5, -25, 25)) + Vector3(25, 0, 25)
+	ghost.set_preview_ok(level.is_placement_legal(grid_pos) and main.player_can_pay(Constants.MACHINE_COSTS[placing_machine]))
+
 func place(obj_name):
+	GlobalControls.exclude()
 	placing_machine = obj_name
 	is_placing = true
 	_target_ray.enabled = false
 	emit_signal("machine_placement_toggled", is_placing, obj_name)
+	display_placement_legality()
+
+func re_place():
+	emit_signal("machine_placement_toggled", is_placing, placing_machine)
+	ghost.set_preview_ok(false)
 
 func un_place():
+	GlobalControls.unexclude()
 	placing_machine = null
 	is_placing = false
 	_target_ray.enabled = true
@@ -139,11 +154,24 @@ func control():
 		if Input.is_action_just_pressed("Selection 1"):
 			var ghost_pos = ghost.global_transform.origin
 			var grid_pos = Vector3(clamp(ghost_pos.x / 2 - 0.5, -25, 25), 0, clamp(ghost_pos.z / 2 - 0.5, -25, 25)) + Vector3(25, 0, 25)
-			if level.is_placement_legal(grid_pos):
+			var costs = Constants.MACHINE_COSTS[placing_machine]
+			var legal = level.is_placement_legal(grid_pos)
+			var payable = main.player_can_pay(costs)
+			if legal and payable:
+				main.player_pay(costs)
 				emit_signal("machine_placed", placing_machine, grid_pos, ghost.global_transform.basis.get_euler().y)
-				call_deferred("un_place")
-			else:
+				# Check if player can afford another placement
+				if main.player_can_pay(costs):
+					call_deferred("re_place")
+				else:
+					call_deferred("un_place")
+			elif not legal:
 				gui.toast_err("Cannot place in occupied tile")
+			else:
+				gui.toast_err("You cannot afford to build that")
+				call_deferred("un_place")
+		if Input.is_action_just_pressed("ui_cancel"):
+			call_deferred("un_place")
 
 func collide():
 	var start = target.transform.origin + setup.anchor_offset

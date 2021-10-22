@@ -41,6 +41,7 @@ onready var _floor = get_parent().get_node("StaticObjects/Floor")
 
 # State
 var water_bodies = []
+var abandoned_bodies = []
 
 func benchmark():
 	var lim = _grid.GRID_SIZE
@@ -163,19 +164,18 @@ func put_machine(type : String, pos = Vector3(0, 0, 0), start_active = false, ro
 		return
 	# Instance the correct machine scene and build it
 	var body = _interactable_machines[type].instance()
-	body.create(tile, pos)
-	add_child(body)
-	# Translate to position
 	var global_pos = pos * 2 + Vector3(1, 0, 1) - Vector3(lim, 0, lim)
 	var dir = Vector3(0, 0, 1).rotated(Vector3.UP, rot)
-	body.global_translate(global_pos)
-	body.rotate(Vector3.UP, rot)
 	body.set_direction(dir)
 	body.set_grid_pos(pos)
+	body.create(tile, pos)
+	add_child(body)
+	# Translate to position and rotate
+	body.global_translate(global_pos)
+	body.rotate(Vector3.UP, rot)
 	body.connect("add_to_player_inventory", self, "on_machine_adding_to_player_inventory")
 	if body.machine_category == "Gathering":
 		body.set_resources_in_range(request_resources_in_range(body, pos, dir))
-	
 	if start_active:
 		body.interact()
 

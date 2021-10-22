@@ -29,6 +29,11 @@ func set_machine(m):
 func get_machine():
 	return _machine
 
+func remove_machine():
+	_machine = null
+	_has_machine = false
+	set_occupied(false)
+
 func set_resource(r):
 	_resource = r
 	_resource_type = r.get_type()

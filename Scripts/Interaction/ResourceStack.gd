@@ -1,7 +1,10 @@
 extends RigidBody
 
 # Exports
-export var speed = 1
+export var size_scale = 0.2
+
+# Nodes
+onready var abandonment_timer = $AbandonmentTimer
 
 # State
 var reset = false
@@ -12,12 +15,12 @@ var stack_info = {
 	"item_type" : "",
 	"amount" : 0
 }
+var stack = []
 
 func _integrate_forces(state):
 	if reset:
 		state.transform.origin = new_pos
 		reset = false
-		show()
 
 func _physics_process(delta):
 	if mode == MODE_KINEMATIC:
@@ -25,20 +28,36 @@ func _physics_process(delta):
 		global_translate(velocity * delta)
 
 func create(rType, amount):
-	stack_info.item_type = rType
-	stack_info.amount = amount
+	add_info([{
+		"item_type": rType, 
+		"amount" : amount
+		}])
 	make_static()
+
+func add_info(info_stack):
+	for info in info_stack:
+		var new_info = stack_info.duplicate()
+		new_info.item_type = info.item_type
+		new_info.amount = info.amount
+		stack.append(new_info)
+
+func abandon():
+	abandonment_timer.start()
 
 func reset_pos():
 	if mode == MODE_STATIC or mode == MODE_KINEMATIC:
 		transform.origin = Vector3.ZERO
+
+func shift_up(amount):
+	if mode == MODE_STATIC or mode == MODE_KINEMATIC:
+		transform.origin.y += amount * size_scale
 
 func set_global_pos(pos):
 	new_pos = pos
 	reset = true
 
 func get_info():
-	return stack_info
+	return stack
 
 func get_data():
 	return {
@@ -58,3 +77,6 @@ func make_rigid():
 
 func make_kinematic():
 	mode = RigidBody.MODE_KINEMATIC
+
+func _on_AbandonmentTimer_timeout():
+	queue_free()

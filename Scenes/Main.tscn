@@ -104,6 +104,7 @@ target = NodePath("../PlayerCharacter")
 ghost = NodePath("../World/GhostMachine")
 level = NodePath("../World/Level")
 gui = NodePath("HUD/GUIViewport/GUI")
+main = NodePath("..")
 setup = SubResource( 3 )
 
 [node name="HUD" type="Spatial" parent="Camera"]
@@ -169,7 +170,7 @@ _camera = NodePath("../Camera")
 
 [connection signal="timeout" from="CloseTimer" to="." method="_on_CloseTimer_timeout"]
 [connection signal="machine_placed" from="Camera" to="World/Level" method="_on_machine_placed"]
-[connection signal="machine_placement_toggled" from="Camera" to="Camera/HUD/GUIViewport/GUI" method="_on_object_placement"]
-[connection signal="machine_placement_toggled" from="Camera" to="World/Level" method="_on_machine_placement_toggled"]
 [connection signal="machine_placement_toggled" from="Camera" to="World/GhostMachine" method="_on_machine_placement_toggled"]
+[connection signal="machine_placement_toggled" from="Camera" to="World/Level" method="_on_machine_placement_toggled"]
+[connection signal="machine_placement_toggled" from="Camera" to="Camera/HUD/GUIViewport/GUI" method="_on_object_placement"]
 [connection signal="machining_window_opened" from="Camera/HUD/GUIViewport/PhoneGUI" to="Camera/HUD/GUIViewport/GUI" method="_on_PhoneGUI_machining_window_opened"]
