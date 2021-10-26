@@ -57,14 +57,14 @@ func get_response(msg):
 			res.prompts.append("Hello?")
 		"Where am I?":
 			res.msg = "Well... I'm not sure! But what I do know is how to help you do what you need to."
-			set_prompts(["What do I do?", "I can't gather water!"])
+			set_prompts(["What do I do?", "What's new?"])
 		"Who are you?":
 			res.msg = "My name is Hapax and I am a chatbot created by Satyr industries! I was made to answer any questions you might have, so ask away!"
 		"???":
 			res.msg = "!!!"
 			res.prompts.append("???")
-		"I can't gather water!":
-			res.msg = "Well of course you can't, silly! How did you think you could? In your hands? Once implemented, you'll be able to gather water using a Pump!"
+		"What's new?":
+			res.msg = "Moving machines! Now you can move resources from one machine to another without even lifting a finger! You can find them from the Home Screen."
 		"What do I do?":
 			res.msg = "For now, you can gather wood, coal, and rocks from the resources around you. You can use these resources to build machines to help you gather these resources faster!"
 		_:

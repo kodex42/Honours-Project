@@ -1,6 +1,6 @@
 extends Node
 
-const DEBUG = true
+const DEBUG = false
 const BASE_MACHINE_STATS = {
 	"Power" : 1.0,
 	"Speed" : 1.0,
@@ -9,16 +9,16 @@ const BASE_MACHINE_STATS = {
 }
 const MACHINE_COSTS = {
 	"Miner": {
-		"wood": 1000,
+		"wood": 100,
 		"water": 0,
 		"metal": 0,
-		"coal": 0
+		"coal": 5
 	},
 	"Excavator": {
-		"wood": 10000,
-		"water": 0,
+		"wood": 1000,
+		"water": 10,
 		"metal": 0,
-		"coal": 100
+		"coal": 50
 	},
 	"Sawmill": {
 		"wood": 10,
@@ -27,10 +27,10 @@ const MACHINE_COSTS = {
 		"coal": 0
 	},
 	"Pump": {
-		"wood": 10000,
+		"wood": 500,
 		"water": 0,
 		"metal": 0,
-		"coal": 1000
+		"coal": 250
 	},
 	"Burner": {
 		"wood": 10,
@@ -45,10 +45,10 @@ const MACHINE_COSTS = {
 		"coal": 25
 	},
 	"Market": {
-		"wood": 100,
-		"water": 100,
-		"metal": 100,
-		"coal": 100
+		"wood": 1000,
+		"water": 1000,
+		"metal": 1000,
+		"coal": 1000
 	},
 	"Conveyer": {
 		"wood": 1,
@@ -69,29 +69,53 @@ const MACHINE_COSTS = {
 		"coal": 0
 	},
 	"Wheel": {
-		"wood": 10,
-		"water": 0,
-		"metal": 0,
-		"coal": 5
+		"wood": "1e69",
+		"water": "1e69",
+		"metal": "1e69",
+		"coal": "1e69"
 	},
 	"Steam Engine": {
-		"wood": 1000,
-		"water": 250,
-		"metal": 50,
-		"coal": 100
+		"wood": "1e69",
+		"water": "1e69",
+		"metal": "1e69",
+		"coal": "1e69"
 	},
 	"Reactor": {
-		"wood": 10000,
-		"water": 100,
-		"metal": 500,
-		"coal": 500
+		"wood": "1e69",
+		"water": "1e69",
+		"metal": "1e69",
+		"coal": "1e69"
 	},
 	"Power Tower": {
-		"wood": 10,
-		"water": 0,
-		"metal": 10,
-		"coal": 0
+		"wood": "1e69",
+		"water": "1e69",
+		"metal": "1e69",
+		"coal": "1e69"
 	}
+#	"Wheel": {
+#		"wood": 10,
+#		"water": 0,
+#		"metal": 0,
+#		"coal": 5
+#	},
+#	"Steam Engine": {
+#		"wood": 1000,
+#		"water": 250,
+#		"metal": 50,
+#		"coal": 100
+#	},
+#	"Reactor": {
+#		"wood": 10000,
+#		"water": 100,
+#		"metal": 500,
+#		"coal": 500
+#	},
+#	"Power Tower": {
+#		"wood": 10,
+#		"water": 0,
+#		"metal": 10,
+#		"coal": 0
+#	}
 }
 const MACHINE_INGREDIENTS = {
 	"Miner": null,

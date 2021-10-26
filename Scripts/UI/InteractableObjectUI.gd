@@ -112,7 +112,11 @@ func on_attempted_add_active_ingredient(res, amount):
 	emit_signal("attempt_add_ingredient", res, amount, _interactable_object)
 
 func _on_Retrieve_Button_pressed():
-	var gains = _interactable_object.remove_from_inventory(10)
+	var gains
+	if Input.is_action_pressed("sprint"):
+		gains = _interactable_object.remove_from_inventory(50)
+	else:
+		gains = _interactable_object.remove_all_from_inventory()
 	update_inventory()
 	emit_signal("resource_count_changed", _interactable_object.get_inventory().item_type, gains)
 

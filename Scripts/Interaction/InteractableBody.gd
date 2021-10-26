@@ -76,6 +76,11 @@ func remove_from_inventory(amount):
 	emit_signal("inventory_updated")
 	return val
 
+func remove_all_from_inventory():
+	var val = self._inventory.amount
+	self._inventory.amount = 0
+	return val
+
 func set_inventory(rType, amount):
 	self._inventory.item_type = rType
 	self._inventory.amount = amount
