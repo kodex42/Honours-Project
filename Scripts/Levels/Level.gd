@@ -20,8 +20,8 @@ var package = {
 }
 
 func _ready():
-#	interactables_grid.generate_resources()
-	interactables_grid.benchmark()
+	interactables_grid.generate_resources()
+#	interactables_grid.benchmark()
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("show_hide_grid"):

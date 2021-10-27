@@ -483,7 +483,7 @@ surfaces/0 = {
 
 [sub_resource type="Animation" id=22]
 resource_name = "Lower JointAction"
-length = 1.98333
+length = 2.0
 tracks/0/type = "transform"
 tracks/0/path = NodePath("Inserter Core/Lower Joint")
 tracks/0/interp = 1
@@ -588,13 +588,3 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, 2.5 )
 collision_mask = 4
-
-[node name="FrontNeighbourArea" parent="." index="5"]
-monitorable = true
-
-[node name="BackNeighbourArea" parent="." index="6"]
-monitorable = true
-
-[connection signal="body_exited" from="FrontNeighbourArea" to="." method="_on_FrontNeighbourArea_body_exited"]
-[connection signal="body_entered" from="BackNeighbourArea" to="." method="_on_BackNeighbourArea_body_entered"]
-[connection signal="body_exited" from="BackNeighbourArea" to="." method="_on_BackNeighbourArea_body_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Data/Models/Blender/Material_026.material" type="Material" id=1]
 [ext_resource path="res://Scenes/Interaction/Machine.tscn" type="PackedScene" id=2]
@@ -130,12 +130,6 @@ surfaces/0 = {
 "vertex_count": 1222
 }
 
-[sub_resource type="BoxShape" id=10]
-extents = Vector3( 0.1, 1, 1 )
-
-[sub_resource type="BoxShape" id=11]
-extents = Vector3( 0.1, 1, 1 )
-
 [sub_resource type="BoxShape" id=12]
 extents = Vector3( 0.6, 1, 0.01 )
 
@@ -158,17 +152,17 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="Gear001" type="MeshInstance" parent="Machine/Conveyer/Converyor Core" index="0"]
-transform = Transform( 1, 0, 0, 0, 0.981686, -0.190506, 0, 0.190506, 0.981686, -0.55, 0.276, -0.887 )
+transform = Transform( 1, 0, 0, 0, 0.309019, -0.951056, 0, 0.951056, 0.309019, -0.55, 0.276, -0.887 )
 mesh = SubResource( 3 )
 material/0 = null
 
 [node name="Gear002" type="MeshInstance" parent="Machine/Conveyer/Converyor Core" index="1"]
-transform = Transform( 1, 0, 0, 0, 0.981686, -0.190506, 0, 0.190506, 0.981686, 0.55, 0.276, 0.883 )
+transform = Transform( 1, 0, 0, 0, 0.309019, -0.951056, 0, 0.951056, 0.309019, 0.55, 0.276, 0.883 )
 mesh = SubResource( 4 )
 material/0 = null
 
 [node name="Gear003" type="MeshInstance" parent="Machine/Conveyer/Converyor Core" index="2"]
-transform = Transform( 1, 0, 0, 0, 0.981686, -0.190506, 0, 0.190506, 0.981686, -0.55, 0.276, 0.887 )
+transform = Transform( 1, 0, 0, 0, 0.309019, -0.951056, 0, 0.951056, 0.309019, -0.55, 0.276, 0.887 )
 mesh = SubResource( 5 )
 material/0 = null
 
@@ -177,7 +171,7 @@ mesh = SubResource( 6 )
 material/0 = null
 
 [node name="Arrows" type="Spatial" parent="Machine/Conveyer/Converyor Core" index="4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -0.198861 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -0.138489 )
 
 [node name="DirectionArrow" type="MeshInstance" parent="Machine/Conveyer/Converyor Core/Arrows" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0, 1.49012e-08 )
@@ -190,34 +184,21 @@ mesh = SubResource( 8 )
 material/0 = null
 
 [node name="Gear004" type="MeshInstance" parent="Machine/Conveyer/Converyor Core" index="5"]
-transform = Transform( 1, 0, 0, 0, 0.981686, -0.190506, 0, 0.190506, 0.981686, 0.55, 0.276, -0.887 )
+transform = Transform( 1, 0, 0, 0, 0.309019, -0.951056, 0, 0.951056, 0.309019, 0.55, 0.276, -0.887 )
 mesh = SubResource( 9 )
 material/0 = null
 
 [node name="AbandonedStacks" type="Spatial" parent="Machine/Conveyer" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, -1 )
 
 [node name="ResourceStackPayloadConveyer" type="Spatial" parent="Machine/Conveyer" index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, -1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Machine/Conveyer" index="3"]
 method_call_mode = 1
 anims/default = ExtResource( 6 )
 
-[node name="ResourceStackBoundries" type="StaticBody" parent="Machine/Conveyer" index="4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
-collision_layer = 16
-collision_mask = 16
-
-[node name="CollisionShape" type="CollisionShape" parent="Machine/Conveyer/ResourceStackBoundries" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, 0 )
-shape = SubResource( 10 )
-
-[node name="CollisionShape2" type="CollisionShape" parent="Machine/Conveyer/ResourceStackBoundries" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0, 0 )
-shape = SubResource( 11 )
-
-[node name="ConveyerEndArea" type="Area" parent="Machine/Conveyer" index="5"]
+[node name="ConveyerEndArea" type="Area" parent="Machine/Conveyer" index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 1 )
 monitorable = false
 collision_layer = 16

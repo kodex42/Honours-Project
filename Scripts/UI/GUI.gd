@@ -29,8 +29,10 @@ func _process(delta):
 		if _interactable_object.get_data().type == "Machine":
 			show_interactable_machine_ui()
 		if _interactable_object.get_data().type == "Resource Stack":
-			for info in _interactable_object.get_info():
-				_main.add_resource(info.item_type, info.amount)
+			var stack = _interactable_object.get_info()
+			for r in stack.keys():
+				if stack[r] > 0:
+					_main.add_resource(r, stack[r])
 			_interactable_object.queue_free()
 		hide_interactable_info()
 	if Input.is_action_just_pressed("ui_cancel") and (int_res_ui.visible or int_mac_ui.visible or machining_ui.visible):

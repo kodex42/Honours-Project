@@ -13,9 +13,9 @@ onready var _anim_player = $Machine.get_child(0).get_node("AnimationPlayer")
 
 # State
 var on = false
-var payload_count = 0
 var transfer_ready = false
 var transfer_point = null
+var transfering = false
 var pulls_from_producer = false
 var facing_dir
 var grid_pos
@@ -90,7 +90,7 @@ func _process(delta):
 					gather(delta)
 				"Refining":
 					refine(delta)
-			if body_name == "Inserter" and payload_count == 0:
+			if body_name == "Inserter" and not transfering:
 				move(delta)
 
 func set_resources_in_range(resources):
@@ -119,33 +119,29 @@ func move(delta):
 			pulls_from_producer = true
 
 func transfer_payload(machine):
+	transfering = false
 	for payload in payload_parent.get_children():
 		payload_parent.remove_child(payload)
 		machine.accept_payload(payload, self)
-	payload_count = 0
 	transfer_ready = false
 	transfer_point = null
 
 func accept_payload(payload : Node, from = null):
 	if is_mover():
-		if body_name == "Inserter":
-			if payload_count == 0:
+		transfering = true
+		if payload_parent.get_child_count() == 0:
+			if body_name == "Conveyer":
+				payload.make_kinematic()
+				payload.set_constant_velocity(facing_dir * machine_stats.Power)
+			else:
 				payload.make_static()
-				payload_parent.add_child(payload)
-				payload.reset_pos()
 				reset_anim()
 				play_anim()
-				payload_count += 1
-			else:
-				var cur_payload = payload_parent.get_child(0)
-				cur_payload.add_info(payload.get_info())
-				payload.queue_free()
-		else:
-			payload.make_kinematic()
 			payload_parent.add_child(payload)
-			shift_payloads()
-			payload.set_constant_velocity(facing_dir * machine_stats.Power)
-			payload_count += 1
+			payload.reset_pos()
+		else:
+			var cur_payload = payload_parent.get_child(0)
+			cur_payload.add_info(payload)
 	else:
 		if body_name == "Accumulator":
 			add_to_player_inventory(payload.get_info())
@@ -153,25 +149,14 @@ func accept_payload(payload : Node, from = null):
 			add_active_ingredient_stack(payload.get_info())
 		payload.queue_free()
 
-func shift_payloads():
-	for i in range(0, payload_parent.get_child_count()):
-		var payload = payload_parent.get_child(i)
-		payload.reset_pos()
-		payload.shift_up(i)
-
 func abandon_payload():
-	var main_payload = payload_parent.get_child(0)
-	if main_payload:
-		for payload in payload_parent.get_children():
-			if payload != main_payload:
-				main_payload.add_info(payload.get_info())
-				payload.queue_free()
-		payload_parent.remove_child(main_payload)
-		abandoned_node_parent.add_child(main_payload)
-		main_payload.make_rigid()
-		main_payload.abandon()
-		main_payload.apply_central_impulse(facing_dir + Vector3.UP)
-	payload_count = 0
+	transfering = false
+	if payload_parent.get_child_count() > 0:
+		var payload = payload_parent.get_child(0)
+		payload_parent.remove_child(payload)
+		abandoned_node_parent.add_child(payload)
+		payload.abandon()
+		payload.apply_central_impulse(facing_dir + Vector3.UP)
 
 func accepts_payloads():
 	return (machine_category == "Moving" or machine_category == "Refining") and not pulls_from_producer
@@ -224,13 +209,14 @@ func add_active_ingredient(res_name):
 	emit_signal("inventory_updated")
 
 func add_active_ingredient_stack(stack):
-	for info in stack:
-		active_ingredients[info.item_type] += info.amount
+	for r in stack.keys():
+		if requires_ingredients.has(r):
+			active_ingredients[r] += stack[r]
 	emit_signal("inventory_updated")
 
 func add_to_player_inventory(stack):
-	for info in stack:
-		emit_signal("add_to_player_inventory", info.item_type, info.amount)
+	for r in stack.keys():
+		emit_signal("add_to_player_inventory", r, stack[r])
 
 func is_on():
 	return on
@@ -278,11 +264,11 @@ func attempt_payload_transfer():
 		abandon_payload()
 
 func on_animation_finished(anim_name):
-	if body_name == "Inserter" and payload_count > 0:
+	if body_name == "Inserter" and payload_parent.get_child_count() > 0:
 		attempt_payload_transfer()
 	if body_name != "Wheel" and body_name != "Inserter":
 		play_anim()
 
 func _on_ConveyerEndArea_body_entered(body):
-	if payload_count > 0:
+	if payload_parent.get_child_count() > 0 and body == payload_parent.get_child(0):
 		attempt_payload_transfer()
