@@ -29,9 +29,22 @@ func toggle():
 		if on:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			move_phone()
+			GlobalControls.exclude()
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			rotate_phone()
+			GlobalControls.unexclude()
+
+func toggle_set(b):
+	on = b
+	
+	# Move phone using tween
+	if on:
+		move_phone()
+		GlobalControls.exclude()
+	else:
+		rotate_phone()
+		GlobalControls.unexclude()
 
 func is_on():
 	return on
@@ -72,3 +85,6 @@ func _on_MovementTween_tween_completed(object, key):
 		_model.get_node("PhoneTabIconUp").show()
 		rotating = false
 		move_phone()
+
+func _on_HomeScreen_game_close_prompted():
+	toggle_set(false)

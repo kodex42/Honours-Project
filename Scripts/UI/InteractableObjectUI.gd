@@ -52,6 +52,8 @@ func build_from_interactable_object(obj):
 	update_inventory()
 
 func update_inventory():
+	for c in ingredient_cont.get_children():
+		ingredient_cont.remove_child(c)
 	var inventory = _interactable_object.get_inventory()
 	var res = resource_textures[inventory.item_type]
 	var icon = retrieve_button.get_node("ItemTypeIcon")

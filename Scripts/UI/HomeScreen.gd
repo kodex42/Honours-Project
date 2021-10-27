@@ -2,6 +2,7 @@ extends Control
 
 # Signals
 signal app_opened(app_name)
+signal game_close_prompted()
 
 # Nodes
 onready var _clock = $MarginContainer/VBoxContainer/HBoxContainer/Clock
@@ -36,5 +37,6 @@ func _on_MarginContainer_gui_input(event):
 func _on_app_opened(app_name):
 	if app_name == "QuitApp":
 		GlobalControls.quit()
+		emit_signal("game_close_prompted")
 	else:
 		emit_signal("app_opened", app_name)

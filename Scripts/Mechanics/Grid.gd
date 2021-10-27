@@ -23,3 +23,6 @@ func get_tile_data_from_coords(pos : Vector3):
 
 func get_tile_data(x, y):
 	return _grid_info[y][x]
+
+func get_grid():
+	return _grid_info

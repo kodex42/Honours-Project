@@ -363,14 +363,18 @@ func is_bend(body, neighbours):
 func corner_is_water(tile):
 	return tile.is_occupied() and tile.get_resource() == ResourceType.WATER
 
+func get_next_position(pos, dir):
+	var next = pos + dir
+	return [round(clamp(next.x, 0, _grid.GRID_SIZE-1)), round(clamp(next.z, 0, _grid.GRID_SIZE-1))]
+
 func request_resources_in_range(requester, pos, dir):
 	var in_range = []
 	var requester_data = requester.get_data()
 	var gather_range = requester.machine_stats.Range
-	var inc = Vector2(dir.x, dir.z)
-	var next_pos = Vector2(pos.x, pos.z) + inc
+	var next_pos = get_next_position(pos, dir)
+	var grid = _grid.get_grid()
 	for i in range(gather_range):
-		var tile = _grid.get_tile_data_from_coords(Vector3(next_pos.x, 0, next_pos.y))
+		var tile = grid[next_pos[1]][next_pos[0]]
 		if tile.is_occupied() and not tile.has_machine():
 			var res = tile.get_resource()
 			if res == requester.get_production():
@@ -379,9 +383,12 @@ func request_resources_in_range(requester, pos, dir):
 
 func request_machine_in_range(requester, pos, dir):
 	var in_range = null
-	var inc = Vector2(dir.x, dir.z)
-	var next_pos = Vector2(pos.x, pos.z) + inc
-	var tile = _grid.get_tile_data_from_coords(Vector3(next_pos.x, 0, next_pos.y))
+	var next_pos = get_next_position(pos, dir)
+	var grid = _grid.get_grid()
+	var tile = grid[next_pos[1]][next_pos[0]]
+	var tile_pos = tile.get_pos()
+	if tile_pos.x != next_pos[0] or tile_pos.y != next_pos[1]:
+		print(str(tile_pos) + " does not match " + str(next_pos))
 	if tile.is_occupied() and tile.has_machine():
 		in_range = tile.get_machine()
 	return in_range

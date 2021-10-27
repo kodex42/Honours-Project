@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scenes/State/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Placeholder/AnimatedLoadingScreen.tscn" type="PackedScene" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://Scripts/Lighting/Sun.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/UI/GUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/Interaction/RayCastForInteractables.gd" type="Script" id=11]
-[ext_resource path="res://Data/wav/Komiku_-_04_-_Shopping_List.wav" type="AudioStream" id=12]
 [ext_resource path="res://Scenes/Interaction/GhostMachine.tscn" type="PackedScene" id=13]
 
 [sub_resource type="ProceduralSky" id=1]
@@ -88,11 +87,6 @@ script = ExtResource( 9 )
 [node name="Level" parent="World" instance=ExtResource( 1 )]
 _gui = NodePath("../../Camera/HUD/GUIViewport/GUI")
 _main = NodePath("../..")
-
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="World"]
-stream = ExtResource( 12 )
-volume_db = -20.0
-autoplay = true
 
 [node name="GhostMachine" parent="World" instance=ExtResource( 13 )]
 visible = false
@@ -171,7 +165,7 @@ _camera = NodePath("../Camera")
 
 [connection signal="timeout" from="CloseTimer" to="." method="_on_CloseTimer_timeout"]
 [connection signal="machine_placed" from="Camera" to="World/Level" method="_on_machine_placed"]
-[connection signal="machine_placement_toggled" from="Camera" to="World/GhostMachine" method="_on_machine_placement_toggled"]
 [connection signal="machine_placement_toggled" from="Camera" to="Camera/HUD/GUIViewport/GUI" method="_on_object_placement"]
+[connection signal="machine_placement_toggled" from="Camera" to="World/GhostMachine" method="_on_machine_placement_toggled"]
 [connection signal="machine_placement_toggled" from="Camera" to="World/Level" method="_on_machine_placement_toggled"]
 [connection signal="machining_window_opened" from="Camera/HUD/GUIViewport/PhoneGUI" to="Camera/HUD/GUIViewport/GUI" method="_on_PhoneGUI_machining_window_opened"]

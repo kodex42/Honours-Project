@@ -582,3 +582,19 @@ anims/LowerJointAction = SubResource( 22 )
 
 [node name="AbandonedStacks" type="Spatial" parent="Machine/Inserter" index="2"]
 transform = Transform( 1, -8.21505e-08, 1.21096e-07, 8.21505e-08, 1, -1.94707e-07, -1.21096e-07, 1.94707e-07, 1, 2.45914e-07, 0.225842, 1.70088 )
+
+[node name="FrontNeighbour" type="RayCast" parent="." index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, 2.5 )
+collision_mask = 4
+
+[node name="FrontNeighbourArea" parent="." index="5"]
+monitorable = true
+
+[node name="BackNeighbourArea" parent="." index="6"]
+monitorable = true
+
+[connection signal="body_exited" from="FrontNeighbourArea" to="." method="_on_FrontNeighbourArea_body_exited"]
+[connection signal="body_entered" from="BackNeighbourArea" to="." method="_on_BackNeighbourArea_body_entered"]
+[connection signal="body_exited" from="BackNeighbourArea" to="." method="_on_BackNeighbourArea_body_exited"]

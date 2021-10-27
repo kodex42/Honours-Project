@@ -161,15 +161,16 @@ func shift_payloads():
 
 func abandon_payload():
 	var main_payload = payload_parent.get_child(0)
-	for payload in payload_parent.get_children():
-		if payload != main_payload:
-			main_payload.add_info(payload.get_info())
-			payload.queue_free()
-	payload_parent.remove_child(main_payload)
-	abandoned_node_parent.add_child(main_payload)
-	main_payload.make_rigid()
-	main_payload.abandon()
-	main_payload.apply_central_impulse(facing_dir + Vector3.UP)
+	if main_payload:
+		for payload in payload_parent.get_children():
+			if payload != main_payload:
+				main_payload.add_info(payload.get_info())
+				payload.queue_free()
+		payload_parent.remove_child(main_payload)
+		abandoned_node_parent.add_child(main_payload)
+		main_payload.make_rigid()
+		main_payload.abandon()
+		main_payload.apply_central_impulse(facing_dir + Vector3.UP)
 	payload_count = 0
 
 func accepts_payloads():
