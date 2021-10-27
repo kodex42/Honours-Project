@@ -204,13 +204,13 @@ func get_required_ingredients():
 func get_required_ingredient(res_name):
 	return ingredients_required[res_name]
 
-func add_active_ingredient(res_name):
-	active_ingredients[res_name] += 1
+func add_active_ingredient(res_name, amount):
+	active_ingredients[res_name] += amount
 	emit_signal("inventory_updated")
 
 func add_active_ingredient_stack(stack):
 	for r in stack.keys():
-		if requires_ingredients.has(r):
+		if ingredients_required.has(r):
 			active_ingredients[r] += stack[r]
 	emit_signal("inventory_updated")
 

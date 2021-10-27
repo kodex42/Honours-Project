@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Data/Textures/UI/Prompts/button_prompts_E.png" type="Texture" id=1]
 [ext_resource path="res://Data/Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=2]
@@ -17,6 +17,8 @@
 [ext_resource path="res://Data/Textures/UI/Prompts/button_prompts_Esc.png" type="Texture" id=15]
 [ext_resource path="res://Scenes/UI/MachiningGUI.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Scripts/UI/Toast.gd" type="Script" id=17]
+[ext_resource path="res://Data/Textures/UI/Interaction/RadialProgressProgress.png" type="Texture" id=18]
+[ext_resource path="res://Scripts/UI/Crosshair.gd" type="Script" id=19]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.592157 )
@@ -611,6 +613,38 @@ valign = 1
 [node name="Tween" type="Tween" parent="Toast"]
 playback_speed = 1.5
 playback/speed = 1.5
+
+[node name="Crosshair" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( 16, 16 )
+script = ExtResource( 19 )
+
+[node name="TextureRect" type="TextureRect" parent="Crosshair"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( 16, 16 )
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="Crosshair"]
 
 [connection signal="pressed" from="QuitPrompt/VBoxContainer/MarginContainer/HBoxContainer/NoQuitButton" to="." method="_on_NoQuitButton_pressed"]
 [connection signal="pressed" from="QuitPrompt/VBoxContainer/MarginContainer/HBoxContainer/YesQuitButton" to="." method="_on_YesQuitButton_pressed"]

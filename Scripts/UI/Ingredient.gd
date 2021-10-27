@@ -27,4 +27,4 @@ func update():
 	input_button.icon = Constants.RESOURCE_ICONS[ingredient]
 
 func _on_InputButton_pressed():
-	emit_signal("attempt_add_active_ingredient", ingredient, 1)
+	emit_signal("attempt_add_active_ingredient", ingredient, amount_needed)

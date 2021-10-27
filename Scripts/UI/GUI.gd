@@ -11,6 +11,7 @@ onready var int_mac_ui = $InteractableMachine
 onready var machining_ui = $MachiningGUI
 onready var trackables = $ResourcesAndCurrencies
 onready var quit_prompt = $QuitPrompt
+onready var crosshair = $Crosshair
 
 # State
 var _interactable_object
@@ -43,6 +44,7 @@ func _process(delta):
 		if machining_ui.visible:
 			hide_machining_ui()
 		int_info.show()
+		crosshair.show()
 
 func update_trackables(wood : Big, water : Big, coal : Big, rock_chunks : Big, metal : Big, cash : Big, bytes : Big):
 	var trackables_cont = trackables.get_node("MarginContainer/VBoxContainer")
@@ -83,6 +85,7 @@ func show_interactable_info(obj):
 	else:
 		label_cont.get_node("Tile").hide()
 	int_info.show()
+	crosshair.enlarge()
 
 func show_interactable_resource_ui():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -90,6 +93,7 @@ func show_interactable_resource_ui():
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.show()
 	int_res_ui.activate()
 	hide_interactable_info()
+	crosshair.hide()
 
 func show_interactable_machine_ui():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -97,6 +101,7 @@ func show_interactable_machine_ui():
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.show()
 	int_mac_ui.activate()
 	hide_interactable_info()
+	crosshair.hide()
 
 func show_machining_ui(machine_type):
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -104,9 +109,12 @@ func show_machining_ui(machine_type):
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.show()
 	machining_ui.show()
 	machining_ui.set_process_input(true)
+	hide_interactable_info()
+	crosshair.hide()
 
 func hide_interactable_info():
 	int_info.hide()
+	crosshair.delarge()
 
 func hide_interactable_resource_ui():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -149,10 +157,12 @@ func _on_InteractableObject_resource_count_changed(type, amount):
 func _on_quit_prompted():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	quit_prompt.show()
+	crosshair.hide()
 
 func _on_quit_unprompted():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	quit_prompt.hide()
+	crosshair.show()
 
 func _on_NoQuitButton_pressed():
 	GlobalControls.unquit()

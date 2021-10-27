@@ -2,6 +2,7 @@ extends RayCast
 
 # Nodes
 onready var gui = get_parent().get_node("HUD/GUIViewport/GUI")
+onready var camera = get_parent()
 
 # State
 var colliding_body

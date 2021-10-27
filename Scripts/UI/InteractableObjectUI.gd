@@ -52,8 +52,6 @@ func build_from_interactable_object(obj):
 	update_inventory()
 
 func update_inventory():
-	for c in ingredient_cont.get_children():
-		ingredient_cont.remove_child(c)
 	var inventory = _interactable_object.get_inventory()
 	var res = resource_textures[inventory.item_type]
 	var icon = retrieve_button.get_node("ItemTypeIcon")
@@ -80,6 +78,8 @@ func update_power_button():
 	set_power_button_colour(Color(0.025, 0.8, 0.1) if _powered else Color(0.5, 0.5, 0.5))
 
 func display_ingredients():
+	for c in ingredient_cont.get_children():
+		ingredient_cont.remove_child(c)
 	if _interactable_object.has_ingredients():
 		var ingredients = _interactable_object.get_required_ingredients()
 		for i in ingredients.keys():

@@ -10,6 +10,7 @@ export(NodePath) onready var ghost = get_node(ghost)
 export(NodePath) onready var level = get_node(level)
 export(NodePath) onready var gui = get_node(gui)
 export(NodePath) onready var main = get_node(main)
+export(NodePath) onready var interaction_cast = get_node(interaction_cast)
 export(Resource) var setup
 
 # Nodes
@@ -68,6 +69,9 @@ func _process(delta):
 	# Move to offset and look at target
 	self.transform.origin += target_offset
 	self.look_at(look_at, Vector3.UP)
+	
+	# Set position of interaction raycast
+	interaction_cast.transform.origin.z = zoom + 1.39
 	
 	# Check for collision
 	collide()
