@@ -19,6 +19,7 @@ export(NodePath) onready var retrieve_button = get_node(retrieve_button)
 export(NodePath) onready var power_button = get_node(power_button)
 export(NodePath) onready var ingredient_cont = get_node(ingredient_cont)
 export(NodePath) onready var dismantle_button = get_node(dismantle_button)
+export(NodePath) onready var add_all_ingredients_btn = get_node(add_all_ingredients_btn)
 
 # State
 var _interactable_object = null
@@ -45,6 +46,10 @@ func build_from_interactable_object(obj):
 	if self._type == "Machine":
 		update_power_button()
 		display_ingredients()
+		if _interactable_object.body_name == "Market":
+			inv_cont.hide()
+		else:
+			inv_cont.show()
 	else:
 		var stores = obj.get_stores()
 		rad_progress.set_timer_mod(stores.manual_gather_rate)
@@ -87,6 +92,10 @@ func display_ingredients():
 			n.build(_interactable_object, i, _interactable_object.get_required_ingredient(i))
 			n.connect("attempt_add_active_ingredient", self, "on_attempted_add_active_ingredient")
 			ingredient_cont.add_child(n)
+	if ingredient_cont.get_child_count() > 0:
+		add_all_ingredients_btn.show()
+	else:
+		add_all_ingredients_btn.hide()
 
 func set_power_button_colour(c : Color):
 	var img = power_button.get_node("PowerIcon")
@@ -148,3 +157,7 @@ func _on_Dismantle_Button_pressed():
 	_interactable_object.queue_free()
 	dismantle_button.set_pressed(false)
 	emit_signal("machine_dismantled", refund)
+
+func _on_AddAllIngredientsButton_pressed():
+	for i in ingredient_cont.get_children():
+		i.add_ingredients()

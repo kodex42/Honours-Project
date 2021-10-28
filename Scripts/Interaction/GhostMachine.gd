@@ -9,6 +9,8 @@ func set_preview_ok(ok):
 #	$PreviewBox.mesh.surface_set_material(0, material)
 
 func _on_machine_placement_toggled(is_placing, obj_name):
+	for c in get_children():
+		c.hide()
 	if is_placing:
 		show()
 		$Direction.show()
@@ -18,5 +20,3 @@ func _on_machine_placement_toggled(is_placing, obj_name):
 			$Opposite.show()
 	else:
 		hide()
-		for c in get_children():
-			c.hide()

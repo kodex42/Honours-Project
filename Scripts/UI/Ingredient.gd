@@ -26,5 +26,8 @@ func update():
 	amount_input.set_text(str(machine_node.get_active_ingredient(ingredient)))
 	input_button.icon = Constants.RESOURCE_ICONS[ingredient]
 
-func _on_InputButton_pressed():
+func add_ingredients():
 	emit_signal("attempt_add_active_ingredient", ingredient, amount_needed)
+
+func _on_InputButton_pressed():
+	add_ingredients()

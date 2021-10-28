@@ -46,6 +46,7 @@ retrieve_button = NodePath("PanelContainer/HBoxContainer/RightContainer/Inventor
 power_button = NodePath("NullObj")
 ingredient_cont = NodePath("NullObj")
 dismantle_button = NodePath("NullObj")
+add_all_ingredients_btn = NodePath("NullObj")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_left = 0.5

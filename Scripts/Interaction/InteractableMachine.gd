@@ -105,7 +105,11 @@ func refine(delta):
 		for i in ingredients_required.keys():
 			var val = ingredients_required[i]
 			active_ingredients[i] -= val
-		add_to_inventory(machine_stats.Power)
+		if body_name != "Market":
+			add_to_inventory(machine_stats.Power)
+		else:
+			emit_signal("add_to_player_inventory", "cash", machine_stats.Power)
+			emit_signal("inventory_updated")
 
 func move(delta):
 	var source_machine = _parent.request_machine_in_range(self, grid_pos, -facing_dir)

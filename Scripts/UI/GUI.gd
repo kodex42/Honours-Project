@@ -45,6 +45,7 @@ func _process(delta):
 			hide_machining_ui()
 		int_info.show()
 		crosshair.show()
+		crosshair.enlarge()
 
 func update_trackables(wood : Big, water : Big, coal : Big, rock_chunks : Big, metal : Big, cash : Big, bytes : Big):
 	var trackables_cont = trackables.get_node("MarginContainer/VBoxContainer")
@@ -176,6 +177,7 @@ func _on_PhoneGUI_machining_window_opened(machine_type):
 func _on_MachiningGUI_machine_craft_requested(machine_name):
 	if _main.attempt_craft(machine_name):
 		hide_machining_ui()
+		crosshair.show()
 	else:
 		$Toast.toast("You cannot afford to craft that machine", Color.red)
 

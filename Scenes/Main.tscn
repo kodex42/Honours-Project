@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scenes/State/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Placeholder/AnimatedLoadingScreen.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Scripts/Lighting/Sun.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/UI/GUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/Interaction/RayCastForInteractables.gd" type="Script" id=11]
+[ext_resource path="res://Data/wav/Komiku_-_04_-_Shopping_List.wav" type="AudioStream" id=12]
 [ext_resource path="res://Scenes/Interaction/GhostMachine.tscn" type="PackedScene" id=13]
 
 [sub_resource type="ProceduralSky" id=1]
@@ -53,10 +54,10 @@ resource_local_to_scene = true
 material = SubResource( 5 )
 size = Vector2( 16, 9 )
 
-[sub_resource type="CylinderMesh" id=8]
+[sub_resource type="CylinderMesh" id=7]
 height = 10.0
 
-[sub_resource type="SphereMesh" id=7]
+[sub_resource type="SphereMesh" id=8]
 radius = 0.1
 height = 0.2
 
@@ -147,7 +148,7 @@ script = ExtResource( 11 )
 [node name="MeshInstance" type="MeshInstance" parent="Camera/InteractableDetectingRaycast"]
 transform = Transform( 0.1, -1.50995e-07, -1.50995e-08, 1.50995e-08, -4.37114e-09, 0.1, -1.50995e-08, -1, -4.37114e-08, -8.04663e-07, 0, -5 )
 visible = false
-mesh = SubResource( 8 )
+mesh = SubResource( 7 )
 material/0 = null
 
 [node name="GhostRaycast" type="RayCast" parent="Camera"]
@@ -161,7 +162,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.4 )
 
 [node name="EndPointBall" type="MeshInstance" parent="Camera/GhostRaycast/EndPoint"]
 visible = false
-mesh = SubResource( 7 )
+mesh = SubResource( 8 )
 material/0 = null
 
 [node name="Tween" type="Tween" parent="Camera"]
@@ -172,6 +173,11 @@ material/0 = null
 transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0.085, 0 )
 collision_layer = 1
 _camera = NodePath("../Camera")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -15.0
+autoplay = true
 
 [connection signal="timeout" from="CloseTimer" to="." method="_on_CloseTimer_timeout"]
 [connection signal="machine_placed" from="Camera" to="World/Level" method="_on_machine_placed"]
