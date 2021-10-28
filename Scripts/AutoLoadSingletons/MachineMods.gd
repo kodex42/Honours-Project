@@ -83,6 +83,6 @@ var machine_stat_mods = {
 		"Power" : 0,
 		"Speed" : 1,
 		"Efficiency" : 1,
-		"Range" : 7
+		"Range" : 5
 	},
 }

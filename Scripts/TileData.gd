@@ -13,7 +13,7 @@ export(bool) var _has_machine
 export(bool) var _occupied
 
 # Power mechanic
-var _power_networks = []
+var _power_network = null
 
 func _init(td_pos = Vector3(0, 0, 0), td_mac = null, td_occ = false):
 	_position = td_pos
@@ -57,41 +57,34 @@ func has_machine():
 	return _has_machine
 
 func has_power(p):
-	var total_power = 0
-	for n in _power_networks:
-		total_power += n.get_available_power()
-	return total_power >= p
+	return get_available_power() >= p
 
 func extract_power(p):
-	if p == 0:
-		return 0
-	var power_to_draw = p
-	var power_draw = 0
-	var expected = power_to_draw / _power_networks.size()
-	for i in range(0, _power_networks.size()):
-		var n = _power_networks[i]
-		power_draw = n.extract_power(expected)
-		power_to_draw -= power_draw
-		if power_draw < expected:
-			expected = power_to_draw / _power_networks.size() - i if _power_networks.size() - i > 0 else power_to_draw
-		if power_to_draw <= 0:
-			break
-	return p - power_to_draw
+	return _power_network.extract_power(p)
 
-func add_power_network(pnet):
-	_power_networks.append(pnet)
+func attempt_add_power_network(pnet):
+	if pnet == _power_network:
+		return false
+	elif _power_network:
+		return true
+	else:
+		_power_network = pnet
+		return false
 
-func remove_power_network(pnet):
-	_power_networks.erase(pnet)
+func remove_power_network():
+	_power_network = null
 
-func get_power_networks():
-	return _power_networks
+func has_power_network():
+	return _power_network == null
+
+func get_power_network():
+	return _power_network
 
 func get_available_power():
-	var total = 0
-	for n in _power_networks:
-		total += n.get_available_power()
-	return total
+	if _power_network:
+		return _power_network.get_available_power()
+	else:
+		return 0
 
 func get_pos():
 	return Vector2(_position.x, _position.z)

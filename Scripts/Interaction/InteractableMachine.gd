@@ -13,7 +13,7 @@ onready var _anim_player = $Machine.get_child(0).get_node("AnimationPlayer")
 
 # State
 var on = false
-var power_network : PowerNetwork
+var power_network = null
 var base_power_draw = 0
 var transfer_ready = false
 var transfer_point = null
@@ -56,6 +56,8 @@ func _ready():
 				get_tree().call_group("Conveyer", "reset_anim")
 			"Accumulator":
 				play_anim()
+	if body_name == "Power Tower":
+		toggle()
 
 func compute_stats():
 	var stats = Constants.BASE_MACHINE_STATS.duplicate(true)
@@ -88,7 +90,7 @@ func create(tile, pos, parent):
 	if machine_category == "Powering":
 		var tiles_in_range = parent.request_tiles_in_radial_range(self, pos, machine_stats.Range)
 		power_network = PowerNetwork.new()
-		power_network.create(tiles_in_range)
+		power_network.create(tiles_in_range, self)
 
 func _process(delta):
 	var tile = self._data.tile
@@ -143,7 +145,8 @@ func move(delta):
 			pulls_from_producer = true
 
 func generate_power(delta):
-	power_network.add_power(machine_stats.Power)
+	if body_name == "Steam Engine" or body_name == "Reactor":
+		power_network.add_power(machine_stats.Power)
 
 func transfer_payload(machine):
 	transfering = false
