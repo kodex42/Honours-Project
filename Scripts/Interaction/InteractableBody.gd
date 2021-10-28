@@ -3,6 +3,7 @@ extends StaticBody
 # Signal
 signal inventory_updated()
 signal add_to_player_inventory(res_type, amount)
+signal removed(objName)
 
 # Resources
 var _res_lib : MeshLibrary = preload("res://Data/MeshLibraries/Resources.meshlib")
@@ -97,3 +98,6 @@ func get_inventory():
 
 func interact():
 	print("I am an interactable body!")
+
+func _on_InteractableBody_tree_exited():
+	emit_signal("removed", self.name)

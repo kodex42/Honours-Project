@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://Scripts/CameraData.gd"
 }, {
 "base": "Resource",
+"class": "PowerNetwork",
+"language": "GDScript",
+"path": "res://Scripts/PowerNetwork.gd"
+}, {
+"base": "Resource",
 "class": "TileData",
 "language": "GDScript",
 "path": "res://Scripts/TileData.gd"
@@ -27,6 +32,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Big": "",
 "CameraData": "",
+"PowerNetwork": "",
 "TileData": ""
 }
 
@@ -43,6 +49,7 @@ GlobalControls="*res://Scripts/AutoLoadSingletons/GlobalControls.gd"
 Randomizer="*res://Scripts/AutoLoadSingletons/Randomizer.gd"
 Time="*res://Scripts/AutoLoadSingletons/Time.gd"
 Constants="*res://Scripts/AutoLoadSingletons/Constants.gd"
+MachineMods="*res://Scripts/AutoLoadSingletons/MachineMods.gd"
 
 [display]
 

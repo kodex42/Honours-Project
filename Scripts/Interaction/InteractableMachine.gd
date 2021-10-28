@@ -13,6 +13,8 @@ onready var _anim_player = $Machine.get_child(0).get_node("AnimationPlayer")
 
 # State
 var on = false
+var power_network : PowerNetwork
+var base_power_draw = 0
 var transfer_ready = false
 var transfer_point = null
 var transfering = false
@@ -40,8 +42,8 @@ func _ready():
 	_anim_player.connect("animation_finished", self, "on_animation_finished")
 	
 	# Apply state
-	machine_stats = Constants.BASE_MACHINE_STATS
 	ingredients_required = Constants.MACHINE_INGREDIENTS[body_name]
+	base_power_draw = Constants.MACHINE_POWER_DRAW[body_name]
 	if ingredients_required:
 		requires_ingredients = true
 	
@@ -52,12 +54,17 @@ func _ready():
 			"Conveyer":
 				play_anim()
 				get_tree().call_group("Conveyer", "reset_anim")
-			"Inserter":
-				move(0)
 			"Accumulator":
 				play_anim()
 
-func create(tile, pos):
+func compute_stats():
+	var stats = Constants.BASE_MACHINE_STATS.duplicate(true)
+	var mods = MachineMods.machine_stat_mods[body_name]
+	for s in stats.keys():
+		stats[s] *= mods[s]
+	return stats
+
+func create(tile, pos, parent):
 	var resource
 	match(produced_resource):
 		ResourceType.WOOD:
@@ -76,13 +83,22 @@ func create(tile, pos):
 			resource = "byte"
 	self.build(tile, pos, body_name, "Machine", resource)
 	tile.set_machine(self)
+	machine_stats = compute_stats()
+	
+	if machine_category == "Powering":
+		var tiles_in_range = parent.request_tiles_in_radial_range(self, pos, machine_stats.Range)
+		power_network = PowerNetwork.new()
+		power_network.create(tiles_in_range)
 
 func _process(delta):
-	if on:
+	var tile = self._data.tile
+	var power_draw = base_power_draw * machine_stats.Efficiency
+	if on and tile.has_power(power_draw):
 		accumulated_time += delta
 		# Check if tick has passed
 		var tick = 1.0 / machine_stats.Speed
-		if accumulated_time >= tick:
+		if accumulated_time >= tick and tile.has_power(power_draw):
+			tile.extract_power(power_draw)
 			accumulated_time -= tick
 			# Contextual process based on machine type
 			match machine_category:
@@ -90,8 +106,12 @@ func _process(delta):
 					gather(delta)
 				"Refining":
 					refine(delta)
+				"Powering":
+					generate_power(delta)
 			if body_name == "Inserter" and not transfering:
 				move(delta)
+	elif on:
+		toggle()
 
 func set_resources_in_range(resources):
 	resources_in_range = resources
@@ -121,6 +141,9 @@ func move(delta):
 			accept_payload(stack_instance)
 		if not pulls_from_producer:
 			pulls_from_producer = true
+
+func generate_power(delta):
+	power_network.add_power(machine_stats.Power)
 
 func transfer_payload(machine):
 	transfering = false
@@ -272,7 +295,12 @@ func on_animation_finished(anim_name):
 		attempt_payload_transfer()
 	if body_name != "Wheel" and body_name != "Inserter":
 		play_anim()
+	
 
 func _on_ConveyerEndArea_body_entered(body):
 	if payload_parent.get_child_count() > 0 and body == payload_parent.get_child(0):
 		attempt_payload_transfer()
+
+func _on_Machine_tree_exited():
+	if body_name == "Powering" and power_network != null:
+		power_network.destroy()

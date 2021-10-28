@@ -20,6 +20,7 @@ export(NodePath) onready var power_button = get_node(power_button)
 export(NodePath) onready var ingredient_cont = get_node(ingredient_cont)
 export(NodePath) onready var dismantle_button = get_node(dismantle_button)
 export(NodePath) onready var add_all_ingredients_btn = get_node(add_all_ingredients_btn)
+export(NodePath) onready var status_container = get_node(status_container)
 
 # State
 var _interactable_object = null
@@ -32,6 +33,11 @@ var _powered = false
 #	"type" : "",
 #	"tile" : null
 #}
+
+func _process(delta):
+	if self._type == "Machine":
+		var available_power = _interactable_object._data.tile.get_available_power()
+
 func build_from_interactable_object(obj):
 	inv_cont.show()
 	power_icon_cont.show()
@@ -70,7 +76,7 @@ func update_inventory():
 		if _interactable_object.has_ingredients():
 			for n in ingredient_cont.get_children():
 				n.update()
-		elif _interactable_object.machine_category == "Moving" or _interactable_object.machine_category == "Powering":
+		elif _interactable_object.body_name == "Conveyer" or _interactable_object.body_name == "Accumulator":
 			inv_cont.hide()
 			power_icon_cont.hide()
 		else:

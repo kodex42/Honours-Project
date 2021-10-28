@@ -2,6 +2,7 @@ extends Spatial
 
 # Signals
 signal add_resources_to_player_inventory(res_type, amount)
+signal powering_machine_added(machine, pos)
 
 # Enums
 enum ResourceType {
@@ -41,6 +42,7 @@ onready var _floor = get_parent().get_node("StaticObjects/Floor")
 
 # State
 var water_bodies = []
+var powering_machines = []
 var abandoned_bodies = []
 
 func benchmark():
@@ -168,7 +170,7 @@ func put_machine(type : String, pos = Vector3(0, 0, 0), start_active = false, ro
 	var dir = Vector3(0, 0, 1).rotated(Vector3.UP, rot)
 	body.set_direction(dir)
 	body.set_grid_pos(pos)
-	body.create(tile, pos)
+	body.create(tile, pos, self)
 	add_child(body)
 	# Translate to position and rotate
 	body.global_translate(global_pos)
@@ -176,6 +178,9 @@ func put_machine(type : String, pos = Vector3(0, 0, 0), start_active = false, ro
 	body.connect("add_to_player_inventory", self, "on_machine_adding_to_player_inventory")
 	if body.machine_category == "Gathering":
 		body.set_resources_in_range(request_resources_in_range(body, pos, dir))
+	if body.machine_category == "Powering":
+		powering_machines.append(body)
+		emit_signal("powering_machine_added", body, global_pos)
 	if start_active:
 		body.interact()
 
@@ -363,9 +368,12 @@ func is_bend(body, neighbours):
 func corner_is_water(tile):
 	return tile.is_occupied() and tile.get_resource() == ResourceType.WATER
 
+func get_tile_position(pos):
+	return [round(clamp(pos.x, 0, _grid.GRID_SIZE-1)), round(clamp(pos.z, 0, _grid.GRID_SIZE-1))]
+
 func get_next_position(pos, dir):
 	var next = pos + dir
-	return [round(clamp(next.x, 0, _grid.GRID_SIZE-1)), round(clamp(next.z, 0, _grid.GRID_SIZE-1))]
+	return get_tile_position(next)
 
 func request_resources_in_range(requester, pos, dir):
 	var in_range = []
@@ -391,6 +399,22 @@ func request_machine_in_range(requester, pos, dir):
 		print(str(tile_pos) + " does not match " + str(next_pos))
 	if tile.is_occupied() and tile.has_machine():
 		in_range = tile.get_machine()
+	return in_range
+
+func request_tiles_in_radial_range(requester, pos, rRange):
+	var grid = _grid.get_grid()
+	var origin = get_tile_position(pos)
+	var in_range = []
+	var rad = rRange
+	for x in range(-rad, rad+1):
+		for y in range(-rad, rad+1):
+			# Do current coordinates fall within a circle with the given radius?
+			if x*x + y*y <= rRange*rRange:
+				var dx = clamp(x + origin[0], 0, _grid.GRID_SIZE - 1)
+				var dy = clamp(y + origin[1], 0, _grid.GRID_SIZE - 1)
+				var tile = grid[dy][dx]
+				if not (tile in in_range):
+					in_range.append(tile)
 	return in_range
 
 func on_machine_adding_to_player_inventory(rType, amount):

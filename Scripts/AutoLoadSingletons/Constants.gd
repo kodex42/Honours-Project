@@ -7,6 +7,22 @@ const BASE_MACHINE_STATS = {
 	"Efficiency" : 1.0,
 	"Range" : 1
 }
+const MACHINE_POWER_DRAW = {
+	"Miner" : 30.0,
+	"Excavator" : 30.0,
+	"Pump" : 10.0,
+	"Sawmill" : 10.0,
+	"Burner" : 5.0,
+	"Smelter" : 25.0,
+	"Market" : 100.0,
+	"Inserter" : 1.0,
+	"Conveyer" : 0.0,
+	"Accumulator" : 50.0,
+	"Power Tower" : 0.0,
+	"Wheel" : 0.0,
+	"Steam Engine" : 0.0,
+	"Reactor" : 0.0
+}
 const MACHINE_COSTS = {
 	"Miner": {
 		"wood": 100,
@@ -69,53 +85,29 @@ const MACHINE_COSTS = {
 		"coal": 0
 	},
 	"Wheel": {
-		"wood": "1e69",
-		"water": "1e69",
-		"metal": "1e69",
-		"coal": "1e69"
+		"wood": 25,
+		"water": 0,
+		"metal": 0,
+		"coal": 0
 	},
 	"Steam Engine": {
-		"wood": "1e69",
-		"water": "1e69",
-		"metal": "1e69",
-		"coal": "1e69"
+		"wood": 10,
+		"water": 25,
+		"metal": 5,
+		"coal": 25
 	},
 	"Reactor": {
-		"wood": "1e69",
-		"water": "1e69",
-		"metal": "1e69",
-		"coal": "1e69"
+		"wood": "1e6",
+		"water": "1e6",
+		"metal": "1e7",
+		"coal": "1e5"
 	},
 	"Power Tower": {
-		"wood": "1e69",
-		"water": "1e69",
-		"metal": "1e69",
-		"coal": "1e69"
+		"wood": 20,
+		"water": 0,
+		"metal": 10,
+		"coal": 0
 	}
-#	"Wheel": {
-#		"wood": 10,
-#		"water": 0,
-#		"metal": 0,
-#		"coal": 5
-#	},
-#	"Steam Engine": {
-#		"wood": 1000,
-#		"water": 250,
-#		"metal": 50,
-#		"coal": 100
-#	},
-#	"Reactor": {
-#		"wood": 10000,
-#		"water": 100,
-#		"metal": 500,
-#		"coal": 500
-#	},
-#	"Power Tower": {
-#		"wood": 10,
-#		"water": 0,
-#		"metal": 10,
-#		"coal": 0
-#	}
 }
 const MACHINE_INGREDIENTS = {
 	"Miner": null,

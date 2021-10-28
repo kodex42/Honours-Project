@@ -39,12 +39,12 @@ albedo_texture = ExtResource( 2 )
 material = SubResource( 4 )
 size = Vector2( 1.75, 1.75 )
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=6]
 flags_transparent = true
 albedo_color = Color( 0.631373, 1, 0.529412, 0.235294 )
 
-[sub_resource type="CubeMesh" id=6]
-material = SubResource( 7 )
+[sub_resource type="CubeMesh" id=7]
+material = SubResource( 6 )
 
 [node name="GhostMachine" type="Position3D"]
 transform = Transform( -1, 0, 1.50995e-07, 0, 1, 0, -1.50995e-07, 0, -1, 0, 0, 0 )
@@ -86,7 +86,7 @@ visible = false
 [node name="Wheel" parent="." instance=ExtResource( 10 )]
 visible = false
 
-[node name="Power Line" parent="." instance=ExtResource( 15 )]
+[node name="Power Tower" parent="." instance=ExtResource( 15 )]
 visible = false
 
 [node name="Reactor" parent="." instance=ExtResource( 14 )]
@@ -107,5 +107,5 @@ material/0 = null
 [node name="PreviewBox" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 visible = false
-mesh = SubResource( 6 )
+mesh = SubResource( 7 )
 material/0 = null

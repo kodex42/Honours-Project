@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Data/Textures/Resources/wood.png" type="Texture" id=1]
 [ext_resource path="res://Data/Textures/UI/Interaction/MachinePowerButtonIcon.png" type="Texture" id=2]
 [ext_resource path="res://Data/Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Scripts/UI/InteractableObjectUI.gd" type="Script" id=4]
 [ext_resource path="res://Data/Textures/UI/Interaction/MachineDismantleButtonIcon.png" type="Texture" id=5]
+[ext_resource path="res://Data/Textures/UI/Interaction/MachinePowerLevel.png" type="Texture" id=6]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.592157 )
@@ -49,6 +50,7 @@ power_button = NodePath("PanelContainer/HBoxContainer/CenterContainer/HBoxContai
 ingredient_cont = NodePath("PanelContainer/HBoxContainer/LeftContainer/VBoxContainer/GridContainer")
 dismantle_button = NodePath("PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/DismantleIconContainer/Button")
 add_all_ingredients_btn = NodePath("PanelContainer/HBoxContainer/LeftContainer/VBoxContainer/AddAllIngredientsButton")
+status_container = NodePath("PanelContainer/HBoxContainer/RightContainer")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_left = 0.5
@@ -66,7 +68,7 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
-margin_right = 512.0
+margin_right = 576.0
 margin_bottom = 544.0
 custom_constants/separation = 0
 
@@ -245,6 +247,23 @@ stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="RightContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
+margin_left = 512.0
+margin_right = 576.0
+margin_bottom = 544.0
+custom_constants/margin_top = 8
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/RightContainer"]
+margin_top = 8.0
+margin_right = 64.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 5
 
 [node name="NullObj" type="Control" parent="."]
 margin_right = 40.0

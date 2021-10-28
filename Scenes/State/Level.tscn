@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Data/Textures/Level/tile.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/UI/VisualGrid.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/Mechanics/Grid.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/Interaction/InteractablesGrid.gd" type="Script" id=5]
 
@@ -65,6 +66,10 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.04
 visible = false
 mesh = SubResource( 2 )
 material/0 = null
+script = ExtResource( 3 )
+
+[node name="RangeIndicators" type="CSGCombiner" parent="StaticObjects/VisualGrid"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 
 [node name="Boundaries" type="StaticBody" parent="StaticObjects"]
 
@@ -95,4 +100,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0 )
 shape = SubResource( 8 )
 
 [connection signal="add_resources_to_player_inventory" from="InteractablesGrid" to="." method="_on_InteractablesGrid_add_resources_to_player_inventory"]
+[connection signal="powering_machine_added" from="InteractablesGrid" to="StaticObjects/VisualGrid" method="_on_InteractablesGrid_powering_machine_added"]
 [connection signal="tree_exiting" from="InteractablesGrid" to="InteractablesGrid" method="_on_InteractablesGrid_tree_exiting"]

@@ -17,3 +17,5 @@ shape = SubResource( 1 )
 [node name="Machine" type="Spatial" parent="." index="2"]
 
 [node name="NullNode" type="Spatial" parent="." index="3"]
+
+[connection signal="tree_exited" from="." to="." method="_on_Machine_tree_exited"]
