@@ -45,6 +45,7 @@ func _ready():
 	# Apply state
 	ingredients_required = Constants.MACHINE_INGREDIENTS[body_name]
 	base_power_draw = Constants.MACHINE_POWER_DRAW[body_name]
+	machine_stats = compute_stats()
 	if ingredients_required:
 		requires_ingredients = true
 	
@@ -212,7 +213,7 @@ func accepts_payloads():
 func dismantle():
 	var costs = Constants.MACHINE_COSTS[body_name].duplicate(true)
 	for i in costs.keys():
-		costs[i] = costs[i] / 2
+		costs[i] = Big.new(costs[i]).divide(2)
 	return costs
 
 func has_items():
