@@ -4,6 +4,7 @@ extends Control
 signal resource_count_changed(type, amount)
 signal attempt_add_ingredient(res, amount, machine)
 signal machine_dismantled(refund)
+signal wheel_boarded(wheel)
 
 # Preloads
 var ingredient_scene = preload("res://Scenes/UI/Ingredient.tscn")
@@ -21,6 +22,7 @@ export(NodePath) onready var ingredient_cont = get_node(ingredient_cont)
 export(NodePath) onready var dismantle_button = get_node(dismantle_button)
 export(NodePath) onready var add_all_ingredients_btn = get_node(add_all_ingredients_btn)
 export(NodePath) onready var status_container = get_node(status_container)
+export(NodePath) onready var board_button_cont = get_node(board_button_cont)
 
 # State
 var _interactable_object = null
@@ -36,7 +38,7 @@ var _powered = false
 
 func _process(delta):
 	if self._type == "Machine":
-		var available_power = _interactable_object._data.tile.get_available_power()
+		update_status()
 
 func build_from_interactable_object(obj):
 	inv_cont.show()
@@ -52,15 +54,21 @@ func build_from_interactable_object(obj):
 	if self._type == "Machine":
 		update_power_button()
 		display_ingredients()
-		if _interactable_object.body_name == "Market":
+		if _interactable_object.body_name == "Market" or _interactable_object.machine_category == "Powering":
 			inv_cont.hide()
 		else:
 			inv_cont.show()
+		if _interactable_object.body_name == "Wheel":
+			board_button_cont.show()
+		else:
+			board_button_cont.hide()
 	else:
 		var stores = obj.get_stores()
 		rad_progress.set_timer_mod(stores.manual_gather_rate)
 	
 	update_inventory()
+	update_status()
+	yield(get_tree().create_timer(.1), "timeout")
 
 func update_inventory():
 	var inventory = _interactable_object.get_inventory()
@@ -82,6 +90,22 @@ func update_inventory():
 		else:
 			for n in ingredient_cont.get_children():
 				n.queue_free()
+
+func update_status():
+	if _interactable_object.machine_category != "Powering":
+		status_container.show()
+		var power_tex = status_container.get_node("TextureRect")
+		var power_usage = _interactable_object.base_power_draw * _interactable_object.machine_stats.Efficiency
+		if power_usage == 0:
+			power_tex.modulate = Color.gray
+		else:
+			var tile = _interactable_object.get_data().tile
+			if tile.has_power(power_usage):
+				power_tex.modulate = Color.green
+			else:
+				power_tex.modulate = Color.red
+	else:
+		status_container.hide()
 
 func update_power_button():
 	_powered = _interactable_object.is_on()
@@ -167,3 +191,8 @@ func _on_Dismantle_Button_pressed():
 func _on_AddAllIngredientsButton_pressed():
 	for i in ingredient_cont.get_children():
 		i.add_ingredients()
+
+func _on_BoardingButton_pressed():
+	board_button_cont.get_node("Button").set_pressed(false)
+	if _interactable_object.body_name == "Wheel":
+		emit_signal("wheel_boarded", _interactable_object)

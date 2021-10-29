@@ -1,0 +1,58 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=14 format=2]
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "Idle-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "Jumping-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "Running Jump-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=14]
+animation = "Running-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=15]
+animation = "Walking-loop"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=21]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
+advance_condition = "jump"
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+switch_mode = 2
+auto_advance = true
+xfade_time = 0.3
+
+[resource]
+states/Idle/node = SubResource( 11 )
+states/Idle/position = Vector2( 214, 111 )
+states/Jumping/node = SubResource( 12 )
+states/Jumping/position = Vector2( 521, 111 )
+states/Running/node = SubResource( 14 )
+states/Running/position = Vector2( 107, 217 )
+"states/Running Jump/node" = SubResource( 13 )
+"states/Running Jump/position" = Vector2( 107, 353 )
+states/Walking/node = SubResource( 15 )
+states/Walking/position = Vector2( 320, 217 )
+transitions = [ "Idle", "Walking", SubResource( 16 ), "Walking", "Idle", SubResource( 17 ), "Walking", "Running", SubResource( 18 ), "Running", "Walking", SubResource( 19 ), "Running", "Idle", SubResource( 20 ), "Idle", "Running", SubResource( 21 ), "Running", "Running Jump", SubResource( 22 ), "Running Jump", "Running", SubResource( 23 ) ]
+start_node = "Idle"
+graph_offset = Vector2( 0, 25.2 )

@@ -5,6 +5,7 @@ onready var _player_character = $PlayerCharacter
 onready var _camera = $Camera
 onready var _gui = $Camera/HUD/GUIViewport/GUI
 onready var _phone = $Camera/HUD/GUIViewport/PhoneGUI/PhoneViewport/Phone
+onready var _level = $World/Level
 
 # State
 var wood = Big.new(0)
@@ -107,9 +108,12 @@ func add_resource(res_type : String, amount):
 func update_trackables():
 	_gui.update_trackables(wood, water, coal, rock_chunks, metal, cash, bytes)
 
-func attempt_craft(machine_name):
+func can_craft(machine_name):
 	var costs = Constants.MACHINE_COSTS[machine_name]
-	if player_can_pay(costs):
+	return player_can_pay(costs)
+
+func attempt_craft(machine_name):
+	if can_craft(machine_name):
 		_camera.place(machine_name)
 		return true
 	else:
@@ -137,6 +141,10 @@ func player_pay(costs):
 func player_can_input(res, amount):
 	var comparing = string_to_big(res)
 	return comparing.isLargerThanOrEqualTo(amount)
+
+func player_board_wheel(wheel):
+	_player_character.board_wheel(wheel)
+	_level.show_grid()
 
 func string_to_big(res):
 	var big : Big

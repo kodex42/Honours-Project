@@ -83,5 +83,4 @@ func _on_Phone_toggled(on):
 func _on_app_opened_from_HomeScreen(app_name):
 	if "Machining" in app_name:
 		var machine_type = app_name.substr(0, app_name.find("MachiningApp"))
-		phone.toggle()
 		emit_signal("machining_window_opened", machine_type)

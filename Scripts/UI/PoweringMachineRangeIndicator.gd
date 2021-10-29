@@ -1,39 +1,43 @@
-extends Spatial
+extends MeshInstance
 
-# Nodes
-onready var torus = get_node("CSGTorus")
+# Signals
+signal created(global_pos, radius)
 
-# Exportd
+# Exports
 export(bool) var is_preview = false
 
 # State
 var range_to_set = 1
-var tick = 0.0
-var tick_speed = 0.1
+var rad = 0.0
 var power_network : PowerNetwork
 
 func _ready():
 	if is_preview:
 		$Sprite3D.hide()
 	set_radius(range_to_set)
+	emit_signal("created", global_transform.origin, self.rad)
 
 func _process(delta):
-	if not is_preview:
-		tick += delta
-		if tick >= tick_speed:
-			tick -= tick_speed
-			set_power(get_current_power())
+	set_power(get_current_power())
 
-func init(rRange, pnet : PowerNetwork):
+func init(rRange, pnet : PowerNetwork, machine_name):
 	self.range_to_set = rRange
 	self.power_network = pnet
+	if machine_name == "Power Tower":
+		$Sprite3D.transform.origin.y = 4.5
+	if machine_name == "Wheel":
+		$Sprite3D.transform.origin.y = 3
 
 func set_radius(rad):
-	torus.outer_radius = rad*2 + 0.25
-	torus.inner_radius = rad*2
+	self.rad = rad*2
+	update_radius()
+
+func update_radius():
+	self.mesh.top_radius = self.rad + 0.25
+	self.mesh.bottom_radius = self.rad + 0.25
 
 func set_power(amount):
-	$Sprite3D/ViewportText/VBoxContainer/Label.set_text("%.2f" % amount)
+	$ViewportText/VBoxContainer/Label.set_text("%d" % amount)
 
 func get_current_power():
 	if power_network:

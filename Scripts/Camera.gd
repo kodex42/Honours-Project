@@ -5,12 +5,12 @@ signal machine_placement_toggled(is_placing, obj_name)
 signal machine_placed(obj_name, pos, rot)
 
 # Exports
-export(NodePath) onready var target = get_node(target)
-export(NodePath) onready var ghost = get_node(ghost)
-export(NodePath) onready var level = get_node(level)
-export(NodePath) onready var gui = get_node(gui)
-export(NodePath) onready var main = get_node(main)
-export(NodePath) onready var interaction_cast = get_node(interaction_cast)
+export(NodePath) onready var _target = get_node(_target)
+export(NodePath) onready var _ghost = get_node(_ghost)
+export(NodePath) onready var _level = get_node(_level)
+export(NodePath) onready var _gui = get_node(_gui)
+export(NodePath) onready var _phone_gui = get_node(_phone_gui)
+export(NodePath) onready var _main = get_node(_main)
 export(Resource) var setup
 
 # Nodes
@@ -36,7 +36,7 @@ var placing_machine = null
 func _ready():
 	# Camera setup
 	if setup.target_offset == Vector3.ZERO:
-		setup.target_offset = self.transform.origin - target.transform.origin - setup.anchor_offset
+		setup.target_offset = self.transform.origin - _target.transform.origin - setup.anchor_offset
 	if setup.look_target == Vector3.ZERO:
 		setup.look_target = Vector3(0, 0, 100.0)
 	setup.pitch_limit.x = deg2rad(setup.pitch_limit.x)
@@ -47,7 +47,7 @@ func _process(delta):
 	control()
 	
 	# Set new origin
-	self.transform.origin = target.transform.origin + setup.anchor_offset
+	self.transform.origin = _target.transform.origin + setup.anchor_offset
 	
 	# Retrieve resource vectors
 	var target_offset = setup.target_offset
@@ -64,14 +64,14 @@ func _process(delta):
 	look_at = look_at.rotated(up_down_axis, setup.rotation.x)
 	
 	# Add target transform to look_at to prevent warping at large distances from the origin
-	look_at += target.transform.origin
+	look_at += _target.transform.origin
 	
 	# Move to offset and look at target
 	self.transform.origin += target_offset
 	self.look_at(look_at, Vector3.UP)
 	
 	# Set position of interaction raycast
-	interaction_cast.transform.origin.z = zoom + 1.39
+	_target_ray.transform.origin.z = zoom + 1.39
 	
 	# Check for collision
 	collide()
@@ -96,8 +96,8 @@ func _process(delta):
 		pos.x = stepify(pos.x + 1, 2) - 1
 		pos.z = stepify(pos.z + 1, 2) - 1
 		
-		if ghost.global_transform.origin != pos:
-			ghost.global_transform.origin = pos
+		if _ghost.global_transform.origin != pos:
+			_ghost.global_transform.origin = pos
 			display_placement_legality()
 
 func _input(event):
@@ -123,12 +123,13 @@ func _input(event):
 			stick_pos = Vector2(0, 0)
 
 func display_placement_legality():
-	var ghost_pos = ghost.global_transform.origin
+	var ghost_pos = _ghost.global_transform.origin
 	var grid_pos = Vector3(clamp(ghost_pos.x / 2 - 0.5, -25, 25), 0, clamp(ghost_pos.z / 2 - 0.5, -25, 25)) + Vector3(25, 0, 25)
-	ghost.set_preview_ok(level.is_placement_legal(grid_pos) and main.player_can_pay(Constants.MACHINE_COSTS[placing_machine]))
+	_ghost.set_preview_ok(_level.is_placement_legal(grid_pos) and _main.player_can_pay(Constants.MACHINE_COSTS[placing_machine]))
 
 func place(obj_name):
 	GlobalControls.exclude()
+	_phone_gui.phone.disable()
 	placing_machine = obj_name
 	is_placing = true
 	_target_ray.enabled = false
@@ -137,10 +138,11 @@ func place(obj_name):
 
 func re_place():
 	emit_signal("machine_placement_toggled", is_placing, placing_machine)
-	ghost.set_preview_ok(false)
+	_ghost.set_preview_ok(false)
 
 func un_place():
 	GlobalControls.unexclude()
+	_phone_gui.phone.enable()
 	placing_machine = null
 	is_placing = false
 	_target_ray.enabled = true
@@ -154,31 +156,31 @@ func control():
 		setup.rotation.x = clamp(setup.rotation.x, setup.pitch_limit.x, setup.pitch_limit.y)
 	if is_placing:
 		if Input.is_action_just_pressed("Selection 3"):
-			ghost.rotate(Vector3(0, 1, 0), -PI/2)
+			_ghost.rotate(Vector3(0, 1, 0), -PI/2)
 		if Input.is_action_just_pressed("Selection 1"):
-			var ghost_pos = ghost.global_transform.origin
+			var ghost_pos = _ghost.global_transform.origin
 			var grid_pos = Vector3(clamp(ghost_pos.x / 2 - 0.5, -25, 25), 0, clamp(ghost_pos.z / 2 - 0.5, -25, 25)) + Vector3(25, 0, 25)
 			var costs = Constants.MACHINE_COSTS[placing_machine]
-			var legal = level.is_placement_legal(grid_pos)
-			var payable = main.player_can_pay(costs)
+			var legal = _level.is_placement_legal(grid_pos)
+			var payable = _main.player_can_pay(costs)
 			if legal and payable:
-				main.player_pay(costs)
-				emit_signal("machine_placed", placing_machine, grid_pos, ghost.global_transform.basis.get_euler().y)
+				_main.player_pay(costs)
+				emit_signal("machine_placed", placing_machine, grid_pos, _ghost.global_transform.basis.get_euler().y)
 				# Check if player can afford another placement
-				if main.player_can_pay(costs):
+				if _main.player_can_pay(costs):
 					call_deferred("re_place")
 				else:
 					call_deferred("un_place")
 			elif not legal:
-				gui.toast_err("Cannot place in occupied tile")
+				_gui.toast_err("Cannot place in occupied tile")
 			else:
-				gui.toast_err("You cannot afford to build that")
+				_gui.toast_err("You cannot afford to build that")
 				call_deferred("un_place")
 		if Input.is_action_just_pressed("ui_cancel"):
 			call_deferred("un_place")
 
 func collide():
-	var start = target.transform.origin + setup.anchor_offset
+	var start = _target.transform.origin + setup.anchor_offset
 	var end = self.transform.origin
 	var space_state = get_world().direct_space_state
 	var col = space_state.intersect_ray(start, end, [], 2)

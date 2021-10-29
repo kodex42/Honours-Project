@@ -3,6 +3,7 @@ extends Control
 # Exports
 export(NodePath) onready var _main = get_node(_main)
 export(NodePath) onready var _camera_raycast = get_node(_camera_raycast)
+export(NodePath) onready var _phone_gui = get_node(_phone_gui)
 
 # Nodes
 onready var int_info = $InteractableInfo
@@ -44,7 +45,6 @@ func _process(delta):
 		if machining_ui.visible:
 			hide_machining_ui()
 		int_info.show()
-		crosshair.show()
 		crosshair.enlarge()
 
 func update_trackables(wood : Big, water : Big, coal : Big, rock_chunks : Big, metal : Big, cash : Big, bytes : Big):
@@ -89,6 +89,7 @@ func show_interactable_info(obj):
 	crosshair.enlarge()
 
 func show_interactable_resource_ui():
+	_phone_gui.phone.disable()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	int_res_ui.build_from_interactable_object(_interactable_object)
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.show()
@@ -97,6 +98,7 @@ func show_interactable_resource_ui():
 	crosshair.hide()
 
 func show_interactable_machine_ui():
+	_phone_gui.phone.disable()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	int_mac_ui.build_from_interactable_object(_interactable_object)
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.show()
@@ -105,6 +107,7 @@ func show_interactable_machine_ui():
 	crosshair.hide()
 
 func show_machining_ui(machine_type):
+	_phone_gui.phone.disable()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	machining_ui.build_from_machine_type(machine_type)
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.show()
@@ -118,26 +121,32 @@ func hide_interactable_info():
 	crosshair.delarge()
 
 func hide_interactable_resource_ui():
+	_phone_gui.phone.enable()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.hide()
 	$ControlsInfo.hide()
 	$ControlsInfo.call_deferred("set_visible", true)
 	int_res_ui.deactivate()
+	crosshair.show()
 
 func hide_interactable_machine_ui():
+	_phone_gui.phone.enable()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.hide()
 	$ControlsInfo.hide()
 	$ControlsInfo.call_deferred("set_visible", true)
 	int_mac_ui.deactivate()
+	crosshair.show()
 
 func hide_machining_ui():
+	_phone_gui.phone.enable()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.hide()
 	$ControlsInfo.hide()
 	$ControlsInfo.call_deferred("set_visible", true)
 	machining_ui.hide()
 	machining_ui.set_process_input(false)
+	crosshair.show()
 
 func toast_err(message):
 	$Toast.toast(message, Color.red)
@@ -156,11 +165,13 @@ func _on_InteractableObject_resource_count_changed(type, amount):
 	_main.add_resource(type, amount)
 
 func _on_quit_prompted():
+	_phone_gui.phone.disable()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	quit_prompt.show()
 	crosshair.hide()
 
 func _on_quit_unprompted():
+	_phone_gui.phone.enable()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	quit_prompt.hide()
 	crosshair.show()
@@ -175,8 +186,9 @@ func _on_PhoneGUI_machining_window_opened(machine_type):
 	show_machining_ui(machine_type)
 
 func _on_MachiningGUI_machine_craft_requested(machine_name):
-	if _main.attempt_craft(machine_name):
+	if _main.can_craft(machine_name):
 		hide_machining_ui()
+		_main.attempt_craft(machine_name)
 		crosshair.show()
 	else:
 		$Toast.toast("You cannot afford to craft that machine", Color.red)
@@ -188,3 +200,17 @@ func _on_InteractableMachine_machine_dismantled(refund):
 	hide_interactable_machine_ui()
 	for i in refund.keys():
 		_main.add_resource(i, refund[i])
+
+func _on_InteractableMachine_wheel_boarded(wheel):
+	hide_interactable_machine_ui()
+	_main.player_board_wheel(wheel)
+
+func _on_PlayerCharacter_mounted():
+	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer5.show()
+	$ControlsInfo.hide()
+	$ControlsInfo.call_deferred("set_visible", true)
+
+func _on_PlayerCharacter_unmounted():
+	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer5.hide()
+	$ControlsInfo.hide()
+	$ControlsInfo.call_deferred("set_visible", true)

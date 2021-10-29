@@ -101,6 +101,32 @@ custom_fonts/font = SubResource( 2 )
 text = "Close"
 valign = 1
 
+[node name="HBoxContainer5" type="HBoxContainer" parent="ControlsInfo/MarginContainer/VBoxContainer"]
+visible = false
+margin_right = 253.0
+margin_bottom = 64.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer5"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 15 )
+expand = true
+
+[node name="ExitWheelLabel" type="Label" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer5"]
+margin_left = 68.0
+margin_top = 8.0
+margin_right = 253.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 2 )
+text = "Exit Wheel"
+valign = 1
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="ControlsInfo/MarginContainer/VBoxContainer"]
 margin_right = 251.0
 margin_bottom = 64.0
@@ -128,8 +154,9 @@ valign = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ControlsInfo/MarginContainer/VBoxContainer"]
 visible = false
+margin_top = 68.0
 margin_right = 251.0
-margin_bottom = 64.0
+margin_bottom = 132.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -146,7 +173,7 @@ expand = true
 [node name="RotateLabel" type="Label" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer3"]
 margin_left = 68.0
 margin_top = 8.0
-margin_right = 169.0
+margin_right = 185.0
 margin_bottom = 56.0
 custom_fonts/font = SubResource( 2 )
 text = "Rotate"
@@ -154,8 +181,9 @@ valign = 1
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="ControlsInfo/MarginContainer/VBoxContainer"]
 visible = false
+margin_top = 68.0
 margin_right = 251.0
-margin_bottom = 64.0
+margin_bottom = 132.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -172,7 +200,7 @@ expand = true
 [node name="PlaceLabel" type="Label" parent="ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer4"]
 margin_left = 68.0
 margin_top = 8.0
-margin_right = 169.0
+margin_right = 167.0
 margin_bottom = 56.0
 custom_fonts/font = SubResource( 2 )
 text = "Place"
@@ -652,5 +680,6 @@ __meta__ = {
 [connection signal="attempt_add_ingredient" from="InteractableMachine" to="." method="_on_InteractableMachine_attempt_add_ingredient"]
 [connection signal="machine_dismantled" from="InteractableMachine" to="." method="_on_InteractableMachine_machine_dismantled"]
 [connection signal="resource_count_changed" from="InteractableMachine" to="." method="_on_InteractableObject_resource_count_changed"]
+[connection signal="wheel_boarded" from="InteractableMachine" to="." method="_on_InteractableMachine_wheel_boarded"]
 [connection signal="machine_craft_requested" from="MachiningGUI" to="." method="_on_MachiningGUI_machine_craft_requested"]
 [connection signal="tween_all_completed" from="Toast/Tween" to="Toast" method="_on_Tween_tween_all_completed"]

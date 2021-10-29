@@ -15,6 +15,7 @@ onready var _anim_player = $Machine.get_child(0).get_node("AnimationPlayer")
 var on = false
 var power_network = null
 var base_power_draw = 0
+var wheel_speed = 0
 var transfer_ready = false
 var transfer_point = null
 var transfering = false
@@ -58,6 +59,8 @@ func _ready():
 				play_anim()
 	if body_name == "Power Tower":
 		toggle()
+	if body_name == "Wheel":
+		on = true
 
 func compute_stats():
 	var stats = Constants.BASE_MACHINE_STATS.duplicate(true)
@@ -147,6 +150,21 @@ func move(delta):
 func generate_power(delta):
 	if body_name == "Steam Engine" or body_name == "Reactor":
 		power_network.add_power(machine_stats.Power)
+	elif body_name == "Wheel" and wheel_speed > 0:
+		power_network.add_power(machine_stats.Power * wheel_speed)
+
+func spin(speed, is_idle):
+	wheel_speed = speed/5
+	set_anim_speed(wheel_speed if not is_idle else 0)
+
+func board():
+	reset_anim()
+	set_anim_speed(0)
+	play_anim()
+
+func unboard():
+	reset_anim()
+	stop_anim()
 
 func transfer_payload(machine):
 	transfering = false
@@ -286,6 +304,12 @@ func reset_anim():
 func anim_seek(frame):
 	_anim_player.seek(frame, false)
 
+func set_anim_speed(speed):
+	_anim_player.playback_speed = speed
+
+func get_anim_speed():
+	return _anim_player.playback_speed
+
 func attempt_payload_transfer():
 	var in_range = _parent.request_machine_in_range(self, grid_pos, facing_dir)
 	if in_range and in_range.accepts_payloads():
@@ -296,9 +320,8 @@ func attempt_payload_transfer():
 func on_animation_finished(anim_name):
 	if body_name == "Inserter" and payload_parent.get_child_count() > 0:
 		attempt_payload_transfer()
-	if body_name != "Wheel" and body_name != "Inserter":
+	if body_name != "Inserter":
 		play_anim()
-	
 
 func _on_ConveyerEndArea_body_entered(body):
 	if payload_parent.get_child_count() > 0 and body == payload_parent.get_child(0):

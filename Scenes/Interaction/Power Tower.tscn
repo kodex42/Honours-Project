@@ -5,12 +5,14 @@
 
 [sub_resource type="CylinderShape" id=1]
 radius = 0.5
+height = 8.73
 
 [node name="Power Tower" instance=ExtResource( 1 )]
 body_name = "Power Tower"
 machine_category = "Powering"
 
 [node name="CollisionShape" parent="." index="1"]
+transform = Transform( 0.6375, 0, 0, 0, 0.450623, 0, 0, 0, 0.6375, 0, 1.96695, 0 )
 shape = SubResource( 1 )
 
 [node name="Power Line" parent="Machine" index="0" instance=ExtResource( 2 )]

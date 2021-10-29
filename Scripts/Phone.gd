@@ -21,7 +21,7 @@ func _process(delta):
 		toggle()
 
 func toggle():
-	if togglable and ((Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and not on) or (Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED and on)):
+	if togglable:
 		# Change flag
 		on = not on
 		
@@ -66,6 +66,14 @@ func rotate_phone():
 			Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
 
+func disable():
+	if on:
+		toggle()
+	togglable = false
+
+func enable():
+	togglable = true
+
 func _on_MovementTween_tween_started(object, key):
 	togglable = false
 	if not on:
@@ -85,6 +93,3 @@ func _on_MovementTween_tween_completed(object, key):
 		_model.get_node("PhoneTabIconUp").show()
 		rotating = false
 		move_phone()
-
-func _on_HomeScreen_game_close_prompted():
-	toggle_set(false)

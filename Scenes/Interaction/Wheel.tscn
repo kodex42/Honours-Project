@@ -7,4 +7,7 @@
 body_name = "Wheel"
 machine_category = "Powering"
 
+[node name="CollisionShape" parent="." index="1"]
+transform = Transform( 0.6375, 0, 0, 0, 0.450623, 0, 0, 0, 0.6375, 0, 0.574312, 0 )
+
 [node name="Wheel" parent="Machine" index="0" instance=ExtResource( 2 )]

@@ -60,7 +60,7 @@ func has_power(p):
 	return get_available_power() >= p
 
 func extract_power(p):
-	return _power_network.extract_power(p)
+	return 0 if p == 0 else _power_network.extract_power(p)
 
 func attempt_add_power_network(pnet):
 	if pnet == _power_network:

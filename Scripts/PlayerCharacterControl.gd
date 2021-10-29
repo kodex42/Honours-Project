@@ -1,7 +1,12 @@
 extends KinematicBody
 
+# Signals
+signal mounted()
+signal unmounted()
+
 # Exports
 export(NodePath) onready var _camera = get_node(_camera)
+export(NodePath) onready var _phone_gui = get_node(_phone_gui)
 
 # Nodes
 onready var _anim_tree = $AnimationTree
@@ -14,6 +19,8 @@ var jumping = false
 var turning_speed = 5.0
 var gravity = Vector3.ZERO
 var up = Vector3.UP
+var wheel_locked = false
+var wheel = null
 
 func _ready():
 	print("readying player...")
@@ -35,21 +42,30 @@ func _physics_process(delta):
 	else:
 		gravity.y += GRAV_FORCE*delta
 	
-	# Apply gravity
-	v += gravity
-	
-	# Move character and change state based on result
-	move_and_slide_with_snap(v, snap, up, true)
-	if is_on_floor():
-		up = get_floor_normal()
+	# Normal movement
+	if not wheel_locked:
+		# Apply gravity
+		v += gravity
+		
+		# Move character and change state based on result
+		move_and_slide_with_snap(v, snap, up, true)
+		if is_on_floor():
+			up = get_floor_normal()
+		else:
+			up = Vector3.UP
 	else:
-		up = Vector3.UP
+		var speed = v.length()
+		wheel.spin(speed, _anim_tree["parameters/state_machine/playback"].get_current_node() == "Idle")
+
+func _unhandled_input(event):
+	if Input.is_action_just_pressed("ui_cancel") and wheel_locked:
+		exit_wheel()
 
 func movement_controls(delta, v):
-	var current_anim = _anim_tree.get("parameters/playback").get_current_node()
+	var current_anim = _anim_tree.get("parameters/state_machine/playback").get_current_node()
 	
 	# Check jump input
-	_anim_tree["parameters/conditions/jump"] = Input.is_action_pressed("jump")
+	_anim_tree["parameters/state_machine/conditions/jump"] = Input.is_action_pressed("jump") and not wheel_locked
 	
 	# Set jumping flag for length of jump animation
 	jumping = "Jump" in current_anim
@@ -58,17 +74,22 @@ func movement_controls(delta, v):
 	var dir : Vector3 = Vector3.ZERO
 	
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		if Input.is_action_pressed("forward"):
-			dir.z += 1.0
-		if Input.is_action_pressed("backward"):
-			dir.z -= 1.0
-		if Input.is_action_pressed("left"):
-			dir.x += 1.0
-		if Input.is_action_pressed("right"):
-			dir.x -= 1.0
+		if wheel_locked:
+			if Input.is_action_pressed("forward"):
+				dir.z -= 1.0
+		else:
+			if Input.is_action_pressed("forward"):
+				dir.z += 1.0
+			if Input.is_action_pressed("backward"):
+				dir.z -= 1.0
+			if Input.is_action_pressed("left"):
+				dir.x += 1.0
+			if Input.is_action_pressed("right"):
+				dir.x -= 1.0
 	
 	if dir.length_squared() > 0.01:
-		dir = dir.rotated(Vector3.UP, _camera.setup.rotation.y)
+		if not wheel_locked:
+			dir = dir.rotated(Vector3.UP, _camera.setup.rotation.y)
 		
 		# Basis = matrix form
 		var player_heading_2d := Vector2(self.transform.basis.z.x, self.transform.basis.z.z)
@@ -80,11 +101,32 @@ func movement_controls(delta, v):
 		self.rotation.y += phi
 		v = v.rotated(Vector3.UP, self.rotation.y)
 		if Input.is_action_pressed("sprint"):
-			_anim_tree["parameters/playback"].travel("Running")
+			_anim_tree["parameters/state_machine/playback"].travel("Running")
 		else:
-			_anim_tree["parameters/playback"].travel("Walking")
+			_anim_tree["parameters/state_machine/playback"].travel("Walking")
 	else:
-		_anim_tree["parameters/playback"].travel("Idle")
+		_anim_tree["parameters/state_machine/playback"].travel("Idle")
 		v = v.rotated(Vector3.UP, self.rotation.y)
 	
 	return v
+
+func board_wheel(wheel):
+	wheel_locked = true
+	set_collision_layer_bit(0, false)
+	global_transform.origin = wheel.global_transform.origin + Vector3.UP * 0.5
+	global_transform.basis = wheel.global_transform.basis
+	self.wheel = wheel
+	self.wheel.board()
+	_phone_gui.phone.disable()
+	GlobalControls.exclude()
+	emit_signal("mounted")
+
+func exit_wheel():
+	wheel_locked = false
+	global_transform.origin = wheel.global_transform.origin + wheel.facing_dir.rotated(Vector3.UP, PI/2) + Vector3.UP * 0.1
+	set_collision_layer_bit(0, false)
+	self.wheel.unboard()
+	self.wheel = null
+	GlobalControls.call_deferred("unexclude")
+	_phone_gui.phone.enable()
+	emit_signal("mounted")

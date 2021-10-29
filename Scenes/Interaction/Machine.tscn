@@ -4,6 +4,7 @@
 [ext_resource path="res://Scenes/Interaction/InteractableBody.tscn" type="PackedScene" id=2]
 
 [sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 1.27579, 1 )
 
 [node name="Machine" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
