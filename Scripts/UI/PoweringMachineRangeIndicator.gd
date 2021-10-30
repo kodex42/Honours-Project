@@ -9,7 +9,7 @@ export(bool) var is_preview = false
 # State
 var range_to_set = 1
 var rad = 0.0
-var power_network : PowerNetwork
+var machine = null
 
 func _ready():
 	if is_preview:
@@ -20,12 +20,12 @@ func _ready():
 func _process(delta):
 	set_power(get_current_power())
 
-func init(rRange, pnet : PowerNetwork, machine_name):
+func init(rRange, machine):
 	self.range_to_set = rRange
-	self.power_network = pnet
-	if machine_name == "Power Tower":
+	self.machine = machine
+	if machine.body_name == "Power Tower":
 		$Sprite3D.transform.origin.y = 4.5
-	if machine_name == "Wheel":
+	if machine.body_name == "Wheel":
 		$Sprite3D.transform.origin.y = 3
 
 func set_radius(rad):
@@ -40,7 +40,7 @@ func set_power(amount):
 	$ViewportText/VBoxContainer/Label.set_text("%d" % amount)
 
 func get_current_power():
-	if power_network:
-		return power_network.get_available_power()
+	if machine and machine.power_network:
+		return machine.power_network.get_available_power()
 	else:
 		return 0.0

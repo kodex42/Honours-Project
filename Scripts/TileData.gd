@@ -12,10 +12,12 @@ export(int) var _resource_type
 export(bool) var _has_machine
 export(bool) var _occupied
 
-# Power mechanic
+# State
+var _res_id = 0
 var _power_network = null
 
 func _init(td_pos = Vector3(0, 0, 0), td_mac = null, td_occ = false):
+	_res_id = ResourceManager.get_next_id()
 	_position = td_pos
 	_machine = td_mac
 	_occupied = td_occ
@@ -40,6 +42,9 @@ func set_resource(r):
 		var x = 1
 	_has_machine = false
 	set_occupied(true)
+
+func get_res_id():
+	return _res_id
 
 func get_resource():
 	return _resource_type

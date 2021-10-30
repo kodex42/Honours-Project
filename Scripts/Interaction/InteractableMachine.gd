@@ -6,6 +6,7 @@ export(NodePath) onready var abandoned_node_parent = get_node(abandoned_node_par
 export var body_name : String
 export var produced_resource : int
 export var machine_category : String
+export var preview = false
 
 # Nodes
 onready var _parent = get_parent()
@@ -38,30 +39,37 @@ var anim
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Ready animation
-	anim = _anim_player.get_animation_list()[0]
-	_anim_player.connect("animation_finished", self, "on_animation_finished")
-	
-	# Apply state
-	ingredients_required = Constants.MACHINE_INGREDIENTS[body_name]
-	base_power_draw = Constants.MACHINE_POWER_DRAW[body_name]
-	machine_stats = compute_stats()
-	if ingredients_required:
-		requires_ingredients = true
-	
-	# Conditional
-	if machine_category == "Moving":
-		on = true
-		match body_name:
-			"Conveyer":
-				play_anim()
-				get_tree().call_group("Conveyer", "reset_anim")
-			"Accumulator":
-				play_anim()
-	if body_name == "Power Tower":
-		toggle()
-	if body_name == "Wheel":
-		on = true
+	if not preview:
+		# Ready animation
+		anim = _anim_player.get_animation_list()[0]
+		_anim_player.connect("animation_finished", self, "on_animation_finished")
+		anim_seek(0)
+		
+		# Apply state
+		ingredients_required = Constants.MACHINE_INGREDIENTS[body_name]
+		base_power_draw = Constants.MACHINE_POWER_DRAW[body_name]
+		machine_stats = compute_stats()
+		if ingredients_required:
+			requires_ingredients = true
+		
+		# Conditional
+		if machine_category == "Moving":
+			on = true
+			match body_name:
+				"Conveyer":
+					play_anim()
+					get_tree().call_group("Conveyer", "reset_anim")
+				"Accumulator":
+					play_anim()
+		if machine_category == "Powering" and body_name != "Wheel":
+			toggle()
+		elif body_name == "Wheel":
+			on = true
+	else:
+		set_collision_layer_bit(0, false)
+		set_collision_layer_bit(1, false)
+		set_collision_layer_bit(2, false)
+		set_collision_mask_bit(0, false)
 
 func compute_stats():
 	var stats = Constants.BASE_MACHINE_STATS.duplicate(true)
@@ -97,37 +105,47 @@ func create(tile, pos, parent):
 		power_network.create(tiles_in_range, self)
 
 func _process(delta):
-	var tile = self._data.tile
-	var power_draw = base_power_draw * machine_stats.Efficiency
-	if on and tile.has_power(power_draw):
-		accumulated_time += delta
-		# Check if tick has passed
-		var tick = 1.0 / machine_stats.Speed
-		if accumulated_time >= tick and tile.has_power(power_draw):
-			tile.extract_power(power_draw)
-			accumulated_time -= tick
-			# Contextual process based on machine type
-			match machine_category:
-				"Gathering":
-					gather(delta)
-				"Refining":
-					refine(delta)
-				"Powering":
-					generate_power(delta)
-			if body_name == "Inserter" and not transfering:
-				move(delta)
-	elif on:
-		toggle()
+	if not preview:
+		var tile = self._data.tile
+		var power_draw = base_power_draw * machine_stats.Efficiency
+		if on and tile.has_power(power_draw):
+			accumulated_time += delta
+			# Check if tick has passed
+			var tick = 1.0 / machine_stats.Speed
+			if accumulated_time >= tick:
+				set_anim_speed(1)
+				tile.extract_power(power_draw)
+				accumulated_time -= tick
+				# Contextual process based on machine type
+				match machine_category:
+					"Gathering":
+						gather(delta)
+					"Refining":
+						refine(delta)
+					"Powering":
+						generate_power(delta)
+				if body_name == "Inserter" and not transfering:
+					move(delta)
+		elif on:
+			set_anim_speed(0)
 
 func set_resources_in_range(resources):
 	resources_in_range = resources
 
 func gather(delta):
 	for r in resources_in_range:
-		add_to_inventory(r.remove_from_stores(machine_stats.Power))
+		var amount = r.remove_from_stores(machine_stats.Power)
+		if amount > 0:
+			set_anim_speed(1)
+			add_to_inventory(amount)
+		else:
+			set_anim_speed(0)
+	if resources_in_range.size() == 0:
+		set_anim_speed(0)
 
 func refine(delta):
 	if all_ingredients_active():
+		set_anim_speed(1)
 		for i in ingredients_required.keys():
 			var val = ingredients_required[i]
 			active_ingredients[i] -= val
@@ -136,6 +154,8 @@ func refine(delta):
 		else:
 			emit_signal("add_to_player_inventory", "cash", machine_stats.Power)
 			emit_signal("inventory_updated")
+	else:
+		set_anim_speed(0)
 
 func move(delta):
 	var source_machine = _parent.request_machine_in_range(self, grid_pos, -facing_dir)
@@ -150,13 +170,36 @@ func move(delta):
 
 func generate_power(delta):
 	if body_name == "Steam Engine" or body_name == "Reactor":
-		power_network.add_power(machine_stats.Power)
+		if all_ingredients_active():
+			set_anim_speed(1)
+			for i in ingredients_required.keys():
+				var val = ingredients_required[i]
+				active_ingredients[i] -= val
+			power_network.add_power(machine_stats.Power)
+			emit_signal("inventory_updated")
+		else:
+			set_anim_speed(1)
 	elif body_name == "Wheel" and wheel_speed > 0:
 		power_network.add_power(machine_stats.Power * wheel_speed)
+	entropy()
 
 func spin(speed, is_idle):
 	wheel_speed = speed/5
 	set_anim_speed(wheel_speed if not is_idle else 0)
+
+func entropy():
+	var tile = self._data.tile
+	var ent : int
+	match body_name:
+		"Power Tower":
+			ent = 1
+		"Steam Engine":
+			ent = 5
+		"Reactor":
+			ent = 50
+		_:
+			ent = 0
+	tile.extract_power(ent)
 
 func board():
 	reset_anim()
@@ -194,7 +237,7 @@ func accept_payload(payload : Node, from = null):
 	else:
 		if body_name == "Accumulator":
 			add_to_player_inventory(payload.get_info())
-		elif machine_category == "Refining":
+		elif machine_category == "Refining" or body_name == "Steam Engine" or body_name == "Reactor":
 			add_active_ingredient_stack(payload.get_info())
 		payload.queue_free()
 
@@ -208,7 +251,7 @@ func abandon_payload():
 		payload.apply_central_impulse(facing_dir + Vector3.UP)
 
 func accepts_payloads():
-	return (machine_category == "Moving" or machine_category == "Refining") and not pulls_from_producer
+	return (machine_category == "Moving" or machine_category == "Refining" or body_name == "Steam Engine" or body_name == "Reactor") and not pulls_from_producer
 
 func dismantle():
 	var costs = Constants.MACHINE_COSTS[body_name].duplicate(true)
@@ -329,5 +372,5 @@ func _on_ConveyerEndArea_body_entered(body):
 		attempt_payload_transfer()
 
 func _on_Machine_tree_exited():
-	if body_name == "Powering" and power_network != null:
+	if machine_category == "Powering" and power_network != null:
 		power_network.destroy()

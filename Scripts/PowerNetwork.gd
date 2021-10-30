@@ -3,11 +3,14 @@ extends Resource
 class_name PowerNetwork
 
 # State
+var _res_id = 0
 var _available_power = 0
 var _tiles = []
 var _machines = []
+var _networks_to_merge = {}
 
 func create(tiles, machine):
+	_res_id = ResourceManager.get_next_id()
 	self._machines.append(machine)
 	add_tiles(tiles)
 
@@ -16,8 +19,16 @@ func add_tiles(tiles):
 	for t in self._tiles:
 		var has_existing = t.attempt_add_power_network(self)
 		if has_existing:
-			t.get_power_network().merge(self)
-			break
+			var pnet = t.get_power_network() as PowerNetwork
+			_networks_to_merge[pnet.get_res_id()] = pnet
+	for k in _networks_to_merge.keys():
+		self.merge(_networks_to_merge[k])
+	_networks_to_merge.clear()
+
+func force_add_tiles(tiles):
+	self._tiles.append_array(tiles)
+	for t in self._tiles:
+		t.attempt_add_power_network(self)
 
 func destroy():
 	for t in self._tiles:
@@ -36,6 +47,9 @@ func extract_power(amount : int):
 		add_power(-self._available_power)
 	return val
 
+func get_res_id():
+	return _res_id
+
 func get_available_power():
 	return self._available_power
 
@@ -44,7 +58,7 @@ func merge(pnet : PowerNetwork):
 	var new_tiles = pnet._tiles
 	var machines = pnet._machines
 	pnet.destroy()
-	add_tiles(new_tiles)
+	force_add_tiles(new_tiles)
 	add_power(new_power)
 	self._machines.append_array(machines)
 	for m in machines:

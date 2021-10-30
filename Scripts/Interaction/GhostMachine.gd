@@ -8,6 +8,9 @@ func set_preview_ok(ok):
 		material.set("albedo_color", Color(1.0, 0.3, 0.3, 0.4))
 #	$PreviewBox.mesh.surface_set_material(0, material)
 
+func reset_position():
+	global_transform.origin = Vector3.DOWN * 100
+
 func _on_machine_placement_toggled(is_placing, obj_name):
 	for c in get_children():
 		c.hide()
@@ -24,3 +27,4 @@ func _on_machine_placement_toggled(is_placing, obj_name):
 			$PoweringMachineRangeIndicator.show()
 	else:
 		hide()
+		reset_position()

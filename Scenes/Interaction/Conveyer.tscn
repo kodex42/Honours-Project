@@ -8,6 +8,7 @@
 [ext_resource path="res://Data/Models/Blender/Material_025.material" type="Material" id=7]
 
 [sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 0.5, 1 )
 
 [sub_resource type="ArrayMesh" id=2]
 resource_name = "cliff_block_stone.009"
@@ -130,7 +131,7 @@ surfaces/0 = {
 "vertex_count": 1222
 }
 
-[sub_resource type="BoxShape" id=12]
+[sub_resource type="BoxShape" id=10]
 extents = Vector3( 0.6, 1, 0.01 )
 
 [node name="Conveyer" groups=[
@@ -142,7 +143,7 @@ body_name = "Conveyer"
 machine_category = "Moving"
 
 [node name="CollisionShape" parent="." index="1"]
-transform = Transform( 0.607421, 0, 0, 0, 0.404956, 0, 0, 0, 0.991055, 0, 0, 0 )
+transform = Transform( 0.607421, 0, 0, 0, 0.404956, 0, 0, 0, 0.991055, 0, 0.2, 0 )
 shape = SubResource( 1 )
 
 [node name="Conveyer" type="Spatial" parent="Machine" index="0"]
@@ -205,6 +206,6 @@ collision_layer = 16
 collision_mask = 16
 
 [node name="CollisionShape" type="CollisionShape" parent="Machine/Conveyer/ConveyerEndArea" index="0"]
-shape = SubResource( 12 )
+shape = SubResource( 10 )
 
 [connection signal="body_entered" from="Machine/Conveyer/ConveyerEndArea" to="." method="_on_ConveyerEndArea_body_entered"]

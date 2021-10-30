@@ -50,6 +50,7 @@ Randomizer="*res://Scripts/AutoLoadSingletons/Randomizer.gd"
 Time="*res://Scripts/AutoLoadSingletons/Time.gd"
 Constants="*res://Scripts/AutoLoadSingletons/Constants.gd"
 MachineMods="*res://Scripts/AutoLoadSingletons/MachineMods.gd"
+ResourceManager="*res://Scripts/AutoLoadSingletons/ResourceManager.gd"
 
 [display]
 

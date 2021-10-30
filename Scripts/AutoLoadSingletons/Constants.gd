@@ -119,8 +119,15 @@ const MACHINE_INGREDIENTS = {
 	"Accumulator": null,
 	"Power Tower": null,
 	"Wheel": null,
-	"Steam Engine": null,
-	"Reactor": null,
+	"Steam Engine": {
+		"coal" : 5,
+		"water" : 5
+	},
+	"Reactor": {
+		"coal" : 10000,
+		"metal" : 50000,
+		"water" : 5000
+	},
 	"Burner": {
 		"wood": 2,
 	},
