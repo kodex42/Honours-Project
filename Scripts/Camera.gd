@@ -113,14 +113,14 @@ func _input(event):
 		zoom(1)
 	if event.is_action_pressed("zoom_out"):
 		zoom(-1)
-	if event is InputEventJoypadMotion:
-		var RLAxis = Input.get_joy_axis(0, JOY_AXIS_2)
-		var UDAxis = Input.get_joy_axis(0, JOY_AXIS_3)
-		var stickInput = Vector2(RLAxis, UDAxis)
-		if stickInput.length() >= RS_DEAD:
-			stick_pos = stickInput
-		else:
-			stick_pos = Vector2(0, 0)
+#	if event is InputEventJoypadMotion:
+#		var RLAxis = Input.get_joy_axis(0, JOY_AXIS_2)
+#		var UDAxis = Input.get_joy_axis(0, JOY_AXIS_3)
+#		var stickInput = Vector2(RLAxis, UDAxis)
+#		if stickInput.length() >= RS_DEAD:
+#			stick_pos = stickInput
+#		else:
+#			stick_pos = Vector2(0, 0)
 
 func display_placement_legality():
 	var ghost_pos = _ghost.global_transform.origin

@@ -62,13 +62,13 @@ var machine_stat_mods = {
 		"Range" : 1
 	},
 	"Wheel" : {
-		"Power" : 25,
+		"Power" : 150,
 		"Speed" : 1,
 		"Efficiency" : 1,
 		"Range" : 2.5
 	},
 	"Steam Engine" : {
-		"Power" : 50,
+		"Power" : 400,
 		"Speed" : 1,
 		"Efficiency" : 1,
 		"Range" : 4

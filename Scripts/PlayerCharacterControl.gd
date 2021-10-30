@@ -16,7 +16,7 @@ const GRAV_FORCE = -25
 
 # State variables
 var jumping = false
-var turning_speed = 5.0
+var turning_speed = 10.0
 var gravity = Vector3.ZERO
 var up = Vector3.UP
 var wheel_locked = false

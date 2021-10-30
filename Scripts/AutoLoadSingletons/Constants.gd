@@ -2,15 +2,15 @@ extends Node
 
 const DEBUG = true
 const BASE_MACHINE_STATS = {
-	"Power" : 1.0,
-	"Speed" : 1.0,
-	"Efficiency" : 1.0,
-	"Range" : 1
+	"Power" : 1.0,		# 1.0 - inf, more = more items / power
+	"Speed" : 1.0,		# 1.0 - inf, more = faster ticks and animations for machines
+	"Efficiency" : 1.0,	# 0.0 - 1.0, less = less power consumption
+	"Range" : 1			# 1 - 50, more = more resource tiles consumed by gathering machines and more tiles powered by powering machines
 }
 const MACHINE_POWER_DRAW = {
-	"Miner" : 30.0,
+	"Miner" : 20.0,
 	"Excavator" : 30.0,
-	"Pump" : 10.0,
+	"Pump" : 30.0,
 	"Sawmill" : 10.0,
 	"Burner" : 5.0,
 	"Smelter" : 25.0,

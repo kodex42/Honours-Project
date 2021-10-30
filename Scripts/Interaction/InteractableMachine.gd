@@ -71,39 +71,6 @@ func _ready():
 		set_collision_layer_bit(2, false)
 		set_collision_mask_bit(0, false)
 
-func compute_stats():
-	var stats = Constants.BASE_MACHINE_STATS.duplicate(true)
-	var mods = MachineMods.machine_stat_mods[body_name]
-	for s in stats.keys():
-		stats[s] *= mods[s]
-	return stats
-
-func create(tile, pos, parent):
-	var resource
-	match(produced_resource):
-		ResourceType.WOOD:
-			resource = "wood"
-		ResourceType.WATER:
-			resource = "water"
-		ResourceType.COAL:
-			resource = "coal"
-		ResourceType.ROCK_CHUNK:
-			resource = "rock chunk"
-		ResourceType.METAL:
-			resource = "metal"
-		ResourceType.CASH:
-			resource = "cash"
-		ResourceType.BYTE:
-			resource = "byte"
-	self.build(tile, pos, body_name, "Machine", resource)
-	tile.set_machine(self)
-	machine_stats = compute_stats()
-	
-	if machine_category == "Powering":
-		var tiles_in_range = parent.request_tiles_in_radial_range(self, pos, machine_stats.Range)
-		power_network = PowerNetwork.new()
-		power_network.create(tiles_in_range, self)
-
 func _process(delta):
 	if not preview:
 		var tile = self._data.tile
@@ -113,7 +80,7 @@ func _process(delta):
 			# Check if tick has passed
 			var tick = 1.0 / machine_stats.Speed
 			if accumulated_time >= tick:
-				set_anim_speed(1)
+				set_anim_speed(machine_stats.Speed if body_name != "Wheel" else wheel_speed)
 				tile.extract_power(power_draw)
 				accumulated_time -= tick
 				# Contextual process based on machine type
@@ -129,14 +96,11 @@ func _process(delta):
 		elif on:
 			set_anim_speed(0)
 
-func set_resources_in_range(resources):
-	resources_in_range = resources
-
 func gather(delta):
 	for r in resources_in_range:
 		var amount = r.remove_from_stores(machine_stats.Power)
 		if amount > 0:
-			set_anim_speed(1)
+			set_anim_speed(machine_stats.Speed)
 			add_to_inventory(amount)
 		else:
 			set_anim_speed(0)
@@ -145,7 +109,7 @@ func gather(delta):
 
 func refine(delta):
 	if all_ingredients_active():
-		set_anim_speed(1)
+		set_anim_speed(machine_stats.Speed)
 		for i in ingredients_required.keys():
 			var val = ingredients_required[i]
 			active_ingredients[i] -= val
@@ -178,14 +142,49 @@ func generate_power(delta):
 			power_network.add_power(machine_stats.Power)
 			emit_signal("inventory_updated")
 		else:
-			set_anim_speed(1)
+			set_anim_speed(machine_stats.Speed)
 	elif body_name == "Wheel" and wheel_speed > 0:
 		power_network.add_power(machine_stats.Power * wheel_speed)
 	entropy()
 
+func set_resources_in_range(resources):
+	resources_in_range = resources
+
+func compute_stats():
+	var stats = Constants.BASE_MACHINE_STATS.duplicate(true)
+	var mods = MachineMods.machine_stat_mods[body_name]
+	for s in stats.keys():
+		stats[s] *= mods[s]
+	return stats
+
+func create(tile, pos, parent):
+	var resource
+	match(produced_resource):
+		ResourceType.WOOD:
+			resource = "wood"
+		ResourceType.WATER:
+			resource = "water"
+		ResourceType.COAL:
+			resource = "coal"
+		ResourceType.ROCK_CHUNK:
+			resource = "rock chunk"
+		ResourceType.METAL:
+			resource = "metal"
+		ResourceType.CASH:
+			resource = "cash"
+		ResourceType.BYTE:
+			resource = "byte"
+	self.build(tile, pos, body_name, "Machine", resource)
+	tile.set_machine(self)
+	machine_stats = compute_stats()
+	if machine_category == "Powering":
+		var tiles_in_range = parent.request_tiles_in_radial_range(self, pos, machine_stats.Range)
+		power_network = PowerNetwork.new()
+		power_network.create(tiles_in_range, self)
+
 func spin(speed, is_idle):
-	wheel_speed = speed/5
-	set_anim_speed(wheel_speed if not is_idle else 0)
+	wheel_speed = speed/5 if not is_idle else 0
+	set_anim_speed(wheel_speed)
 
 func entropy():
 	var tile = self._data.tile
@@ -199,7 +198,7 @@ func entropy():
 			ent = 50
 		_:
 			ent = 0
-	tile.extract_power(ent)
+	tile.extract_power(ent * machine_stats.Efficiency)
 
 func board():
 	reset_anim()
