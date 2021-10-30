@@ -32,6 +32,14 @@ func build_from_machine(machine_name):
 			desc = "Moves resource stacks from one machine's inventory to another's."
 		"Accumulator":
 			desc = "Harnessing the power of [REDACTED], this machine transports whatever resource stacks are put into it directly into your inventory!"
+		"Wheel":
+			desc = "Uses the greenest of power sources to create power: your own legs! Your legs aren't actually green, are they? Interact with the Wheel and click the Board button to start running!"
+		"Power Tower":
+			desc = "Connects power networks to share power generation and use between them! This machine incurs a constant cost of 1 power per tick."
+		"Steam Engine":
+			desc = "The Grand Dad of all engines, this baby can fit so much coal and water in it... to generate power that is. This machine incurs a constant cost of 5 power per tick."
+		"Reactor":
+			desc = "This machine uses [REDACTED] to [DATA EXPUNGED] making it the best Powering Machine you can get! This machine incurs a constant cost of 50 power per tick."
 		_:
 			desc = "Description to be written later."
 	$MachineDesc.set_text(desc)

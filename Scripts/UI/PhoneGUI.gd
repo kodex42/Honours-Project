@@ -4,6 +4,7 @@ extends Control
 signal message_sent(msg)
 signal message_received(msg)
 signal machining_window_opened(machine_type)
+signal phone_toggled(on)
 
 # Nodes
 onready var phone = $PhoneViewport/Phone
@@ -79,6 +80,7 @@ func _on_Phone_toggled(on):
 	else:
 		screen_collection.hide()
 	check_prompts_active()
+	emit_signal("phone_toggled", on)
 
 func _on_app_opened_from_HomeScreen(app_name):
 	if "Machining" in app_name:

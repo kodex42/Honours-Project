@@ -91,15 +91,15 @@ func movement_controls(delta, v):
 		if not wheel_locked:
 			dir = dir.rotated(Vector3.UP, _camera.setup.rotation.y)
 		
-		# Basis = matrix form
-		var player_heading_2d := Vector2(self.transform.basis.z.x, self.transform.basis.z.z)
-		var desired_heading_2d := Vector2(dir.x, dir.z)
-		# Angle of player rotation required
-		var phi : float = desired_heading_2d.angle_to(player_heading_2d)
-		phi = phi * delta * turning_speed
-		# Apply rotation to body and velocity
-		self.rotation.y += phi
-		v = v.rotated(Vector3.UP, self.rotation.y)
+			# Basis = matrix form
+			var player_heading_2d := Vector2(self.transform.basis.z.x, self.transform.basis.z.z)
+			var desired_heading_2d := Vector2(dir.x, dir.z)
+			# Angle of player rotation required
+			var phi : float = desired_heading_2d.angle_to(player_heading_2d)
+			phi = phi * delta * turning_speed
+			# Apply rotation to body and velocity
+			self.rotation.y += phi
+			v = v.rotated(Vector3.UP, self.rotation.y)
 		if Input.is_action_pressed("sprint"):
 			_anim_tree["parameters/state_machine/playback"].travel("Running")
 		else:
@@ -129,4 +129,7 @@ func exit_wheel():
 	self.wheel = null
 	GlobalControls.call_deferred("unexclude")
 	_phone_gui.phone.enable()
-	emit_signal("mounted")
+	emit_signal("unmounted")
+
+func _on_PhoneGUI_phone_toggled(on):
+	pass # Replace with function body.

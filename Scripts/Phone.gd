@@ -69,9 +69,11 @@ func rotate_phone():
 func disable():
 	if on:
 		toggle()
+	set_process(false)
 	togglable = false
 
 func enable():
+	set_process(true)
 	togglable = true
 
 func _on_MovementTween_tween_started(object, key):

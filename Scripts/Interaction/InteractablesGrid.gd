@@ -141,7 +141,7 @@ func put_resource(type : int, pos = Vector3(0, 0, 0)):
 	add_child(body)
 	# Translate to position
 	var global_pos = pos * 2 + Vector3(1, 0, 1) - Vector3(lim, 0, lim)
-	body.global_translate(global_pos)
+	body.global_transform.origin = global_pos
 	# Use CSGBox to prevent clipping between floor and water tiles
 	if type == ResourceType.WATER:
 		var box = CSGBox.new()
@@ -173,7 +173,7 @@ func put_machine(type : String, pos = Vector3(0, 0, 0), start_active = false, ro
 	body.create(tile, pos, self)
 	add_child(body)
 	# Translate to position and rotate
-	body.global_translate(global_pos)
+	body.global_transform.origin = global_pos
 	body.rotate(Vector3.UP, rot)
 	body.connect("add_to_player_inventory", self, "on_machine_adding_to_player_inventory")
 	if body.machine_category == "Gathering":

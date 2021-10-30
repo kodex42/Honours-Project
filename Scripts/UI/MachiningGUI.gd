@@ -6,6 +6,9 @@ signal machine_craft_requested(machine_name)
 # Preloads
 var machine_card = preload("res://Scenes/UI/MachiningPreviewCard.tscn")
 
+# Exports
+export var _machine_category = ""
+
 # Nodes
 onready var grid = $PanelContainer/MarginContainer/ScrollContainer/GridContainer
 
@@ -34,6 +37,10 @@ const MACHINE_TYPES = {
 		"Reactor"
 	]
 }
+
+func _ready():
+	if _machine_category != "":
+		build_from_machine_type(_machine_category)
 
 func build_from_machine_type(machine_type):
 	# Clear

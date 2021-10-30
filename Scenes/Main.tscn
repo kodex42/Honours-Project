@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scenes/State/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Placeholder/AnimatedLoadingScreen.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Scripts/Interaction/RayCastForInteractables.gd" type="Script" id=11]
 [ext_resource path="res://Data/wav/Komiku_-_04_-_Shopping_List.wav" type="AudioStream" id=12]
 [ext_resource path="res://Scenes/Interaction/GhostMachine.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/UI/UpgradesGUI.tscn" type="PackedScene" id=14]
 
 [sub_resource type="ProceduralSky" id=1]
 ground_bottom_color = Color( 0, 0.392157, 0.780392, 1 )
@@ -134,6 +135,11 @@ _phone_gui = NodePath("../PhoneGUI")
 
 [node name="PhoneGUI" parent="Camera/HUD/GUIViewport" instance=ExtResource( 7 )]
 
+[node name="UpgradesGUI" parent="Camera/HUD/GUIViewport" instance=ExtResource( 14 )]
+visible = false
+_gui = NodePath("../GUI")
+_phone_gui = NodePath("../PhoneGUI")
+
 [node name="GUIQuad" type="MeshInstance" parent="Camera"]
 transform = Transform( 0.12625, 0, 0, 0, 0.12625, 0, 0, 0, 1, 0, 0, -0.804 )
 mesh = SubResource( 6 )
@@ -184,8 +190,9 @@ volume_db = -15.0
 [connection signal="timeout" from="CloseTimer" to="." method="_on_CloseTimer_timeout"]
 [connection signal="machine_placed" from="Camera" to="World/Level" method="_on_machine_placed"]
 [connection signal="machine_placement_toggled" from="Camera" to="World/Level" method="_on_machine_placement_toggled"]
-[connection signal="machine_placement_toggled" from="Camera" to="World/GhostMachine" method="_on_machine_placement_toggled"]
 [connection signal="machine_placement_toggled" from="Camera" to="Camera/HUD/GUIViewport/GUI" method="_on_object_placement"]
+[connection signal="machine_placement_toggled" from="Camera" to="World/GhostMachine" method="_on_machine_placement_toggled"]
 [connection signal="machining_window_opened" from="Camera/HUD/GUIViewport/PhoneGUI" to="Camera/HUD/GUIViewport/GUI" method="_on_PhoneGUI_machining_window_opened"]
+[connection signal="phone_toggled" from="Camera/HUD/GUIViewport/PhoneGUI" to="PlayerCharacter" method="_on_PhoneGUI_phone_toggled"]
 [connection signal="mounted" from="PlayerCharacter" to="Camera/HUD/GUIViewport/GUI" method="_on_PlayerCharacter_mounted"]
 [connection signal="unmounted" from="PlayerCharacter" to="Camera/HUD/GUIViewport/GUI" method="_on_PlayerCharacter_unmounted"]

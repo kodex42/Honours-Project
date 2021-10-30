@@ -15,29 +15,29 @@
 [ext_resource path="res://Scenes/UI/InteractableMachine.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Data/Textures/UI/Prompts/button_prompts_R.png" type="Texture" id=14]
 [ext_resource path="res://Data/Textures/UI/Prompts/button_prompts_Esc.png" type="Texture" id=15]
-[ext_resource path="res://Scenes/UI/MachiningGUI.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Scenes/UI/MachiningGUITabs.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Scripts/UI/Toast.gd" type="Script" id=17]
 [ext_resource path="res://Data/Textures/UI/Interaction/RadialProgressProgress.png" type="Texture" id=18]
 [ext_resource path="res://Scripts/UI/Crosshair.gd" type="Script" id=19]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0, 0, 0, 0.592157 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 40
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="StreamTexture" id=3]
+[sub_resource type="StreamTexture" id=4]
 flags = 4
 load_path = "res://.import/button_prompts_E.png-ed38f0498d0201955ec37d7424dbe53e.stex"
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=5]
 size = 35
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 1, 1, 1, 0.482353 )
 corner_radius_top_left = 64
 corner_radius_top_right = 64
@@ -56,7 +56,7 @@ __meta__ = {
 margin_right = 283.0
 margin_bottom = 96.0
 size_flags_vertical = 7
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -97,7 +97,7 @@ margin_left = 68.0
 margin_top = 8.0
 margin_right = 169.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Close"
 valign = 1
 
@@ -123,7 +123,7 @@ margin_left = 68.0
 margin_top = 8.0
 margin_right = 253.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Exit Wheel"
 valign = 1
 
@@ -148,7 +148,7 @@ margin_left = 68.0
 margin_top = 8.0
 margin_right = 251.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Show Grid"
 valign = 1
 
@@ -175,7 +175,7 @@ margin_left = 68.0
 margin_top = 8.0
 margin_right = 185.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Rotate"
 valign = 1
 
@@ -202,7 +202,7 @@ margin_left = 68.0
 margin_top = 8.0
 margin_right = 167.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Place"
 valign = 1
 
@@ -211,7 +211,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 grow_horizontal = 0
 size_flags_horizontal = 2
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -243,7 +243,7 @@ custom_constants/separation = 16
 margin_top = 8.0
 margin_right = 22.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "0"
 
 [node name="TextureRect" type="TextureRect" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Wood"]
@@ -267,7 +267,7 @@ custom_constants/separation = 16
 margin_top = 8.0
 margin_right = 22.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "0"
 
 [node name="TextureRect" type="TextureRect" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Water"]
@@ -291,7 +291,7 @@ custom_constants/separation = 16
 margin_top = 8.0
 margin_right = 22.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "0"
 
 [node name="TextureRect" type="TextureRect" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Coal"]
@@ -315,7 +315,7 @@ custom_constants/separation = 16
 margin_top = 8.0
 margin_right = 22.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "0"
 
 [node name="TextureRect" type="TextureRect" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/RockChunks"]
@@ -339,7 +339,7 @@ custom_constants/separation = 16
 margin_top = 8.0
 margin_right = 22.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "0"
 
 [node name="TextureRect" type="TextureRect" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Metal"]
@@ -363,7 +363,7 @@ custom_constants/separation = 16
 margin_top = 8.0
 margin_right = 22.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "0"
 
 [node name="TextureRect" type="TextureRect" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Cash"]
@@ -387,7 +387,7 @@ custom_constants/separation = 16
 margin_top = 8.0
 margin_right = 22.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "0"
 
 [node name="TextureRect" type="TextureRect" parent="ResourcesAndCurrencies/MarginContainer/VBoxContainer/Bytes"]
@@ -405,7 +405,7 @@ visible = false
 margin_left = 320.0
 margin_right = 557.0
 margin_bottom = 276.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -430,7 +430,7 @@ __meta__ = {
 [node name="Name" type="Label" parent="InteractableInfo/MarginContainer/VBoxContainer"]
 margin_right = 205.0
 margin_bottom = 48.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Name"
 valign = 1
 __meta__ = {
@@ -441,7 +441,7 @@ __meta__ = {
 margin_top = 52.0
 margin_right = 205.0
 margin_bottom = 100.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Type"
 valign = 1
 __meta__ = {
@@ -452,7 +452,7 @@ __meta__ = {
 margin_top = 104.0
 margin_right = 205.0
 margin_bottom = 152.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Tile"
 valign = 1
 __meta__ = {
@@ -476,7 +476,7 @@ margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = SubResource( 3 )
+texture = SubResource( 4 )
 expand = true
 
 [node name="Label" type="Label" parent="InteractableInfo/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
@@ -484,7 +484,7 @@ margin_left = 68.0
 margin_top = 8.0
 margin_right = 205.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Interact"
 valign = 1
 __meta__ = {
@@ -501,7 +501,7 @@ margin_left = -288.0
 margin_top = -150.0
 margin_right = 288.0
 margin_bottom = 60.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -514,7 +514,7 @@ margin_bottom = 212.0
 margin_right = 576.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 0, 128 )
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Are you sure you want to
 Quit?"
 align = 1
@@ -548,7 +548,7 @@ margin_right = 190.0
 margin_bottom = 48.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "No"
 align = 1
 valign = 1
@@ -568,7 +568,7 @@ size_flags_vertical = 8
 margin_right = 190.0
 margin_bottom = 48.0
 size_flags_horizontal = 3
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "Yes"
 align = 1
 valign = 1
@@ -592,7 +592,7 @@ margin_right = 0.0
 margin_bottom = 0.0
 mouse_filter = 1
 
-[node name="MachiningGUI" parent="." instance=ExtResource( 16 )]
+[node name="MachiningGUITabs" parent="." instance=ExtResource( 16 )]
 visible = false
 
 [node name="Toast" type="PanelContainer" parent="."]
@@ -607,7 +607,7 @@ margin_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 6 )
 script = ExtResource( 17 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -633,10 +633,13 @@ margin_right = 129.0
 margin_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Toast!"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Tween" type="Tween" parent="Toast"]
 playback_speed = 1.5
@@ -653,6 +656,9 @@ margin_right = 16.0
 margin_bottom = 16.0
 rect_pivot_offset = Vector2( 16, 16 )
 script = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TextureRect" type="TextureRect" parent="Crosshair"]
 anchor_left = 0.5
@@ -681,5 +687,5 @@ __meta__ = {
 [connection signal="machine_dismantled" from="InteractableMachine" to="." method="_on_InteractableMachine_machine_dismantled"]
 [connection signal="resource_count_changed" from="InteractableMachine" to="." method="_on_InteractableObject_resource_count_changed"]
 [connection signal="wheel_boarded" from="InteractableMachine" to="." method="_on_InteractableMachine_wheel_boarded"]
-[connection signal="machine_craft_requested" from="MachiningGUI" to="." method="_on_MachiningGUI_machine_craft_requested"]
+[connection signal="machine_craft_requested" from="MachiningGUITabs" to="." method="_on_MachiningGUI_machine_craft_requested"]
 [connection signal="tween_all_completed" from="Toast/Tween" to="Toast" method="_on_Tween_tween_all_completed"]

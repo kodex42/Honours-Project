@@ -207,6 +207,7 @@ func board():
 	play_anim()
 
 func unboard():
+	wheel_speed = 0
 	reset_anim()
 	stop_anim()
 

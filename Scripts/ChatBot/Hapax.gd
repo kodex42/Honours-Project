@@ -64,7 +64,7 @@ func get_response(msg):
 			res.msg = "!!!"
 			res.prompts.append("???")
 		"What's new?":
-			res.msg = "Moving machines! Now you can move resources from one machine to another without even lifting a finger! You can find them from the Home Screen."
+			res.msg = "Now machines require power, and you can generate that power with a variety of Powering Machines! Just be aware that most powering machines contribute to entropy, and will thus reduce their own power supply over time. You can build them from the Home Screen."
 		"What do I do?":
 			res.msg = "For now, you can gather wood, coal, and rocks from the resources around you. You can use these resources to build machines to help you gather these resources faster!"
 		_:

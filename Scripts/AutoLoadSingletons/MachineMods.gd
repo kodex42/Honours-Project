@@ -68,7 +68,7 @@ var machine_stat_mods = {
 		"Range" : 2.5
 	},
 	"Steam Engine" : {
-		"Power" : 100,
+		"Power" : 50,
 		"Speed" : 1,
 		"Efficiency" : 1,
 		"Range" : 4

@@ -9,7 +9,7 @@ export(NodePath) onready var _phone_gui = get_node(_phone_gui)
 onready var int_info = $InteractableInfo
 onready var int_res_ui = $InteractableResource
 onready var int_mac_ui = $InteractableMachine
-onready var machining_ui = $MachiningGUI
+onready var machining_ui = $MachiningGUITabs
 onready var trackables = $ResourcesAndCurrencies
 onready var quit_prompt = $QuitPrompt
 onready var crosshair = $Crosshair
@@ -109,7 +109,6 @@ func show_interactable_machine_ui():
 func show_machining_ui(machine_type):
 	_phone_gui.phone.disable()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	machining_ui.build_from_machine_type(machine_type)
 	$ControlsInfo/MarginContainer/VBoxContainer/HBoxContainer.show()
 	machining_ui.show()
 	machining_ui.set_process_input(true)

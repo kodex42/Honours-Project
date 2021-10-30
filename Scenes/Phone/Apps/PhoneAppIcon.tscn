@@ -4,7 +4,7 @@
 [ext_resource path="res://Data/Textures/UI/Interaction/MachinePowerButtonIcon.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/UI/PhoneAppIcon.gd" type="Script" id=3]
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.388235, 0.388235, 0.388235, 0.784314 )
 border_color = Color( 0.380392, 0.380392, 0.380392, 1 )
 corner_radius_top_left = 16
@@ -14,7 +14,7 @@ corner_radius_bottom_left = 16
 corner_detail = 16
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.141176, 0.141176, 0.141176, 0.929412 )
 border_color = Color( 0.380392, 0.380392, 0.380392, 1 )
 corner_radius_top_left = 16
@@ -24,7 +24,7 @@ corner_radius_bottom_left = 16
 corner_detail = 16
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.388235, 0.388235, 0.388235, 0 )
 corner_radius_top_left = 16
 corner_radius_top_right = 16
@@ -33,7 +33,7 @@ corner_radius_bottom_left = 16
 corner_detail = 16
 anti_aliasing = false
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=4]
 use_filter = true
 font_data = ExtResource( 1 )
 
@@ -69,11 +69,11 @@ margin_bottom = 86.0
 rect_min_size = Vector2( 86, 86 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/disabled = SubResource( 6 )
-custom_styles/normal = SubResource( 4 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 1 )
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/Button"]
 anchor_left = -0.0217391
@@ -96,7 +96,8 @@ __meta__ = {
 margin_top = 86.0
 margin_right = 86.0
 margin_bottom = 105.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "App"
 align = 1
+
 [connection signal="pressed" from="VBoxContainer/MarginContainer/Button" to="." method="_on_Button_pressed"]
