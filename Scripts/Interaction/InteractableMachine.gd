@@ -178,9 +178,17 @@ func create(tile, pos, parent):
 	tile.set_machine(self)
 	machine_stats = compute_stats()
 	if machine_category == "Powering":
-		var tiles_in_range = parent.request_tiles_in_radial_range(self, pos, machine_stats.Range)
+		create_power_network(parent)
+
+func create_power_network(parent = null, power = 0):
+	if parent:
+		var tiles_in_range = parent.request_tiles_in_radial_range(self, grid_pos, machine_stats.Range)
 		power_network = PowerNetwork.new()
 		power_network.create(tiles_in_range, self)
+		if power > 0:
+			power_network.add_power(power)
+	else:
+		create_power_network(_parent, power)
 
 func spin(speed, is_idle):
 	wheel_speed = speed/5 if not is_idle else 0
@@ -196,8 +204,8 @@ func entropy():
 			ent = 5
 		"Reactor":
 			ent = 50
-		_:
-			ent = 0
+		"Wheel":
+			ent = machine_stats.Power/2
 	tile.extract_power(ent * machine_stats.Efficiency)
 
 func board():
@@ -367,10 +375,13 @@ func on_animation_finished(anim_name):
 	if body_name != "Inserter":
 		play_anim()
 
+func get_tiles_in_radial_range():
+	return _parent.request_tiles_in_radial_range(self, global_transform.origin, machine_stats.Range)
+
 func _on_ConveyerEndArea_body_entered(body):
 	if payload_parent.get_child_count() > 0 and body == payload_parent.get_child(0):
 		attempt_payload_transfer()
 
 func _on_Machine_tree_exited():
 	if machine_category == "Powering" and power_network != null:
-		power_network.destroy()
+		power_network.recalculate(self)

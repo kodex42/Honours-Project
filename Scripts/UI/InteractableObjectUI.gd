@@ -92,7 +92,7 @@ func update_inventory():
 				n.queue_free()
 
 func update_status():
-	if _interactable_object.machine_category != "Powering":
+	if self._type == "Machine" and _interactable_object.machine_category != "Powering":
 		status_container.show()
 		var power_tex = status_container.get_node("TextureRect")
 		var power_usage = _interactable_object.base_power_draw * _interactable_object.machine_stats.Efficiency

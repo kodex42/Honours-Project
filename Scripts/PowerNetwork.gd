@@ -30,9 +30,19 @@ func force_add_tiles(tiles):
 	for t in self._tiles:
 		t.attempt_add_power_network(self)
 
-func destroy():
+func recalculate(machine):
+	_machines.erase(machine)
+	destroy()
+	for m in _machines:
+		m.call_deferred("create_power_network", null, get_available_power()/_machines.size())
+
+func remove_network_from_tiles():
 	for t in self._tiles:
 		t.remove_power_network()
+
+func destroy():
+	remove_network_from_tiles()
+	self._tiles.clear()
 
 func add_power(amount : int):
 	self._available_power = round(clamp(self._available_power + amount, 0, 99999999))
@@ -57,7 +67,7 @@ func merge(pnet : PowerNetwork):
 	var new_power = pnet.get_available_power()
 	var new_tiles = pnet._tiles
 	var machines = pnet._machines
-	pnet.destroy()
+	pnet.remove_network_from_tiles()
 	force_add_tiles(new_tiles)
 	add_power(new_power)
 	self._machines.append_array(machines)

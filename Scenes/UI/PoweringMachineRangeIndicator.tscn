@@ -4,14 +4,14 @@
 [ext_resource path="res://Data/Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Data/Textures/UI/Interaction/MachinePowerLevel.png" type="Texture" id=3]
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="SpatialMaterial" id=1]
 flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 1, 1, 0.501961, 0.25098 )
 
-[sub_resource type="CylinderMesh" id=10]
+[sub_resource type="CylinderMesh" id=2]
 resource_local_to_scene = true
-material = SubResource( 9 )
+material = SubResource( 1 )
 height = 0.25
 rings = 1
 
@@ -21,11 +21,11 @@ use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="ViewportTexture" id=11]
+[sub_resource type="ViewportTexture" id=4]
 viewport_path = NodePath("ViewportText")
 
 [node name="PoweringMachineRangeIndicator" type="MeshInstance"]
-mesh = SubResource( 10 )
+mesh = SubResource( 2 )
 material/0 = null
 script = ExtResource( 1 )
 
@@ -63,4 +63,4 @@ valign = 1
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 2, 0 )
 billboard = 1
-texture = SubResource( 11 )
+texture = SubResource( 4 )

@@ -33,7 +33,7 @@ func build_from_machine(machine_name):
 		"Accumulator":
 			desc = "Harnessing the power of [REDACTED], this machine transports whatever resource stacks are put into it directly into your inventory!"
 		"Wheel":
-			desc = "Uses the greenest of power sources to create power: your own legs! Your legs aren't actually green, are they? Interact with the Wheel and click the Board button to start running!"
+			desc = "Uses the greenest of power sources to create power: your own legs! Your legs aren't actually green, are they? Interact with the Wheel and click the Board button to start running! This machine incurs a power cost equal to half its generation."
 		"Power Tower":
 			desc = "Connects power networks to share power generation and use between them! This machine incurs a constant cost of 1 power per tick."
 		"Steam Engine":
