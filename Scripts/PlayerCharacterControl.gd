@@ -5,6 +5,7 @@ signal mounted()
 signal unmounted()
 
 # Exports
+export(NodePath) onready var _main = get_node(_main)
 export(NodePath) onready var _camera = get_node(_camera)
 export(NodePath) onready var _phone_gui = get_node(_phone_gui)
 
@@ -15,6 +16,13 @@ onready var _anim_tree = $AnimationTree
 const GRAV_FORCE = -25
 
 # State variables
+var wood = Big.new(0)
+var water = Big.new(0)
+var coal = Big.new(0)
+var rock_chunks = Big.new(0)
+var metal = Big.new(0)
+var cash = Big.new(0)
+var bytes = Big.new(0)
 var jumping = false
 var turning_speed = 10.0
 var gravity = Vector3.ZERO
@@ -100,7 +108,7 @@ func movement_controls(delta, v):
 			# Apply rotation to body and velocity
 			self.rotation.y += phi
 			v = v.rotated(Vector3.UP, self.rotation.y)
-		if Input.is_action_pressed("sprint"):
+		if not Input.is_action_pressed("sprint"):
 			_anim_tree["parameters/state_machine/playback"].travel("Running")
 		else:
 			_anim_tree["parameters/state_machine/playback"].travel("Walking")
@@ -130,6 +138,26 @@ func exit_wheel():
 	GlobalControls.call_deferred("unexclude")
 	_phone_gui.phone.enable()
 	emit_signal("unmounted")
+
+func save():
+	return {
+		"wood" : self.wood.toString(),
+		"water" : self.water.toString(),
+		"coal" : self.coal.toString(),
+		"rock_chunks" : self.rock_chunks.toString(),
+		"metal" : self.metal.toString(),
+		"cash" : self.cash.toString(),
+		"bytes" : self.bytes.toString()
+	}
+
+func load_from_save(data):
+	self.wood = Big.new(data.wood)
+	self.water = Big.new(data.water)
+	self.coal = Big.new(data.rock_chunks)
+	self.metal = Big.new(data.metal)
+	self.cash = Big.new(data.cash)
+	self.bytes = Big.new(data.bytes)
+	_main.update_trackables()
 
 func _on_PhoneGUI_phone_toggled(on):
 	pass # Replace with function body.

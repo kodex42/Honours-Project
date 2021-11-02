@@ -32,9 +32,9 @@ const MACHINE_COSTS = {
 	},
 	"Excavator": {
 		"wood": 1000,
-		"water": 10,
+		"water": 75,
 		"metal": 0,
-		"coal": 50
+		"coal": 500
 	},
 	"Sawmill": {
 		"wood": 10,

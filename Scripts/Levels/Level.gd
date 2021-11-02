@@ -11,6 +11,7 @@ export(NodePath) onready var _main = get_node(_main)
 onready var interactables_grid = get_node("InteractablesGrid")
 onready var tile_grid = get_node("TerrainGridMap")
 onready var stat_objects = get_node("StaticObjects")
+onready var invis_boxes = get_node("StaticObjects/Floor/CSGCombiner/Subtractor")
 
 # State
 var package = {
@@ -40,8 +41,12 @@ func hide_grid():
 
 func place_invis_box(pos):
 	var box = _invis_box.instance()
-	stat_objects.add_child(box)
+	invis_boxes.add_child(box)
 	box.global_translate(pos)
+
+func clear_invis_boxes():
+	for b in invis_boxes.get_children():
+		b.queue_free()
 
 func is_placement_legal(pos):
 	var tile = tile_grid.get_tile_data_from_coords(pos)

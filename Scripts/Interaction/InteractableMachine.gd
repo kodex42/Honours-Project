@@ -76,11 +76,17 @@ func _process(delta):
 		var tile = self._data.tile
 		var power_draw = base_power_draw * machine_stats.Efficiency
 		if on and tile.has_power(power_draw):
+			if (machine_category == "Gathering" and resources_in_range.size() == 0) or (requires_ingredients and not all_ingredients_active()):
+				set_anim_speed(0)
+				return
+			elif body_name == "Wheel":
+				set_anim_speed(wheel_speed)
+			else:
+				set_anim_speed(machine_stats.Speed)
 			accumulated_time += delta
 			# Check if tick has passed
 			var tick = 1.0 / machine_stats.Speed
 			if accumulated_time >= tick:
-				set_anim_speed(machine_stats.Speed if body_name != "Wheel" else wheel_speed)
 				tile.extract_power(power_draw)
 				accumulated_time -= tick
 				# Contextual process based on machine type
@@ -100,16 +106,10 @@ func gather(delta):
 	for r in resources_in_range:
 		var amount = r.remove_from_stores(machine_stats.Power)
 		if amount > 0:
-			set_anim_speed(machine_stats.Speed)
 			add_to_inventory(amount)
-		else:
-			set_anim_speed(0)
-	if resources_in_range.size() == 0:
-		set_anim_speed(0)
 
 func refine(delta):
 	if all_ingredients_active():
-		set_anim_speed(machine_stats.Speed)
 		for i in ingredients_required.keys():
 			var val = ingredients_required[i]
 			active_ingredients[i] -= val
@@ -118,8 +118,6 @@ func refine(delta):
 		else:
 			emit_signal("add_to_player_inventory", "cash", machine_stats.Power)
 			emit_signal("inventory_updated")
-	else:
-		set_anim_speed(0)
 
 func move(delta):
 	var source_machine = _parent.request_machine_in_range(self, grid_pos, -facing_dir)
@@ -135,14 +133,11 @@ func move(delta):
 func generate_power(delta):
 	if body_name == "Steam Engine" or body_name == "Reactor":
 		if all_ingredients_active():
-			set_anim_speed(1)
 			for i in ingredients_required.keys():
 				var val = ingredients_required[i]
 				active_ingredients[i] -= val
 			power_network.add_power(machine_stats.Power)
 			emit_signal("inventory_updated")
-		else:
-			set_anim_speed(machine_stats.Speed)
 	elif body_name == "Wheel" and wheel_speed > 0:
 		power_network.add_power(machine_stats.Power * wheel_speed)
 	entropy()
@@ -377,6 +372,15 @@ func on_animation_finished(anim_name):
 
 func get_tiles_in_radial_range():
 	return _parent.request_tiles_in_radial_range(self, global_transform.origin, machine_stats.Range)
+
+func save():
+	var save_data = .save()
+	save_data["machine_name"] = self.body_name
+	save_data["machine_category"] = self.machine_category
+	save_data["facing_dir"] = self.facing_dir
+	save_data["active_ingredients"] = self.active_ingredients
+	save_data["power"] = self.power_network.get_divided_power() if self.machine_category == "Powering" else 0
+	return save_data
 
 func _on_ConveyerEndArea_body_entered(body):
 	if payload_parent.get_child_count() > 0 and body == payload_parent.get_child(0):

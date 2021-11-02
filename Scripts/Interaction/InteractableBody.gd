@@ -20,6 +20,7 @@ enum ResourceType {
 }
 
 # State
+var _instanced = false
 var _inventory = {
 	"item_type" : "",
 	"amount" : 0,
@@ -33,6 +34,7 @@ var _data = {
 
 func build(occupying_tile : TileData, pos : Vector3, body_name : String, body_type : String, inventory_type : String):
 	# Set data
+	self._instanced = true
 	self._data.name = body_name
 	self._data.type = body_type
 	self._data.tile = occupying_tile
@@ -96,8 +98,19 @@ func get_data():
 func get_inventory():
 	return self._inventory
 
+func is_instanced():
+	return _instanced
+
 func interact():
 	print("I am an interactable body!")
+
+func save():
+	return {
+		"name" : self._data.name,
+		"grid_pos" : self._data.tile._position,
+		"inventory" : self._inventory,
+	}
+	
 
 func _on_InteractableBody_tree_exited():
 	emit_signal("removed", self.name)

@@ -2,7 +2,9 @@
 
 [ext_resource path="res://Scripts/Interaction/InteractableBody.gd" type="Script" id=1]
 
-[node name="InteractableBody" type="StaticBody"]
+[node name="InteractableBody" type="StaticBody" groups=[
+"persist",
+]]
 collision_layer = 7
 script = ExtResource( 1 )
 

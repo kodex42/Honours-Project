@@ -34,7 +34,7 @@ func recalculate(machine):
 	_machines.erase(machine)
 	destroy()
 	for m in _machines:
-		m.call_deferred("create_power_network", null, get_available_power()/_machines.size())
+		m.call_deferred("create_power_network", null, get_divided_power())
 
 func remove_network_from_tiles():
 	for t in self._tiles:
@@ -57,11 +57,14 @@ func extract_power(amount : int):
 		add_power(-self._available_power)
 	return val
 
-func get_res_id():
-	return _res_id
-
 func get_available_power():
 	return self._available_power
+
+func get_divided_power():
+	return get_available_power()/_machines.size()
+
+func get_res_id():
+	return _res_id
 
 func merge(pnet : PowerNetwork):
 	var new_power = pnet.get_available_power()

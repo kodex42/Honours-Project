@@ -176,10 +176,12 @@ material/0 = null
 [node name="Tween" type="Tween" parent="Camera"]
 
 [node name="PlayerCharacter" parent="." groups=[
+"persist",
 "player",
 ] instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0.085, 0 )
 collision_layer = 1
+_main = NodePath("..")
 _camera = NodePath("../Camera")
 _phone_gui = NodePath("../Camera/HUD/GUIViewport/PhoneGUI")
 
@@ -189,9 +191,9 @@ volume_db = -15.0
 
 [connection signal="timeout" from="CloseTimer" to="." method="_on_CloseTimer_timeout"]
 [connection signal="machine_placed" from="Camera" to="World/Level" method="_on_machine_placed"]
+[connection signal="machine_placement_toggled" from="Camera" to="Camera/HUD/GUIViewport/GUI" method="_on_object_placement"]
 [connection signal="machine_placement_toggled" from="Camera" to="World/GhostMachine" method="_on_machine_placement_toggled"]
 [connection signal="machine_placement_toggled" from="Camera" to="World/Level" method="_on_machine_placement_toggled"]
-[connection signal="machine_placement_toggled" from="Camera" to="Camera/HUD/GUIViewport/GUI" method="_on_object_placement"]
 [connection signal="machining_window_opened" from="Camera/HUD/GUIViewport/PhoneGUI" to="Camera/HUD/GUIViewport/GUI" method="_on_PhoneGUI_machining_window_opened"]
 [connection signal="phone_toggled" from="Camera/HUD/GUIViewport/PhoneGUI" to="PlayerCharacter" method="_on_PhoneGUI_phone_toggled"]
 [connection signal="mounted" from="PlayerCharacter" to="Camera/HUD/GUIViewport/GUI" method="_on_PlayerCharacter_mounted"]

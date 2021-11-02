@@ -58,6 +58,10 @@ func create_resource_stack(rType, amount):
 	stack.create(rType, amount)
 	return stack
 
+func load_interactables(interactables):
+	parent.clear_invis_boxes()
+	pass
+
 func generate_resources():
 	var lim = _grid.GRID_SIZE
 	var x = randi() % lim

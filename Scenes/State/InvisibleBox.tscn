@@ -2,7 +2,9 @@
 
 [sub_resource type="BoxShape" id=1]
 
-[node name="InvisibleBox" type="StaticBody"]
+[node name="InvisibleBox" type="StaticBody" groups=[
+"invisible",
+]]
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )

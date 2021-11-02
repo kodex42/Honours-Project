@@ -74,3 +74,9 @@ func get_stores():
 
 func get_type():
 	return _type
+
+func save():
+	var save_data = .save()
+	save_data["resource_type"] = self._type
+	save_data["stores"] = self._stores
+	return save_data
