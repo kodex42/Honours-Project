@@ -58,9 +58,41 @@ func create_resource_stack(rType, amount):
 	stack.create(rType, amount)
 	return stack
 
-func load_interactables(interactables):
+func destroy():
+	for c in get_children():
+		c.queue_free()
+	water_bodies.clear()
+	powering_machines.clear()
+	abandoned_bodies.clear()
 	parent.clear_invis_boxes()
-	pass
+
+func load_interactables(interactables):
+	destroy()
+	for i in interactables:
+		var grid_pos = dict_to_vector(i.grid_pos)
+		if i.type == "Resource":
+			var r_type
+			match i.name:
+				"Water":
+					r_type = ResourceType.WATER
+				"Sooty Rock":
+					r_type = ResourceType.COAL
+				"Shiny Rock":
+					r_type = ResourceType.ROCK_CHUNK
+				_:
+					r_type = ResourceType.WOOD
+			var body = put_resource(r_type, grid_pos)
+			body.set_state(i.inventory, i.stores)
+		elif i.type == "Machine":
+			var facing_dir = dict_to_vector(i.facing_dir)
+			var rot = Vector3(0, 0, 1).angle_to(facing_dir)
+			if Vector3(0, 0, 1).cross(facing_dir).dot(Vector3.UP) < 0:
+				rot = -rot
+			var body = put_machine(i.name, grid_pos, rot)
+			body.set_state(i.inventory, i.active_ingredients, i.power)
+			if i.on and (body.machine_category == "Gathering" or body.machine_category == "Refining"):
+				body.toggle()
+	tile_water()
 
 func generate_resources():
 	var lim = _grid.GRID_SIZE
@@ -160,8 +192,10 @@ func put_resource(type : int, pos = Vector3(0, 0, 0)):
 	else:
 		body.global_translate(Vector3(rand_range(0.0, 0.5), 0, rand_range(0.0, 0.5)))
 		body.rotate_y(rand_range(0, 2*PI))
+	
+	return body
 
-func put_machine(type : String, pos = Vector3(0, 0, 0), start_active = false, rot = 0):
+func put_machine(type : String, pos = Vector3(0, 0, 0), rot = 0):
 #	print("Placing machine type " + type + " at " + str(pos))
 	var lim = _grid.GRID_SIZE
 	# Get tile data
@@ -185,8 +219,8 @@ func put_machine(type : String, pos = Vector3(0, 0, 0), start_active = false, ro
 	if body.machine_category == "Powering":
 		powering_machines.append(body)
 		emit_signal("powering_machine_added", body, global_pos)
-	if start_active:
-		body.interact()
+	
+	return body
 
 func tile_water():
 	for b in water_bodies:
@@ -420,6 +454,9 @@ func request_tiles_in_radial_range(requester, pos, rRange):
 				if not (tile in in_range):
 					in_range.append(tile)
 	return in_range
+
+func dict_to_vector(vec_dict):
+	return Vector3(vec_dict.x, vec_dict.y, vec_dict.z)
 
 func on_machine_adding_to_player_inventory(rType, amount):
 	emit_signal("add_resources_to_player_inventory", rType, amount)

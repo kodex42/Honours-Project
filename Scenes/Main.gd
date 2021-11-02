@@ -22,7 +22,7 @@ func _ready():
 	else:
 		Server.connect("connected", self, "_on_server_connected")
 		Server.connect("failed", self, "_on_server_failed")
-	GlobalControls.load_save_data()
+	_level.build_level()
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton:

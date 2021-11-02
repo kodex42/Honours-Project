@@ -69,6 +69,10 @@ func remove_from_stores(amount):
 func gather_from_stores():
 	return remove_from_stores(1)
 
+func set_state(inventory, stores):
+	self._inventory = inventory
+	self._stores = stores
+
 func get_stores():
 	return _stores
 

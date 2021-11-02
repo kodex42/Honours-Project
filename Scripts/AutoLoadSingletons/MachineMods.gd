@@ -74,7 +74,7 @@ var machine_stat_mods = {
 		"Range" : 4
 	},
 	"Reactor" : {
-		"Power" : 99999999,
+		"Power" : 10000000,
 		"Speed" : 1,
 		"Efficiency" : 1,
 		"Range" : 8

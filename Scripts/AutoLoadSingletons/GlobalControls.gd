@@ -35,7 +35,7 @@ func unquit():
 func load_save_data():
 	var save_game = File.new()
 	if not save_game.file_exists(SAVE_DATA_FILEPATH):
-		return
+		return false
 	
 	var save_nodes = get_tree().get_nodes_in_group("persist")
 	for n in save_nodes:
@@ -50,6 +50,8 @@ func load_save_data():
 	var interactables_grid = get_tree().get_nodes_in_group("int_manager")[0]
 	player.load_from_save(save_data.player)
 	interactables_grid.load_interactables(save_data.interactables)
+	
+	return true
 
 func create_save_data():
 	var save_data = {

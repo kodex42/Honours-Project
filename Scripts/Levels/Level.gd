@@ -20,16 +20,21 @@ var package = {
 	"special" : []
 }
 
-func _ready():
-	interactables_grid.generate_resources()
-#	interactables_grid.benchmark()
-
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("show_hide_grid"):
 		if $StaticObjects/VisualGrid.visible:
 			hide_grid()
 		else:
 			show_grid()
+
+func build_level():
+	if not GlobalControls.load_save_data():
+		interactables_grid.generate_resources()
+#	interactables_grid.benchmark()
+
+func rebuild_level():
+	interactables_grid.destroy()
+	interactables_grid.generate_resources()
 
 func show_grid():
 	$StaticObjects/VisualGrid.show()
@@ -54,7 +59,7 @@ func is_placement_legal(pos):
 
 func _on_machine_placed(obj_name, pos, rot):
 	if is_placement_legal(pos):
-		interactables_grid.put_machine(obj_name, pos, false, rot)
+		interactables_grid.put_machine(obj_name, pos, rot)
 	else:
 		_gui.toast_err("That tile is occupied")
 

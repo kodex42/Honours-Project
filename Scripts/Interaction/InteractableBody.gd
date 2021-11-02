@@ -106,8 +106,13 @@ func interact():
 
 func save():
 	return {
+		"type" : self._data.type,
 		"name" : self._data.name,
-		"grid_pos" : self._data.tile._position,
+		"grid_pos" : {
+			"x" : int(round(self._data.tile._position.x)),
+			"y" : int(round(self._data.tile._position.y)),
+			"z" : int(round(self._data.tile._position.z))
+		},
 		"inventory" : self._inventory,
 	}
 	

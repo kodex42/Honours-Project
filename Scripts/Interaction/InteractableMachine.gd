@@ -299,6 +299,12 @@ func get_required_ingredients():
 func get_required_ingredient(res_name):
 	return ingredients_required[res_name]
 
+func set_state(inventory, active_ingredients, power):
+	self._inventory = inventory
+	self.active_ingredients = active_ingredients
+	if machine_category == "Powering" and power_network:
+		power_network.add_power(power)
+
 func add_active_ingredient(res_name, amount):
 	active_ingredients[res_name] += amount
 	emit_signal("inventory_updated")
@@ -377,7 +383,12 @@ func save():
 	var save_data = .save()
 	save_data["machine_name"] = self.body_name
 	save_data["machine_category"] = self.machine_category
-	save_data["facing_dir"] = self.facing_dir
+	save_data["facing_dir"] = {
+		"x" : int(round(self.facing_dir.x)),
+		"y" : int(round(self.facing_dir.y)),
+		"z" : int(round(self.facing_dir.z))
+	}
+	save_data["on"] = self.on
 	save_data["active_ingredients"] = self.active_ingredients
 	save_data["power"] = self.power_network.get_divided_power() if self.machine_category == "Powering" else 0
 	return save_data

@@ -153,7 +153,8 @@ func save():
 func load_from_save(data):
 	self.wood = Big.new(data.wood)
 	self.water = Big.new(data.water)
-	self.coal = Big.new(data.rock_chunks)
+	self.coal = Big.new(data.coal)
+	self.rock_chunks = Big.new(data.rock_chunks)
 	self.metal = Big.new(data.metal)
 	self.cash = Big.new(data.cash)
 	self.bytes = Big.new(data.bytes)
