@@ -24,7 +24,7 @@ var _instanced = false
 var _inventory = {
 	"item_type" : "",
 	"amount" : 0,
-	"max" : 999
+	"max" : 1000000
 }
 var _data = {
 	"name" : "",

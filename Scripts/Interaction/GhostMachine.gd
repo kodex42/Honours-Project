@@ -22,7 +22,7 @@ func _on_machine_placement_toggled(is_placing, obj_name):
 		if obj_name == "Inserter":
 			$Opposite.show()
 		if obj_name in ["Wheel", "Steam Engine", "Reactor", "Power Tower"]:
-			var rad = Constants.BASE_MACHINE_STATS.Range * MachineMods.machine_stat_mods[obj_name].Range
+			var rad = Constants.BASE_MACHINE_STATS.Range * GlobalMods.machine_stat_mods[obj_name].Range
 			$PoweringMachineRangeIndicator.set_radius(rad)
 			$PoweringMachineRangeIndicator.show()
 	else:

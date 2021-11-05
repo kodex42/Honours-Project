@@ -35,7 +35,7 @@ func unquit():
 func load_save_data():
 	var save_game = File.new()
 	if not save_game.file_exists(SAVE_DATA_FILEPATH):
-		return false
+		return
 	
 	var save_nodes = get_tree().get_nodes_in_group("persist")
 	for n in save_nodes:
@@ -46,17 +46,20 @@ func load_save_data():
 	var save_data = parse_json(save_game.get_line())
 	save_game.close()
 	
-	var player = get_tree().get_nodes_in_group("player")[0]
-	var interactables_grid = get_tree().get_nodes_in_group("int_manager")[0]
-	player.load_from_save(save_data.player)
-	interactables_grid.load_interactables(save_data.interactables)
-	
-	return true
+	if save_data.has("upgrades"):
+		GlobalMods.set_applied(save_data.upgrades)
+	if save_data.has("player"):
+		var player = get_tree().get_nodes_in_group("player")[0]
+		player.load_from_save(save_data.player)
+	if save_data.has("interactables"):
+		var interactables_grid = get_tree().get_nodes_in_group("int_manager")[0]
+		interactables_grid.load_interactables(save_data.interactables)
 
 func create_save_data():
 	var save_data = {
+		"upgrades" : GlobalMods.get_applied(),
 		"player" : {},
-		"interactables" : [],
+		"interactables" : []
 	}
 	var save_nodes = get_tree().get_nodes_in_group("persist")
 	for n in save_nodes:

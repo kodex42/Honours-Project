@@ -147,7 +147,7 @@ func set_resources_in_range(resources):
 
 func compute_stats():
 	var stats = Constants.BASE_MACHINE_STATS.duplicate(true)
-	var mods = MachineMods.machine_stat_mods[body_name]
+	var mods = GlobalMods.machine_stat_mods[body_name]
 	for s in stats.keys():
 		stats[s] *= mods[s]
 	return stats

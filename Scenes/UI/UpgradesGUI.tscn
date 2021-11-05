@@ -1,46 +1,168 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/UI/UpgradesGUI.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/UI/CashUpgradesTechTree.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Data/Textures/UI/Prompts/button_prompts_Esc.png" type="Texture" id=3]
+[ext_resource path="res://Data/Textures/Resources/cash.png" type="Texture" id=4]
 [ext_resource path="res://Data/Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Data/Textures/Resources/byte.png" type="Texture" id=8]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.2, 0.215686, 0.25098, 1 )
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
 border_color = Color( 0.490196, 0.490196, 0.490196, 1 )
 border_blend = true
+
+[sub_resource type="StyleBoxFlat" id=7]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 0.262745, 0.356863, 0.564706, 0.784314 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.0788841, 0.109999, 0.178711, 0.784314 )
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [sub_resource type="DynamicFont" id=3]
 size = 40
 use_filter = true
 font_data = ExtResource( 5 )
 
+[sub_resource type="DynamicFont" id=8]
+size = 27
+use_filter = true
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 40
+use_filter = true
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 40
+use_filter = true
+font_data = ExtResource( 5 )
+
 [node name="UpgradesGUI" type="Control"]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="Upgrades" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 1880.0
-margin_bottom = 1040.0
+rect_min_size = Vector2( 1920, 1080 )
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CenterContainer" type="CenterContainer" parent="Upgrades"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+
+[node name="CashUpgradesTechTree" parent="Upgrades/CenterContainer" instance=ExtResource( 2 )]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 1912.0
+margin_bottom = 1072.0
+
+[node name="UpgradeDetails" type="PanelContainer" parent="."]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -48.0
+margin_right = 656.0
+mouse_filter = 2
+custom_styles/panel = SubResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UpgradeDetails"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 648.0
+margin_bottom = 229.0
+
+[node name="UpgradeName" type="Label" parent="UpgradeDetails/VBoxContainer"]
+margin_right = 640.0
+margin_bottom = 48.0
+custom_fonts/font = SubResource( 3 )
+text = "<upgrade_name>"
+align = 1
+
+[node name="UpgradeDetails" type="Label" parent="UpgradeDetails/VBoxContainer"]
+margin_top = 52.0
+margin_right = 640.0
+margin_bottom = 85.0
+custom_fonts/font = SubResource( 8 )
+text = "Description for upgrade goes here!"
+
+[node name="cashCost" type="HBoxContainer" parent="UpgradeDetails/VBoxContainer"]
+margin_left = 538.0
+margin_top = 89.0
+margin_right = 640.0
+margin_bottom = 153.0
+size_flags_horizontal = 8
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="UpgradeDetails/VBoxContainer/cashCost"]
+margin_top = 8.0
+margin_right = 22.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 6 )
+text = "0"
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeDetails/VBoxContainer/cashCost"]
+margin_left = 38.0
+margin_right = 102.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="byteCost" type="HBoxContainer" parent="UpgradeDetails/VBoxContainer"]
+margin_left = 538.0
+margin_top = 157.0
+margin_right = 640.0
+margin_bottom = 221.0
+size_flags_horizontal = 8
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="UpgradeDetails/VBoxContainer/byteCost"]
+margin_top = 8.0
+margin_right = 22.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 6 )
+text = "0"
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeDetails/VBoxContainer/byteCost"]
+margin_left = 38.0
+margin_right = 102.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 8 )
+expand = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 209.0
 margin_bottom = 104.0
+mouse_filter = 2
 custom_constants/margin_right = 16
 custom_constants/margin_top = 16
 custom_constants/margin_left = 16
@@ -54,6 +176,7 @@ margin_left = 16.0
 margin_top = 16.0
 margin_right = 185.0
 margin_bottom = 80.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -62,6 +185,7 @@ __meta__ = {
 margin_right = 64.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
+mouse_filter = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 texture = ExtResource( 3 )
@@ -72,6 +196,77 @@ margin_left = 68.0
 margin_top = 8.0
 margin_right = 169.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Close"
 valign = 1
+
+[node name="CashAndBytes" type="MarginContainer" parent="."]
+margin_left = 1802.0
+margin_right = 1920.0
+margin_bottom = 144.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+custom_constants/margin_right = 8
+custom_constants/margin_top = 8
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CashAndBytes"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 110.0
+margin_bottom = 136.0
+size_flags_horizontal = 8
+custom_constants/separation = 0
+
+[node name="Cash" type="HBoxContainer" parent="CashAndBytes/VBoxContainer"]
+margin_right = 102.0
+margin_bottom = 64.0
+size_flags_horizontal = 8
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="CashAndBytes/VBoxContainer/Cash"]
+margin_top = 8.0
+margin_right = 22.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 6 )
+text = "0"
+
+[node name="TextureRect" type="TextureRect" parent="CashAndBytes/VBoxContainer/Cash"]
+margin_left = 38.0
+margin_right = 102.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="Bytes" type="HBoxContainer" parent="CashAndBytes/VBoxContainer"]
+margin_top = 64.0
+margin_right = 102.0
+margin_bottom = 128.0
+size_flags_horizontal = 8
+custom_constants/separation = 16
+
+[node name="Label" type="Label" parent="CashAndBytes/VBoxContainer/Bytes"]
+margin_top = 8.0
+margin_right = 22.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 6 )
+text = "0"
+
+[node name="TextureRect" type="TextureRect" parent="CashAndBytes/VBoxContainer/Bytes"]
+margin_left = 38.0
+margin_right = 102.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 8 )
+expand = true
+
+[connection signal="upgrade_details_pending" from="Upgrades/CenterContainer/CashUpgradesTechTree" to="." method="_on_CashUpgradesTechTree_upgrade_details_pending"]

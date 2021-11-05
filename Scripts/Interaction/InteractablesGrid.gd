@@ -41,6 +41,7 @@ onready var _grid = get_parent().get_node("TerrainGridMap")
 onready var _floor = get_parent().get_node("StaticObjects/Floor")
 
 # State
+var loaded = false
 var water_bodies = []
 var powering_machines = []
 var abandoned_bodies = []
@@ -93,6 +94,7 @@ func load_interactables(interactables):
 			if i.on and (body.machine_category == "Gathering" or body.machine_category == "Refining"):
 				body.toggle()
 	tile_water()
+	loaded = true
 
 func generate_resources():
 	var lim = _grid.GRID_SIZE

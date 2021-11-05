@@ -14,6 +14,7 @@ var autoaddtimer : Timer
 var timeradded = false
 
 func _ready():
+	GlobalMods.set_main_node(self)
 	update_trackables()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	set_input(false)
@@ -78,6 +79,24 @@ func add_resource(res_type : String, amount):
 	update_trackables()
 #	print("Player recieves " + amount.toString() + " " + res_type + "!")
 
+func get_resource_count(res_type : String):
+	match res_type:
+		"wood":
+			return _player_character.wood
+		"water":
+			return _player_character.water
+		"coal":
+			return _player_character.coal
+		"rock chunk":
+			return _player_character.rock_chunks
+		"metal":
+			return _player_character.metal
+		"cash":
+			return _player_character.cash
+		"byte":
+			return _player_character.bytes
+	return Big.new(0)
+
 func update_trackables():
 	_gui.update_trackables(_player_character.wood, _player_character.water, _player_character.coal, _player_character.rock_chunks, _player_character.metal, _player_character.cash, _player_character.bytes)
 
@@ -110,6 +129,47 @@ func player_pay(costs):
 	_player_character.metal.minus(costs.metal)
 	_player_character.coal.minus(costs.coal)
 	update_trackables()
+
+func player_attempt_pay_resource(cost, res_type):
+	if player_can_pay_resource(cost, res_type):
+		player_pay_resource(cost, res_type)
+		return true
+	return false
+
+func player_can_pay_resource(cost, res_type):
+	match res_type:
+		"wood":
+			return _player_character.wood.isLargerThanOrEqualTo(cost)
+		"water":
+			return _player_character.water.isLargerThanOrEqualTo(cost)
+		"coal":
+			return _player_character.coal.isLargerThanOrEqualTo(cost)
+		"rock chunk":
+			return _player_character.rock_chunks.isLargerThanOrEqualTo(cost)
+		"metal":
+			return _player_character.metal.isLargerThanOrEqualTo(cost)
+		"cash":
+			return _player_character.cash.isLargerThanOrEqualTo(cost)
+		"byte":
+			return _player_character.bytes.isLargerThanOrEqualTo(cost)
+	return false
+
+func player_pay_resource(cost, res_type):
+	match res_type:
+		"wood":
+			_player_character.wood.minus(cost)
+		"water":
+			_player_character.water.minus(cost)
+		"coal":
+			_player_character.coal.minus(cost)
+		"rock chunk":
+			_player_character.rock_chunks.minus(cost)
+		"metal":
+			_player_character.metal.minus(cost)
+		"cash":
+			_player_character.cash.minus(cost)
+		"byte":
+			_player_character.bytes.minus(cost)
 
 func player_can_input(res, amount):
 	var comparing = string_to_big(res)

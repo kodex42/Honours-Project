@@ -49,8 +49,8 @@ GlobalControls="*res://Scripts/AutoLoadSingletons/GlobalControls.gd"
 Randomizer="*res://Scripts/AutoLoadSingletons/Randomizer.gd"
 Time="*res://Scripts/AutoLoadSingletons/Time.gd"
 Constants="*res://Scripts/AutoLoadSingletons/Constants.gd"
-MachineMods="*res://Scripts/AutoLoadSingletons/MachineMods.gd"
 ResourceManager="*res://Scripts/AutoLoadSingletons/ResourceManager.gd"
+GlobalMods="*res://Scripts/AutoLoadSingletons/GlobalMods.gd"
 
 [display]
 
@@ -235,6 +235,11 @@ spawn_resource={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":53,"unicode":0,"echo":false,"script":null)
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":54,"unicode":0,"echo":false,"script":null)
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":55,"unicode":0,"echo":false,"script":null)
+ ]
+}
+mouse_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 

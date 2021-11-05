@@ -31,7 +31,7 @@ var wheel_locked = false
 var wheel = null
 
 func _ready():
-	print("readying player...")
+	compute_stats()
 
 func _physics_process(delta):
 	var root_motion : Transform = _anim_tree.get_root_motion_transform()
@@ -68,6 +68,10 @@ func _physics_process(delta):
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("ui_cancel") and wheel_locked:
 		exit_wheel()
+
+func compute_stats():
+	var mods = GlobalMods.player_mods
+	_anim_tree["parameters/time_scale/scale"] = mods.speed
 
 func movement_controls(delta, v):
 	var current_anim = _anim_tree.get("parameters/state_machine/playback").get_current_node()

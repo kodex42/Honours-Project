@@ -5,6 +5,7 @@ const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
 
 # State
 var _type : int
+var _body_name
 var _stores = {
 	"amount" : 100,
 	"max" : 100,
@@ -12,6 +13,9 @@ var _stores = {
 	"recharge_rate" : 0.5,
 	"manual_gather_rate" : 1
 }
+
+func _ready():
+	compute_stats()
 
 func _process(delta):
 	_stores.recharge_progress -= delta
@@ -21,32 +25,38 @@ func _process(delta):
 
 func create(type : int, pos : Vector3, tile : TileData):
 	_type = type
-	var body_name = "resource" 
+	_body_name = "resource" 
 	var resource : String
 	match _type:
 		ResourceType.WOOD:
-			body_name = "Tree"
+			_body_name = "Tree"
 			resource = "wood"
 			_stores.manual_gather_rate = 1
 			generate_mesh("tree" + letters[randi() % 7])
 		ResourceType.WATER:
-			body_name = "Water"
+			_body_name = "Water"
 			resource = "water"
 			_stores.manual_gather_rate = 0
 			generate_mesh("ground_riverTile")
 			set_collision_layer_bit(2, false)
 		ResourceType.COAL:
-			body_name = "Sooty Rock"
+			_body_name = "Sooty Rock"
 			resource = "coal"
 			_stores.manual_gather_rate = 0.2
 			generate_mesh("coal_stone_tall" + letters[randi() % 9])
 		ResourceType.ROCK_CHUNK:
-			body_name = "Shiny Rock"
+			_body_name = "Shiny Rock"
 			resource = "rock chunk"
 			_stores.manual_gather_rate = 0.25
 			generate_mesh("stone_tall" + letters[randi() % 9])
-	build(tile, pos, body_name, "Resource", resource)
+	build(tile, pos, _body_name, "Resource", resource)
 	tile.set_resource(self)
+
+func compute_stats():
+	var mods = GlobalMods.resource_stat_mods[_body_name]
+	self._stores.max *= mods.max
+	self._stores.recharge_rate *= mods.recharge_rate
+	self._stores.manual_gather_rate *= mods.manual_gather_rate
 
 func interact():
 	add_to_inventory(gather_from_stores())
@@ -70,8 +80,8 @@ func gather_from_stores():
 	return remove_from_stores(1)
 
 func set_state(inventory, stores):
-	self._inventory = inventory
-	self._stores = stores
+	self._inventory.amount = inventory.amount
+	self._stores.amount = stores.amount
 
 func get_stores():
 	return _stores

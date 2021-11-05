@@ -28,9 +28,10 @@ func _unhandled_input(event):
 			show_grid()
 
 func build_level():
-	if not GlobalControls.load_save_data():
+	GlobalControls.load_save_data()
+	if not interactables_grid.loaded:
 		interactables_grid.generate_resources()
-#	interactables_grid.benchmark()
+#		interactables_grid.benchmark()
 
 func rebuild_level():
 	interactables_grid.destroy()

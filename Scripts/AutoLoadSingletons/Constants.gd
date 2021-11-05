@@ -167,3 +167,30 @@ const RESOURCE_ICONS = {
 	"cash" : preload("res://Data/Textures/Resources/cash.png"),
 	"byte" : preload("res://Data/Textures/Resources/byte.png")
 }
+const UPGRADE_COSTS = {
+	"cash": {
+		"One With Nature I" : 100,
+		"One With Nature II" : 200,
+		"One With Nature III" : 400,
+		"One With Nature IV" : 800,
+		"Professional Arborist I" : 1000,
+		"Professional Arborist II" : 10000,
+		"Professional Arborist III" : 100000,
+		"Professional Arborist IV" : 1000000,
+		"Kings Yield I" : 1000,
+		"Kings Yield II" : 10000,
+		"Kings Yield III" : 100000,
+		"Kings Yield IV" : 1000000,
+		"Black Diamonds I" : 1000,
+		"Black Diamonds II" : 10000,
+		"Black Diamonds III" : 100000,
+		"Black Diamonds IV" : 1000000,
+		"Renewable Resource I" : 1000,
+		"Renewable Resource II" : 10000,
+		"Renewable Resource III" : 100000,
+		"Renewable Resource IV" : 1000000
+	},
+	"byte": {
+		
+	}
+}

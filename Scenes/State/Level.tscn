@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Data/Textures/Level/tile.png" type="Texture" id=2]
@@ -32,8 +32,11 @@ distance_fade_max_distance = 10.0
 material = SubResource( 3 )
 size = Vector3( 100, 100, 100 )
 
-[sub_resource type="ConcavePolygonShape" id=5]
-data = PoolVector3Array( -50, 50, 50, 50, 50, 50, -50, -50, 50, 50, 50, 50, 50, -50, 50, -50, -50, 50, 50, 50, -50, -50, 50, -50, 50, -50, -50, -50, 50, -50, -50, -50, -50, 50, -50, -50, 50, 50, 50, 50, 50, -50, 50, -50, 50, 50, 50, -50, 50, -50, -50, 50, -50, 50, -50, 50, -50, -50, 50, 50, -50, -50, -50, -50, 50, 50, -50, -50, 50, -50, -50, -50, 50, 50, 50, -50, 50, 50, 50, 50, -50, -50, 50, 50, -50, 50, -50, 50, 50, -50, -50, -50, 50, 50, -50, 50, -50, -50, -50, 50, -50, 50, 50, -50, -50, -50, -50, -50 )
+[sub_resource type="BoxShape" id=9]
+extents = Vector3( 1, 50, 50 )
+
+[sub_resource type="BoxShape" id=10]
+extents = Vector3( 50, 50, 1 )
 
 [sub_resource type="SpatialMaterial" id=6]
 albedo_color = Color( 0.172549, 0.847059, 0.721569, 1 )
@@ -80,9 +83,21 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 mesh = SubResource( 4 )
 material/0 = null
 
-[node name="CollisionShape" type="CollisionShape" parent="StaticObjects/Boundaries"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
-shape = SubResource( 5 )
+[node name="East" type="CollisionShape" parent="StaticObjects/Boundaries"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 51, -1, 0 )
+shape = SubResource( 9 )
+
+[node name="West" type="CollisionShape" parent="StaticObjects/Boundaries"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -51, -1, 0 )
+shape = SubResource( 9 )
+
+[node name="South" type="CollisionShape" parent="StaticObjects/Boundaries"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 51 )
+shape = SubResource( 10 )
+
+[node name="North" type="CollisionShape" parent="StaticObjects/Boundaries"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -51 )
+shape = SubResource( 10 )
 
 [node name="Floor" type="StaticBody" parent="StaticObjects"]
 collision_layer = 3

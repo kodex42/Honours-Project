@@ -4,6 +4,7 @@ extends Control
 signal message_sent(msg)
 signal message_received(msg)
 signal machining_window_opened(machine_type)
+signal upgrades_window_opened(upgrade_type)
 signal phone_toggled(on)
 
 # Nodes
@@ -86,3 +87,6 @@ func _on_app_opened_from_HomeScreen(app_name):
 	if "Machining" in app_name:
 		var machine_type = app_name.substr(0, app_name.find("MachiningApp"))
 		emit_signal("machining_window_opened", machine_type)
+	if "Upgrades" in app_name:
+		var upgrade_type = app_name.substr(0, app_name.find("UpgradesApp"))
+		emit_signal("upgrades_window_opened", upgrade_type.to_lower())
