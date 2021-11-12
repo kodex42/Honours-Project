@@ -12,9 +12,9 @@ bg_color = Color( 0.2, 0.215686, 0.25098, 1 )
 border_color = Color( 0.490196, 0.490196, 0.490196, 1 )
 border_blend = true
 
-[sub_resource type="StyleBoxFlat" id=7]
-content_margin_left = 8.0
-content_margin_right = 8.0
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 16.0
+content_margin_right = 16.0
 content_margin_top = 8.0
 content_margin_bottom = 8.0
 bg_color = Color( 0.262745, 0.356863, 0.564706, 0.784314 )
@@ -33,17 +33,17 @@ size = 40
 use_filter = true
 font_data = ExtResource( 5 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=4]
 size = 27
 use_filter = true
 font_data = ExtResource( 5 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=5]
 size = 40
 use_filter = true
 font_data = ExtResource( 5 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=6]
 size = 40
 use_filter = true
 font_data = ExtResource( 5 )
@@ -76,41 +76,49 @@ margin_right = 1912.0
 margin_bottom = 1072.0
 
 [node name="UpgradeDetails" type="PanelContainer" parent="."]
-visible = false
+anchor_left = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -48.0
-margin_right = 656.0
+margin_left = -445.0
+margin_top = -237.0
 mouse_filter = 2
-custom_styles/panel = SubResource( 7 )
+size_flags_horizontal = 2
+size_flags_vertical = 2
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UpgradeDetails"]
-margin_left = 8.0
+margin_left = 16.0
 margin_top = 8.0
-margin_right = 648.0
+margin_right = 429.0
 margin_bottom = 229.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
 
 [node name="UpgradeName" type="Label" parent="UpgradeDetails/VBoxContainer"]
-margin_right = 640.0
+margin_left = 54.0
+margin_right = 359.0
 margin_bottom = 48.0
+size_flags_horizontal = 4
 custom_fonts/font = SubResource( 3 )
 text = "<upgrade_name>"
 align = 1
 
 [node name="UpgradeDetails" type="Label" parent="UpgradeDetails/VBoxContainer"]
 margin_top = 52.0
-margin_right = 640.0
+margin_right = 413.0
 margin_bottom = 85.0
-custom_fonts/font = SubResource( 8 )
+size_flags_horizontal = 2
+custom_fonts/font = SubResource( 4 )
 text = "Description for upgrade goes here!"
 
 [node name="cashCost" type="HBoxContainer" parent="UpgradeDetails/VBoxContainer"]
-margin_left = 538.0
+margin_left = 311.0
 margin_top = 89.0
-margin_right = 640.0
+margin_right = 413.0
 margin_bottom = 153.0
 size_flags_horizontal = 8
 custom_constants/separation = 16
@@ -119,7 +127,7 @@ custom_constants/separation = 16
 margin_top = 8.0
 margin_right = 22.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 text = "0"
 
 [node name="TextureRect" type="TextureRect" parent="UpgradeDetails/VBoxContainer/cashCost"]
@@ -133,9 +141,9 @@ texture = ExtResource( 4 )
 expand = true
 
 [node name="byteCost" type="HBoxContainer" parent="UpgradeDetails/VBoxContainer"]
-margin_left = 538.0
+margin_left = 311.0
 margin_top = 157.0
-margin_right = 640.0
+margin_right = 413.0
 margin_bottom = 221.0
 size_flags_horizontal = 8
 custom_constants/separation = 16
@@ -144,7 +152,7 @@ custom_constants/separation = 16
 margin_top = 8.0
 margin_right = 22.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 text = "0"
 
 [node name="TextureRect" type="TextureRect" parent="UpgradeDetails/VBoxContainer/byteCost"]
@@ -196,7 +204,7 @@ margin_left = 68.0
 margin_top = 8.0
 margin_right = 169.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 text = "Close"
 valign = 1
 
@@ -232,7 +240,7 @@ custom_constants/separation = 16
 margin_top = 8.0
 margin_right = 22.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 text = "0"
 
 [node name="TextureRect" type="TextureRect" parent="CashAndBytes/VBoxContainer/Cash"]
@@ -256,7 +264,7 @@ custom_constants/separation = 16
 margin_top = 8.0
 margin_right = 22.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 text = "0"
 
 [node name="TextureRect" type="TextureRect" parent="CashAndBytes/VBoxContainer/Bytes"]

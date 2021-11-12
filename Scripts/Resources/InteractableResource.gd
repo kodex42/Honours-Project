@@ -54,9 +54,12 @@ func create(type : int, pos : Vector3, tile : TileData):
 
 func compute_stats():
 	var mods = GlobalMods.resource_stat_mods[_body_name]
-	self._stores.max *= mods.max
-	self._stores.recharge_rate *= mods.recharge_rate
-	self._stores.manual_gather_rate *= mods.manual_gather_rate
+	var current = self._stores.max
+	self._stores.max = mods.max
+	self._stores.recharge_rate = mods.recharge_rate
+	self._stores.manual_gather_rate = mods.manual_gather_rate
+	if current < mods.max:
+		self._stores.amount = self._stores.max
 
 func interact():
 	add_to_inventory(gather_from_stores())

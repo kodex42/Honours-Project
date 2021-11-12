@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/UI/TechTreeNode.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/UI/CashUpgradesTechTree.gd" type="Script" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://Data/Textures/Resources/rock_chunk.png" type="Texture" id=5]
 [ext_resource path="res://Data/Textures/Resources/coal.png" type="Texture" id=6]
 [ext_resource path="res://Data/Textures/Resources/water.png" type="Texture" id=7]
+[ext_resource path="res://Data/Textures/UI/Phone/GathererMachiningIcon.png" type="Texture" id=8]
+[ext_resource path="res://Data/Textures/UI/Phone/RefiningMachiningIcon.png" type="Texture" id=9]
+[ext_resource path="res://Data/Textures/UI/Phone/MovingMachiningIcon.png" type="Texture" id=10]
+[ext_resource path="res://Data/Textures/UI/Phone/PoweringMachiningIcon.png" type="Texture" id=11]
 
 [node name="CashUpgradesTechTree" type="Control"]
 margin_right = 1904.0
@@ -31,6 +35,7 @@ disabled = true
 enabled_focus_mode = 0
 icon = ExtResource( 7 )
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="Renewable Resource III" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -46,6 +51,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 7 )
 _neighbours = [ NodePath("../Renewable Resource IV") ]
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="Renewable Resource II" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -61,6 +67,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 7 )
 _neighbours = [ NodePath("../Renewable Resource III") ]
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="Renewable Resource I" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -76,6 +83,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 7 )
 _neighbours = [ NodePath("../Renewable Resource II") ]
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="Black Diamonds IV" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -90,6 +98,7 @@ disabled = true
 enabled_focus_mode = 0
 icon = ExtResource( 6 )
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="Black Diamonds III" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -105,6 +114,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 6 )
 _neighbours = [ NodePath("../Black Diamonds IV") ]
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="Black Diamonds II" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -120,6 +130,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 6 )
 _neighbours = [ NodePath("../Black Diamonds III") ]
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="Black Diamonds I" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -135,6 +146,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 6 )
 _neighbours = [ NodePath("../Black Diamonds II") ]
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="Kings Yield IV" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -149,6 +161,7 @@ disabled = true
 enabled_focus_mode = 0
 icon = ExtResource( 5 )
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="Kings Yield III" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -164,6 +177,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 5 )
 _neighbours = [ NodePath("../Kings Yield IV") ]
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="Kings Yield II" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -179,6 +193,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 5 )
 _neighbours = [ NodePath("../Kings Yield III") ]
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="Kings Yield I" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -194,6 +209,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 5 )
 _neighbours = [ NodePath("../Kings Yield II") ]
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="Professional Arborist IV" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -208,6 +224,7 @@ disabled = true
 enabled_focus_mode = 0
 icon = ExtResource( 4 )
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="Professional Arborist III" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -223,6 +240,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 4 )
 _neighbours = [ NodePath("../Professional Arborist IV") ]
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="Professional Arborist II" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -238,6 +256,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 4 )
 _neighbours = [ NodePath("../Professional Arborist III") ]
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="Professional Arborist I" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -253,6 +272,7 @@ enabled_focus_mode = 0
 icon = ExtResource( 4 )
 _neighbours = [ NodePath("../Professional Arborist II") ]
 currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
 
 [node name="One With Nature IV" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -313,6 +333,637 @@ icon = ExtResource( 3 )
 _neighbours = [ NodePath("../One With Nature II"), NodePath("../Professional Arborist I") ]
 currency = "cash"
 
+[node name="Ultimate Gathering" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 896.0
+margin_top = 768.0
+margin_right = 960.0
+margin_bottom = 832.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 8 )
+currency = "cash"
+arrow_color = Color( 1, 0, 1, 1 )
+
+[node name="Tool Sharpening IV" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 960.0
+margin_top = 640.0
+margin_right = 1024.0
+margin_bottom = 704.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 8 )
+_neighbours = [ NodePath("../Ultimate Gathering") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Tool Sharpening III" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 960.0
+margin_top = 512.0
+margin_right = 1024.0
+margin_bottom = 576.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 8 )
+_neighbours = [ NodePath("../Tool Sharpening IV") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Tool Sharpening II" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 960.0
+margin_top = 384.0
+margin_right = 1024.0
+margin_bottom = 448.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 8 )
+_neighbours = [ NodePath("../Tool Sharpening III") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Tool Sharpening I" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 960.0
+margin_top = 256.0
+margin_right = 1024.0
+margin_bottom = 320.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 8 )
+_neighbours = [ NodePath("../Tool Sharpening II") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Tool Balancing IV" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 832.0
+margin_top = 640.0
+margin_right = 896.0
+margin_bottom = 704.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 8 )
+_neighbours = [ NodePath("../Ultimate Gathering") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Tool Balancing III" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 832.0
+margin_top = 512.0
+margin_right = 896.0
+margin_bottom = 576.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 8 )
+_neighbours = [ NodePath("../Tool Balancing IV") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Tool Balancing II" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 832.0
+margin_top = 384.0
+margin_right = 896.0
+margin_bottom = 448.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 8 )
+_neighbours = [ NodePath("../Tool Balancing III") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Tool Balancing I" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 832.0
+margin_top = 256.0
+margin_right = 896.0
+margin_bottom = 320.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 8 )
+_neighbours = [ NodePath("../Tool Balancing II") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Ultimate Refining" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1152.0
+margin_top = 768.0
+margin_right = 1216.0
+margin_bottom = 832.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 9 )
+currency = "cash"
+arrow_color = Color( 1, 0, 1, 1 )
+
+[node name="Proficient Refining IV" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1216.0
+margin_top = 640.0
+margin_right = 1280.0
+margin_bottom = 704.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 9 )
+_neighbours = [ NodePath("../Ultimate Refining") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Proficient Refining III" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1216.0
+margin_top = 512.0
+margin_right = 1280.0
+margin_bottom = 576.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 9 )
+_neighbours = [ NodePath("../Proficient Refining IV") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Proficient Refining II" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1216.0
+margin_top = 384.0
+margin_right = 1280.0
+margin_bottom = 448.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 9 )
+_neighbours = [ NodePath("../Proficient Refining III") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Proficient Refining I" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1216.0
+margin_top = 256.0
+margin_right = 1280.0
+margin_bottom = 320.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 9 )
+_neighbours = [ NodePath("../Proficient Refining II") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Precision Refining IV" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1088.0
+margin_top = 640.0
+margin_right = 1152.0
+margin_bottom = 704.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 9 )
+_neighbours = [ NodePath("../Ultimate Refining") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Precision Refining III" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1088.0
+margin_top = 512.0
+margin_right = 1152.0
+margin_bottom = 576.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 9 )
+_neighbours = [ NodePath("../Precision Refining IV") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Precision Refining II" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1088.0
+margin_top = 384.0
+margin_right = 1152.0
+margin_bottom = 448.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 9 )
+_neighbours = [ NodePath("../Precision Refining III") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Precision Refining I" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1088.0
+margin_top = 256.0
+margin_right = 1152.0
+margin_bottom = 320.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 9 )
+_neighbours = [ NodePath("../Precision Refining II") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Ultimate Moving" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1408.0
+margin_top = 768.0
+margin_right = 1472.0
+margin_bottom = 832.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 10 )
+currency = "cash"
+arrow_color = Color( 1, 0, 1, 1 )
+
+[node name="Overclocking IV" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1472.0
+margin_top = 640.0
+margin_right = 1536.0
+margin_bottom = 704.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 10 )
+_neighbours = [ NodePath("../Ultimate Moving") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Overclocking III" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1472.0
+margin_top = 512.0
+margin_right = 1536.0
+margin_bottom = 576.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 10 )
+_neighbours = [ NodePath("../Overclocking IV") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Overclocking II" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1472.0
+margin_top = 384.0
+margin_right = 1536.0
+margin_bottom = 448.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 10 )
+_neighbours = [ NodePath("../Overclocking III") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Overclocking I" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1472.0
+margin_top = 256.0
+margin_right = 1536.0
+margin_bottom = 320.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 10 )
+_neighbours = [ NodePath("../Overclocking II") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Intelligent Design IV" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1344.0
+margin_top = 640.0
+margin_right = 1408.0
+margin_bottom = 704.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 10 )
+_neighbours = [ NodePath("../Ultimate Moving") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Intelligent Design III" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1344.0
+margin_top = 512.0
+margin_right = 1408.0
+margin_bottom = 576.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 10 )
+_neighbours = [ NodePath("../Intelligent Design IV") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Intelligent Design II" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1344.0
+margin_top = 384.0
+margin_right = 1408.0
+margin_bottom = 448.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 10 )
+_neighbours = [ NodePath("../Intelligent Design III") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Intelligent Design I" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1344.0
+margin_top = 256.0
+margin_right = 1408.0
+margin_bottom = 320.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 10 )
+_neighbours = [ NodePath("../Intelligent Design II") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Ultimate Powering" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1664.0
+margin_top = 768.0
+margin_right = 1728.0
+margin_bottom = 832.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 11 )
+currency = "cash"
+arrow_color = Color( 1, 0, 1, 1 )
+
+[node name="Fresh Grease IV" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1728.0
+margin_top = 640.0
+margin_right = 1792.0
+margin_bottom = 704.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 11 )
+_neighbours = [ NodePath("../Ultimate Powering") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Fresh Grease III" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1728.0
+margin_top = 512.0
+margin_right = 1792.0
+margin_bottom = 576.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 11 )
+_neighbours = [ NodePath("../Fresh Grease IV") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Fresh Grease II" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1728.0
+margin_top = 384.0
+margin_right = 1792.0
+margin_bottom = 448.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 11 )
+_neighbours = [ NodePath("../Fresh Grease III") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Fresh Grease I" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1728.0
+margin_top = 256.0
+margin_right = 1792.0
+margin_bottom = 320.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 11 )
+_neighbours = [ NodePath("../Fresh Grease II") ]
+currency = "cash"
+arrow_color = Color( 0, 1, 1, 1 )
+
+[node name="Superconductive IV" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1600.0
+margin_top = 640.0
+margin_right = 1664.0
+margin_bottom = 704.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 11 )
+_neighbours = [ NodePath("../Ultimate Powering") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Superconductive III" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1600.0
+margin_top = 512.0
+margin_right = 1664.0
+margin_bottom = 576.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 11 )
+_neighbours = [ NodePath("../Superconductive IV") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Superconductive II" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1600.0
+margin_top = 384.0
+margin_right = 1664.0
+margin_bottom = 448.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 11 )
+_neighbours = [ NodePath("../Superconductive III") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Superconductive I" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1600.0
+margin_top = 256.0
+margin_right = 1664.0
+margin_bottom = 320.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 11 )
+_neighbours = [ NodePath("../Superconductive II") ]
+currency = "cash"
+arrow_color = Color( 1, 0, 0, 1 )
+
+[node name="Engineering 101 IV" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1664.0
+margin_top = 128.0
+margin_right = 1728.0
+margin_bottom = 192.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 11 )
+_neighbours = [ NodePath("../Fresh Grease I"), NodePath("../Superconductive I") ]
+currency = "cash"
+
+[node name="Engineering 101 III" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1408.0
+margin_top = 128.0
+margin_right = 1472.0
+margin_bottom = 192.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 10 )
+_neighbours = [ NodePath("../Engineering 101 IV"), NodePath("../Intelligent Design I"), NodePath("../Overclocking I") ]
+currency = "cash"
+
+[node name="Engineering 101 II" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1152.0
+margin_top = 128.0
+margin_right = 1216.0
+margin_bottom = 192.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+disabled = true
+enabled_focus_mode = 0
+icon = ExtResource( 9 )
+_neighbours = [ NodePath("../Engineering 101 III"), NodePath("../Precision Refining I"), NodePath("../Proficient Refining I") ]
+currency = "cash"
+
+[node name="Engineering 101 I" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 896.0
+margin_top = 128.0
+margin_right = 960.0
+margin_bottom = 192.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
+icon = ExtResource( 8 )
+_neighbours = [ NodePath("../Engineering 101 II"), NodePath("../Tool Sharpening I"), NodePath("../Tool Balancing I") ]
+currency = "cash"
+
 [connection signal="upgrade_selected" from="Renewable Resource IV" to="." method="_on_upgrade_selected"]
 [connection signal="upgrade_unselected" from="Renewable Resource IV" to="." method="_on_upgrade_unselected"]
 [connection signal="upgrade_selected" from="Renewable Resource III" to="." method="_on_upgrade_selected"]
@@ -353,3 +1004,83 @@ currency = "cash"
 [connection signal="upgrade_unselected" from="One With Nature II" to="." method="_on_upgrade_unselected"]
 [connection signal="upgrade_selected" from="One With Nature I" to="." method="_on_upgrade_selected"]
 [connection signal="upgrade_unselected" from="One With Nature I" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Ultimate Gathering" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Ultimate Gathering" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Tool Sharpening IV" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Tool Sharpening IV" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Tool Sharpening III" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Tool Sharpening III" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Tool Sharpening II" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Tool Sharpening II" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Tool Sharpening I" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Tool Sharpening I" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Tool Balancing IV" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Tool Balancing IV" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Tool Balancing III" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Tool Balancing III" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Tool Balancing II" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Tool Balancing II" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Tool Balancing I" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Tool Balancing I" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Ultimate Refining" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Ultimate Refining" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Proficient Refining IV" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Proficient Refining IV" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Proficient Refining III" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Proficient Refining III" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Proficient Refining II" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Proficient Refining II" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Proficient Refining I" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Proficient Refining I" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Precision Refining IV" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Precision Refining IV" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Precision Refining III" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Precision Refining III" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Precision Refining II" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Precision Refining II" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Precision Refining I" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Precision Refining I" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Ultimate Moving" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Ultimate Moving" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Overclocking IV" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Overclocking IV" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Overclocking III" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Overclocking III" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Overclocking II" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Overclocking II" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Overclocking I" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Overclocking I" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Intelligent Design IV" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Intelligent Design IV" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Intelligent Design III" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Intelligent Design III" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Intelligent Design II" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Intelligent Design II" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Intelligent Design I" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Intelligent Design I" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Ultimate Powering" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Ultimate Powering" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Fresh Grease IV" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Fresh Grease IV" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Fresh Grease III" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Fresh Grease III" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Fresh Grease II" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Fresh Grease II" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Fresh Grease I" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Fresh Grease I" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Superconductive IV" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Superconductive IV" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Superconductive III" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Superconductive III" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Superconductive II" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Superconductive II" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Superconductive I" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Superconductive I" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Engineering 101 IV" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Engineering 101 IV" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Engineering 101 III" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Engineering 101 III" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Engineering 101 II" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Engineering 101 II" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_selected" from="Engineering 101 I" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Engineering 101 I" to="." method="_on_upgrade_unselected"]

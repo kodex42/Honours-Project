@@ -78,7 +78,11 @@ func update_inventory():
 	icon.modulate.a = 0.4 if inventory.amount == 0 else 1.0
 	
 	var label = icon.get_node("AmountLabel")
-	label.set_text(str(inventory.amount))
+	
+	if inventory.amount > 1000:
+		label.set_text(Big.new(str(inventory.amount)).toScientific())
+	else:
+		label.set_text(str(inventory.amount))
 	
 	if self._type == "Machine":
 		if _interactable_object.has_ingredients():

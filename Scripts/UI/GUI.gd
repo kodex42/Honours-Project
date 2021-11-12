@@ -49,13 +49,13 @@ func _process(delta):
 
 func update_trackables(wood : Big, water : Big, coal : Big, rock_chunks : Big, metal : Big, cash : Big, bytes : Big):
 	var trackables_cont = trackables.get_node("MarginContainer/VBoxContainer")
-	trackables_cont.get_node("Wood/Label").set_text(wood.toString())
-	trackables_cont.get_node("Water/Label").set_text(water.toString())
-	trackables_cont.get_node("Coal/Label").set_text(coal.toString())
-	trackables_cont.get_node("RockChunks/Label").set_text(rock_chunks.toString())
-	trackables_cont.get_node("Metal/Label").set_text(metal.toString())
-	trackables_cont.get_node("Cash/Label").set_text(cash.toString())
-	trackables_cont.get_node("Bytes/Label").set_text(bytes.toString())
+	trackables_cont.get_node("Wood/Label").set_text(wood.toScientific() if wood.isLargerThan(100000) else wood.toString())
+	trackables_cont.get_node("Water/Label").set_text(water.toScientific() if water.isLargerThan(100000) else water.toString())
+	trackables_cont.get_node("Coal/Label").set_text(coal.toScientific() if coal.isLargerThan(100000) else coal.toString())
+	trackables_cont.get_node("RockChunks/Label").set_text(rock_chunks.toScientific() if rock_chunks.isLargerThan(100000) else rock_chunks.toString())
+	trackables_cont.get_node("Metal/Label").set_text(metal.toScientific() if metal.isLargerThan(100000) else metal.toString())
+	trackables_cont.get_node("Cash/Label").set_text(cash.toScientific() if cash.isLargerThan(100000) else cash.toString())
+	trackables_cont.get_node("Bytes/Label").set_text(bytes.toScientific() if bytes.isLargerThan(100000) else bytes.toString())
 	yield(get_tree(), "idle_frame")
 	trackables.rect_size.x = 0
 	trackables.margin_left = 0

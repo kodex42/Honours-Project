@@ -9,7 +9,7 @@ onready var _level = $World/Level
 
 # Debug state
 var autoadding : String
-var autoamount : Big
+var autoamount : int
 var autoaddtimer : Timer
 var timeradded = false
 
@@ -48,7 +48,7 @@ func _unhandled_input(event):
 
 func auto_add_resource(res_type : String):
 	autoadding = res_type
-	autoamount = Big.new("123456789")
+	autoamount = 123456789
 	
 	if not timeradded:
 		autoaddtimer = Timer.new()
@@ -61,21 +61,26 @@ func auto_add_resource(res_type : String):
 	autoaddtimer.start()
 
 func add_resource(res_type : String, amount):
+	var b : Big
+	if amount is Big:
+		b = amount
+	else:
+		b = Big.new(str(amount))
 	match res_type:
 		"wood":
-			_player_character.wood.plus(amount)
+			_player_character.wood.plus(b)
 		"water":
-			_player_character.water.plus(amount)
+			_player_character.water.plus(b)
 		"coal":
-			_player_character.coal.plus(amount)
+			_player_character.coal.plus(b)
 		"rock chunk":
-			_player_character.rock_chunks.plus(amount)
+			_player_character.rock_chunks.plus(b)
 		"metal":
-			_player_character.metal.plus(amount)
+			_player_character.metal.plus(b)
 		"cash":
-			_player_character.cash.plus(amount)
+			_player_character.cash.plus(b)
 		"byte":
-			_player_character.bytes.plus(amount)
+			_player_character.bytes.plus(b)
 	update_trackables()
 #	print("Player recieves " + amount.toString() + " " + res_type + "!")
 
@@ -111,10 +116,11 @@ func attempt_craft(machine_name):
 	else:
 		return false
 
-func attempt_add_ingredient(res, amount, machine):
-	if player_can_input(res, amount):
+func attempt_add_ingredient(res, amount : int, machine):
+	var b = Big.new(str(amount))
+	if player_can_input(res, b):
 		var big = string_to_big(res)
-		big.minus(amount)
+		big.minus(b)
 		machine.add_active_ingredient(res, amount)
 		update_trackables()
 

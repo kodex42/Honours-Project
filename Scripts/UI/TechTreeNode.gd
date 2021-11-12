@@ -8,6 +8,7 @@ signal upgrade_unselected(upgrade)
 # Exports
 export(Array, NodePath) onready var _neighbours
 export(String) var currency
+export(Color) var arrow_color = Color.yellow
 
 # State
 var neighbours = [] setget set_neighbours
@@ -20,6 +21,7 @@ func _ready():
 	for n in _neighbours:
 		nodes.append(get_node(n))
 	self.neighbours = nodes
+	$UpgradeArrow.modulate = arrow_color
 	update_lines()
 
 func _process(delta):
@@ -40,13 +42,13 @@ func add_line(neighbour):
 	# Create a connecting line between self and a neighbour
 	var line = Line2D.new()
 	line.width = 2
-	line.z_index = -1
+	line.z_index = 0
 	line.add_point(rect_position + rect_size / 2)
 	line.add_point(neighbour.rect_position + neighbour.rect_size / 2)
+	line.width = 5
 	lines.push_back(line)
 	neighbour.neighbour_lines.push_back(line)
-	get_parent().add_child(line)
-
+	get_parent().call_deferred("add_line", line)
 func update_lines():
 	# Update the positions of all lines connected to self
 	for line in lines:

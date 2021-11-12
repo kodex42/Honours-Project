@@ -19,7 +19,12 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		close()
-	details_cont.rect_position = get_global_mouse_position() + Vector2(16, 0)
+	var mouse_pos = get_global_mouse_position()
+	var offset = Vector2(16, 16)
+	if mouse_pos.x > rect_size.x - details_cont.rect_size.x:
+		details_cont.rect_position = Vector2(rect_size.x - details_cont.rect_size.x - offset.x, mouse_pos.y+offset.y)
+	else:
+		details_cont.rect_position = mouse_pos + offset
 
 func create(tree_name):
 	mode = tree_name
@@ -66,16 +71,18 @@ func update_currency():
 
 func construct_details(uname):
 	details_cont.get_node("VBoxContainer/UpgradeName").set_text(uname)
-	details_cont.get_node("VBoxContainer/UpgradeDetails").set_text("To be written...")
+	details_cont.get_node("VBoxContainer/UpgradeDetails").set_text(GlobalMods.get_upgrade_desc(uname))
 	details_cont.get_node("VBoxContainer/" + mode + "Cost/Label").set_text(str(Constants.UPGRADE_COSTS[mode][uname]))
+	details_cont.show()
+	details_cont.set_deferred("rect_size", details_cont.rect_min_size)
 
 func _on_PhoneGUI_upgrades_window_opened(upgrade_type):
 	self.create(upgrade_type)
 
 func _on_CashUpgradesTechTree_upgrade_details_pending(uname):
-	if uname != "":
-		construct_details(uname)
-		details_cont.show()
-	else:
-		details_cont.hide()
-		update_currency()
+	if is_processing():
+		if uname != "":
+			construct_details(uname)
+		else:
+			details_cont.hide()
+			update_currency()

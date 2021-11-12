@@ -43,14 +43,11 @@ func _ready():
 		# Ready animation
 		anim = _anim_player.get_animation_list()[0]
 		_anim_player.connect("animation_finished", self, "on_animation_finished")
-		anim_seek(0)
+		call_deferred("anim_seek", 0)
 		
 		# Apply state
-		ingredients_required = Constants.MACHINE_INGREDIENTS[body_name]
-		base_power_draw = Constants.MACHINE_POWER_DRAW[body_name]
-		machine_stats = compute_stats()
-		if ingredients_required:
-			requires_ingredients = true
+		compute_stats()
+		self._inventory.max = 1000000000000
 		
 		# Conditional
 		if machine_category == "Moving":
@@ -150,7 +147,15 @@ func compute_stats():
 	var mods = GlobalMods.machine_stat_mods[body_name]
 	for s in stats.keys():
 		stats[s] *= mods[s]
-	return stats
+	self.machine_stats = stats
+	
+	if Constants.MACHINE_INGREDIENTS[body_name]:
+		ingredients_required = Constants.MACHINE_INGREDIENTS[body_name].duplicate(true)
+		requires_ingredients = true
+		if machine_category == "Refining":
+			for k in ingredients_required.keys():
+				ingredients_required[k] *= stats.Power
+	base_power_draw = Constants.MACHINE_POWER_DRAW[body_name]
 
 func create(tile, pos, parent):
 	var resource
@@ -171,7 +176,7 @@ func create(tile, pos, parent):
 			resource = "byte"
 	self.build(tile, pos, body_name, "Machine", resource)
 	tile.set_machine(self)
-	machine_stats = compute_stats()
+	compute_stats()
 	if machine_category == "Powering":
 		create_power_network(parent)
 
@@ -194,11 +199,11 @@ func entropy():
 	var ent : int
 	match body_name:
 		"Power Tower":
-			ent = 1
+			ent = 1 * machine_stats.Efficiency
 		"Steam Engine":
-			ent = 5
+			ent = 5 * machine_stats.Efficiency
 		"Reactor":
-			ent = 50
+			ent = 50 * machine_stats.Efficiency
 		"Wheel":
 			ent = machine_stats.Power/2
 	tile.extract_power(ent * machine_stats.Efficiency)
@@ -227,7 +232,7 @@ func accept_payload(payload : Node, from = null):
 		if payload_parent.get_child_count() == 0:
 			if body_name == "Conveyer":
 				payload.make_kinematic()
-				payload.set_constant_velocity(facing_dir * machine_stats.Power)
+				payload.set_constant_velocity(facing_dir * machine_stats.Speed)
 			else:
 				payload.make_static()
 				reset_anim()
@@ -239,7 +244,10 @@ func accept_payload(payload : Node, from = null):
 			cur_payload.add_info(payload)
 	else:
 		if body_name == "Accumulator":
-			add_to_player_inventory(payload.get_info())
+			var stack = payload.get_info()
+			for k in stack.keys():
+				stack[k] *= ceil(float(machine_stats.Power) / 2.0)
+			add_to_player_inventory(stack)
 		elif machine_category == "Refining" or body_name == "Steam Engine" or body_name == "Reactor":
 			add_active_ingredient_stack(payload.get_info())
 		payload.queue_free()
@@ -259,7 +267,7 @@ func accepts_payloads():
 func dismantle():
 	var costs = Constants.MACHINE_COSTS[body_name].duplicate(true)
 	for i in costs.keys():
-		costs[i] = Big.new(costs[i]).divide(2)
+		costs[i] = Big.new(costs[i]).divide(2).roundDown()
 	return costs
 
 func has_items():
@@ -355,7 +363,8 @@ func reset_anim():
 	anim_seek(0)
 
 func anim_seek(frame):
-	_anim_player.seek(frame, false)
+	if anim:
+		_anim_player.seek(frame, true)
 
 func set_anim_speed(speed):
 	_anim_player.playback_speed = speed

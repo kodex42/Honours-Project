@@ -11,10 +11,13 @@ onready var required_label = $VBoxContainer/RequiredLabel
 # State
 var machine_node
 var ingredient
-var amount_needed
+var amount_needed : int
 
 func _ready():
-	required_label.set_text(str(amount_needed))
+	if amount_needed > 1000:
+		required_label.set_text(Big.new(str(amount_needed)).toScientific())
+	else:
+		required_label.set_text(str(amount_needed))
 	update()
 
 func build(machine, res_name, amount):
@@ -23,7 +26,11 @@ func build(machine, res_name, amount):
 	amount_needed = amount
 
 func update():
-	amount_input.set_text(str(machine_node.get_active_ingredient(ingredient)))
+	var current = machine_node.get_active_ingredient(ingredient)
+	if current > 1000:
+		amount_input.set_text(Big.new(str(current)).toScientific())
+	else:
+		amount_input.set_text(str(current))
 	input_button.icon = Constants.RESOURCE_ICONS[ingredient]
 
 func add_ingredients():

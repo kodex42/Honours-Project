@@ -9,7 +9,7 @@
 [ext_resource path="res://Data/Textures/Resources/repeats/cash.png" type="Texture" id=7]
 [ext_resource path="res://Data/Textures/Resources/repeats/merged.png" type="Texture" id=8]
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=1]
 flags_transparent = true
 albedo_texture = ExtResource( 3 )
 metallic = 1.0
@@ -17,11 +17,21 @@ roughness = 0.9
 uv1_scale = Vector3( 3, 2, 1 )
 
 [sub_resource type="CubeMesh" id=2]
-material = SubResource( 4 )
+material = SubResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_transparent = true
+albedo_texture = ExtResource( 2 )
+metallic = 1.0
+roughness = 0.9
+uv1_scale = Vector3( 3, 2, 1 )
+
+[sub_resource type="CubeMesh" id=4]
+material = SubResource( 3 )
 
 [sub_resource type="SpatialMaterial" id=5]
 flags_transparent = true
-albedo_texture = ExtResource( 2 )
+albedo_texture = ExtResource( 4 )
 metallic = 1.0
 roughness = 0.9
 uv1_scale = Vector3( 3, 2, 1 )
@@ -31,7 +41,7 @@ material = SubResource( 5 )
 
 [sub_resource type="SpatialMaterial" id=7]
 flags_transparent = true
-albedo_texture = ExtResource( 4 )
+albedo_texture = ExtResource( 5 )
 metallic = 1.0
 roughness = 0.9
 uv1_scale = Vector3( 3, 2, 1 )
@@ -41,7 +51,7 @@ material = SubResource( 7 )
 
 [sub_resource type="SpatialMaterial" id=9]
 flags_transparent = true
-albedo_texture = ExtResource( 5 )
+albedo_texture = ExtResource( 6 )
 metallic = 1.0
 roughness = 0.9
 uv1_scale = Vector3( 3, 2, 1 )
@@ -51,7 +61,7 @@ material = SubResource( 9 )
 
 [sub_resource type="SpatialMaterial" id=11]
 flags_transparent = true
-albedo_texture = ExtResource( 6 )
+albedo_texture = ExtResource( 7 )
 metallic = 1.0
 roughness = 0.9
 uv1_scale = Vector3( 3, 2, 1 )
@@ -61,7 +71,7 @@ material = SubResource( 11 )
 
 [sub_resource type="SpatialMaterial" id=13]
 flags_transparent = true
-albedo_texture = ExtResource( 7 )
+albedo_texture = ExtResource( 8 )
 metallic = 1.0
 roughness = 0.9
 uv1_scale = Vector3( 3, 2, 1 )
@@ -69,17 +79,7 @@ uv1_scale = Vector3( 3, 2, 1 )
 [sub_resource type="CubeMesh" id=14]
 material = SubResource( 13 )
 
-[sub_resource type="SpatialMaterial" id=15]
-flags_transparent = true
-albedo_texture = ExtResource( 8 )
-metallic = 1.0
-roughness = 0.9
-uv1_scale = Vector3( 3, 2, 1 )
-
-[sub_resource type="CubeMesh" id=16]
-material = SubResource( 15 )
-
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=15]
 
 [node name="ResourceStack" type="RigidBody"]
 collision_layer = 19
@@ -94,43 +94,43 @@ material/0 = null
 [node name="WaterMeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.1, 0 )
 visible = false
-mesh = SubResource( 6 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="CoalMeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.1, 0 )
 visible = false
-mesh = SubResource( 8 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="RockChunkMeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.1, 0 )
 visible = false
-mesh = SubResource( 10 )
+mesh = SubResource( 8 )
 material/0 = null
 
 [node name="MetalMeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.1, 0 )
 visible = false
-mesh = SubResource( 12 )
+mesh = SubResource( 10 )
 material/0 = null
 
 [node name="CashMeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.1, 0 )
 visible = false
-mesh = SubResource( 14 )
+mesh = SubResource( 12 )
 material/0 = null
 
 [node name="MixdMeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.1, 0 )
 visible = false
-mesh = SubResource( 16 )
+mesh = SubResource( 14 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0 )
 visible = false
-shape = SubResource( 3 )
+shape = SubResource( 15 )
 
 [node name="AbandonmentTimer" type="Timer" parent="."]
 wait_time = 5.0
