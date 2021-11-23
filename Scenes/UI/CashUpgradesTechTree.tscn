@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/UI/TechTreeNode.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/UI/CashUpgradesTechTree.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Data/Textures/UI/Phone/RefiningMachiningIcon.png" type="Texture" id=9]
 [ext_resource path="res://Data/Textures/UI/Phone/MovingMachiningIcon.png" type="Texture" id=10]
 [ext_resource path="res://Data/Textures/UI/Phone/PoweringMachiningIcon.png" type="Texture" id=11]
+[ext_resource path="res://Data/Textures/Resources/byte.png" type="Texture" id=12]
 
 [node name="CashUpgradesTechTree" type="Control"]
 margin_right = 1904.0
@@ -964,6 +965,20 @@ icon = ExtResource( 8 )
 _neighbours = [ NodePath("../Engineering 101 II"), NodePath("../Tool Sharpening I"), NodePath("../Tool Balancing I") ]
 currency = "cash"
 
+[node name="Ascension" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 320.0
+margin_top = 768.0
+margin_right = 384.0
+margin_bottom = 832.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
+icon = ExtResource( 12 )
+currency = "cash"
+arrow_color = Color( 1, 0, 1, 1 )
+
 [connection signal="upgrade_selected" from="Renewable Resource IV" to="." method="_on_upgrade_selected"]
 [connection signal="upgrade_unselected" from="Renewable Resource IV" to="." method="_on_upgrade_unselected"]
 [connection signal="upgrade_selected" from="Renewable Resource III" to="." method="_on_upgrade_selected"]
@@ -1084,3 +1099,6 @@ currency = "cash"
 [connection signal="upgrade_unselected" from="Engineering 101 II" to="." method="_on_upgrade_unselected"]
 [connection signal="upgrade_selected" from="Engineering 101 I" to="." method="_on_upgrade_selected"]
 [connection signal="upgrade_unselected" from="Engineering 101 I" to="." method="_on_upgrade_unselected"]
+[connection signal="upgrade_applied" from="Ascension" to="." method="_on_Ascension_upgrade_applied"]
+[connection signal="upgrade_selected" from="Ascension" to="." method="_on_upgrade_selected"]
+[connection signal="upgrade_unselected" from="Ascension" to="." method="_on_upgrade_unselected"]

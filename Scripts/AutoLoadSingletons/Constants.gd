@@ -228,7 +228,8 @@ const UPGRADE_COSTS = {
 		"Tool Balancing II" : 2000,
 		"Tool Balancing III" : 4000,
 		"Tool Balancing IV" : 8000,
-		"Ultimate Gathering" : "1e7"
+		"Ultimate Gathering" : "1e7",
+		"Ascension" : "1e10"
 	},
 	"byte": {
 		

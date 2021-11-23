@@ -190,11 +190,12 @@ _phone_gui = NodePath("../Camera/HUD/GUIViewport/PhoneGUI")
 stream = ExtResource( 12 )
 volume_db = -15.0
 
+[connection signal="byte_upgrades_unlocked" from="." to="Camera/HUD/GUIViewport/PhoneGUI" method="_on_Main_byte_upgrades_unlocked"]
 [connection signal="timeout" from="CloseTimer" to="." method="_on_CloseTimer_timeout"]
 [connection signal="machine_placed" from="Camera" to="World/Level" method="_on_machine_placed"]
 [connection signal="machine_placement_toggled" from="Camera" to="World/Level" method="_on_machine_placement_toggled"]
-[connection signal="machine_placement_toggled" from="Camera" to="World/GhostMachine" method="_on_machine_placement_toggled"]
 [connection signal="machine_placement_toggled" from="Camera" to="Camera/HUD/GUIViewport/GUI" method="_on_object_placement"]
+[connection signal="machine_placement_toggled" from="Camera" to="World/GhostMachine" method="_on_machine_placement_toggled"]
 [connection signal="machining_window_opened" from="Camera/HUD/GUIViewport/PhoneGUI" to="Camera/HUD/GUIViewport/GUI" method="_on_PhoneGUI_machining_window_opened"]
 [connection signal="phone_toggled" from="Camera/HUD/GUIViewport/PhoneGUI" to="PlayerCharacter" method="_on_PhoneGUI_phone_toggled"]
 [connection signal="upgrades_window_opened" from="Camera/HUD/GUIViewport/PhoneGUI" to="Camera/HUD/GUIViewport/UpgradesGUI" method="_on_PhoneGUI_upgrades_window_opened"]

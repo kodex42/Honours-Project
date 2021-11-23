@@ -86,3 +86,6 @@ func _on_CashUpgradesTechTree_upgrade_details_pending(uname):
 		else:
 			details_cont.hide()
 			update_currency()
+
+func _on_CashUpgradesTechTree_ascending():
+	close()

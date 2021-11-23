@@ -163,6 +163,9 @@ func load_from_save(data):
 	self.cash = Big.new(data.cash)
 	self.bytes = Big.new(data.bytes)
 	_main.update_trackables()
+	
+	if self.bytes.isLargerThan(0):
+		_main.emit_signal("byte_upgrades_unlocked")
 
 func _on_PhoneGUI_phone_toggled(on):
 	pass # Replace with function body.

@@ -7,6 +7,7 @@ signal app_opened(app_name)
 onready var _clock = $MarginContainer/VBoxContainer/HBoxContainer/Clock
 onready var _seconds = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Seconds
 onready var _period = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Period
+onready var _apps = $MarginContainer/VBoxContainer/AppContainer
 
 func _process(delta):
 	update_clock()
@@ -38,3 +39,6 @@ func _on_app_opened(app_name):
 		GlobalControls.quit()
 	else:
 		emit_signal("app_opened", app_name)
+
+func _on_PhoneGUI_byte_upgrades_unlocked():
+	_apps.get_node("ByteUpgradesApp").show()

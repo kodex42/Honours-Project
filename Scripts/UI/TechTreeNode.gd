@@ -4,6 +4,7 @@ extends Button
 # Signals
 signal upgrade_selected(upgrade, uname)
 signal upgrade_unselected(upgrade)
+signal upgrade_applied()
 
 # Exports
 export(Array, NodePath) onready var _neighbours
@@ -71,6 +72,7 @@ func perform_upgrade():
 	GlobalMods.apply_upgrade(name)
 	get_tree().call_group("persist", "compute_stats")
 	unlock_neighbours()
+	emit_signal("upgrade_applied")
 
 func unlock_neighbours():
 	# Unlock neighbours when toggled

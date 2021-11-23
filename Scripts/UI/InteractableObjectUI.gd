@@ -187,8 +187,6 @@ func _on_Power_Button_pressed():
 
 func _on_Dismantle_Button_pressed():
 	var refund = _interactable_object.dismantle()
-	_interactable_object.get_data().tile.remove_machine()
-	_interactable_object.queue_free()
 	dismantle_button.set_pressed(false)
 	emit_signal("machine_dismantled", refund)
 

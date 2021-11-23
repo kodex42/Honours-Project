@@ -265,9 +265,12 @@ func accepts_payloads():
 	return (machine_category == "Moving" or machine_category == "Refining" or body_name == "Steam Engine" or body_name == "Reactor") and not pulls_from_producer
 
 func dismantle():
+	if self._data.tile:
+		self._data.tile.remove_machine()
 	var costs = Constants.MACHINE_COSTS[body_name].duplicate(true)
 	for i in costs.keys():
 		costs[i] = Big.new(costs[i]).divide(2).roundDown()
+	queue_free()
 	return costs
 
 func has_items():

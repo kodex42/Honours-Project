@@ -35,6 +35,7 @@ func build_level():
 
 func rebuild_level():
 	interactables_grid.destroy()
+	tile_grid.build_tiles()
 	interactables_grid.generate_resources()
 
 func show_grid():

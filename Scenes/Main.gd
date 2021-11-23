@@ -1,5 +1,8 @@
 extends Spatial
 
+# Signals
+signal byte_upgrades_unlocked()
+
 # Nodes
 onready var _player_character = $PlayerCharacter
 onready var _camera = $Camera
@@ -80,6 +83,7 @@ func add_resource(res_type : String, amount):
 		"cash":
 			_player_character.cash.plus(b)
 		"byte":
+			emit_signal("byte_upgrades_unlocked")
 			_player_character.bytes.plus(b)
 	update_trackables()
 #	print("Player recieves " + amount.toString() + " " + res_type + "!")
@@ -176,6 +180,23 @@ func player_pay_resource(cost, res_type):
 			_player_character.cash.minus(cost)
 		"byte":
 			_player_character.bytes.minus(cost)
+
+func player_remove_all_resources():
+	var res = {
+		"wood" : _player_character.wood.toScientific(),
+		"water" : _player_character.water.toScientific(),
+		"coal" : _player_character.coal.toScientific(),
+		"rock chunk" : _player_character.rock_chunks.toScientific(),
+		"metal" : _player_character.metal.toScientific(),
+		"cash" : _player_character.cash.toScientific()
+	}
+	_player_character.wood = Big.new(0)
+	_player_character.water = Big.new(0)
+	_player_character.coal = Big.new(0)
+	_player_character.rock_chunks = Big.new(0)
+	_player_character.metal = Big.new(0)
+	_player_character.cash = Big.new(0)
+	return res
 
 func player_can_input(res, amount):
 	var comparing = string_to_big(res)

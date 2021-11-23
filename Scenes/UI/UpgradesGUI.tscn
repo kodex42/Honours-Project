@@ -277,4 +277,5 @@ size_flags_vertical = 0
 texture = ExtResource( 8 )
 expand = true
 
+[connection signal="ascending" from="Upgrades/CenterContainer/CashUpgradesTechTree" to="." method="_on_CashUpgradesTechTree_ascending"]
 [connection signal="upgrade_details_pending" from="Upgrades/CenterContainer/CashUpgradesTechTree" to="." method="_on_CashUpgradesTechTree_upgrade_details_pending"]

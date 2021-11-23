@@ -7,11 +7,7 @@ var GRID_SIZE = 50
 var _grid_info
 
 func _ready():
-	_grid_info = []
-	for i in range(GRID_SIZE):
-		_grid_info.append([])
-		for k in range(GRID_SIZE):
-			_grid_info[i].append(TileData.new(Vector3(k, 0, i)))
+	build_tiles()
 
 func _process(delta):
 	pass
@@ -26,3 +22,10 @@ func get_tile_data(x, y):
 
 func get_grid():
 	return _grid_info
+
+func build_tiles():
+	_grid_info = []
+	for i in range(GRID_SIZE):
+		_grid_info.append([])
+		for k in range(GRID_SIZE):
+			_grid_info[i].append(TileData.new(Vector3(k, 0, i)))

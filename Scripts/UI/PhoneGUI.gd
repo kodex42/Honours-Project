@@ -6,6 +6,7 @@ signal message_received(msg)
 signal machining_window_opened(machine_type)
 signal upgrades_window_opened(upgrade_type)
 signal phone_toggled(on)
+signal byte_upgrades_unlocked()
 
 # Nodes
 onready var phone = $PhoneViewport/Phone
@@ -90,3 +91,6 @@ func _on_app_opened_from_HomeScreen(app_name):
 	if "Upgrades" in app_name:
 		var upgrade_type = app_name.substr(0, app_name.find("UpgradesApp"))
 		emit_signal("upgrades_window_opened", upgrade_type.to_lower())
+
+func _on_Main_byte_upgrades_unlocked():
+	emit_signal("byte_upgrades_unlocked")
