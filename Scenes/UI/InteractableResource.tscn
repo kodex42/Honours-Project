@@ -104,6 +104,12 @@ margin_bottom = 160.0
 custom_fonts/font = SubResource( 2 )
 text = "Tile"
 
+[node name="NumResources" type="Label" parent="PanelContainer/HBoxContainer/LeftContainer/VBoxContainer"]
+margin_top = 168.0
+margin_right = 240.0
+margin_bottom = 216.0
+custom_fonts/font = SubResource( 2 )
+
 [node name="CenterContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
 margin_left = 256.0
 margin_top = 72.0

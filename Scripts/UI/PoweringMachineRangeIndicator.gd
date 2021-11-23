@@ -33,8 +33,8 @@ func set_radius(rad):
 	update_radius()
 
 func update_radius():
-	self.mesh.top_radius = self.rad + 0.25
-	self.mesh.bottom_radius = self.rad + 0.25
+	self.mesh.top_radius = self.rad
+	self.mesh.bottom_radius = self.rad
 
 func set_power(amount):
 	$ViewportText/VBoxContainer/Label.set_text("%d" % amount)

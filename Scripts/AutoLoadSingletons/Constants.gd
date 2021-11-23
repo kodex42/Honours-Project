@@ -1,6 +1,6 @@
 extends Node
 
-const DEBUG = true
+const DEBUG = false
 const BASE_MACHINE_STATS = {
 	"Power" : 1.0,		# 1.0 - inf, more = more items / power
 	"Speed" : 1.0,		# 1.0 - inf, more = faster ticks and animations for machines

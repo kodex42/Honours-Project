@@ -25,7 +25,7 @@ func build_from_machine(machine_name):
 		"Smelter":
 			desc = "Transform your boring old [Rock Chunks] into exciting [Metal] today!"
 		"Market":
-			desc = "No hedge funds or short-sellers here, use this to turn your [Wood], [Water], [Metal], and [Coal] into [Cash]! ([Cash] upgrades are yet to be implemented)"
+			desc = "No hedge funds or short-sellers here, use this to turn your [Wood], [Water], [Metal], and [Coal] into [Cash]!"
 		"Conveyer":
 			desc = "Cheap and reliable, the Conveyor moves a given stack of resources in a single direction."
 		"Inserter":

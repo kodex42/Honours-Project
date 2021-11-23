@@ -6,26 +6,26 @@ var _main = null
 
 var machine_stat_mods = {
 	"Miner" : {
-		"Power" : 1,
-		"Speed" : 1,
+		"Power" : 2,
+		"Speed" : 1.25,
 		"Efficiency" : 1,
 		"Range" : 1
 	},
 	"Excavator" : {
-		"Power" : 1,
-		"Speed" : 1,
+		"Power" : 2,
+		"Speed" : 1.25,
 		"Efficiency" : 1,
 		"Range" : 1
 	},
 	"Sawmill" : {
-		"Power" : 1,
-		"Speed" : 1,
+		"Power" : 2,
+		"Speed" : 1.25,
 		"Efficiency" : 1,
 		"Range" : 1
 	},
 	"Pump" : {
-		"Power" : 1,
-		"Speed" : 1,
+		"Power" : 2,
+		"Speed" : 1.25,
 		"Efficiency" : 1,
 		"Range" : 1
 	},
@@ -72,13 +72,13 @@ var machine_stat_mods = {
 		"Range" : 3.5
 	},
 	"Steam Engine" : {
-		"Power" : 750,
+		"Power" : 300,
 		"Speed" : 1,
 		"Efficiency" : 1,
 		"Range" : 4
 	},
 	"Reactor" : {
-		"Power" : 10000000,
+		"Power" : 1000000,
 		"Speed" : 1,
 		"Efficiency" : 1,
 		"Range" : 8

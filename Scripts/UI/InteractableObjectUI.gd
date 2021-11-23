@@ -39,6 +39,11 @@ var _powered = false
 func _process(delta):
 	if self._type == "Machine":
 		update_status()
+	if self._type == "Resource":
+		var stores = _interactable_object._stores.amount
+		var max_store = _interactable_object._stores.max
+		var res = _interactable_object._inventory.item_type
+		$PanelContainer/HBoxContainer/LeftContainer/VBoxContainer/NumResources.set_text(str(stores) + "/" + str(max_store) + " " + res)
 
 func build_from_interactable_object(obj):
 	inv_cont.show()
@@ -59,6 +64,7 @@ func build_from_interactable_object(obj):
 		else:
 			inv_cont.show()
 		if _interactable_object.body_name == "Wheel":
+			power_icon_cont.hide()
 			board_button_cont.show()
 		else:
 			board_button_cont.hide()
@@ -191,8 +197,12 @@ func _on_Dismantle_Button_pressed():
 	emit_signal("machine_dismantled", refund)
 
 func _on_AddAllIngredientsButton_pressed():
-	for i in ingredient_cont.get_children():
-		i.add_ingredients()
+	var times = 1
+	if Input.is_action_pressed("sprint"):
+		times = 10
+	for k in range(times):
+		for i in ingredient_cont.get_children():
+			i.add_ingredients()
 
 func _on_BoardingButton_pressed():
 	board_button_cont.get_node("Button").set_pressed(false)

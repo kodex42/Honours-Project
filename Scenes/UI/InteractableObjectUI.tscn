@@ -179,6 +179,7 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="visibility_changed" from="." to="." method="_on_InteractableObjectUI_visibility_changed"]
 [connection signal="ended" from="PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/RadialProgress" to="." method="_on_RadialProgress_ended"]
 [connection signal="halted" from="PanelContainer/HBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/RadialProgress" to="." method="_on_RadialProgress_halted"]

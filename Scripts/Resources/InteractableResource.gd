@@ -19,9 +19,13 @@ func _ready():
 
 func _process(delta):
 	_stores.recharge_progress -= delta
-	if _stores.recharge_progress <= 0:
+	if _stores.recharge_progress <= 0.1:
 		_stores.recharge_progress = _stores.recharge_rate
 		add_to_stores(1)
+	if _stores.amount < 5:
+		$Smoke.emitting = true
+	else:
+		$Smoke.emitting = false
 
 func create(type : int, pos : Vector3, tile : TileData):
 	_type = type
