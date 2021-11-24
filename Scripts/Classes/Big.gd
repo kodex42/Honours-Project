@@ -339,6 +339,8 @@ func toString():
 
 
 func toScientific():
+	if exponent < 5:
+		return toString()
 	return str(mantissa) + "e" + str(exponent)
 
 

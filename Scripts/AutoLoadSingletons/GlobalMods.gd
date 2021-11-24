@@ -4,7 +4,7 @@ extends Node
 var _applied = []
 var _main = null
 
-var machine_stat_mods = {
+var base_machine_stat_mods = {
 	"Miner" : {
 		"Power" : 2,
 		"Speed" : 1.25,
@@ -90,8 +90,7 @@ var machine_stat_mods = {
 		"Range" : 5
 	},
 }
-
-var resource_stat_mods = {
+var base_resource_stat_mods = {
 	"Tree" : {
 		"max" : 100,				# More = higher max capacity
 		"recharge_rate" : 0.5,		# Less = faster recharge
@@ -108,15 +107,17 @@ var resource_stat_mods = {
 		"manual_gather_rate" : 0.5
 	},
 	"Shiny Rock" : {
-		"max" : 100,
+		"max" : 10,
 		"recharge_rate" : 0.5,
 		"manual_gather_rate" : 0.5
 	},
 }
-
-var player_mods = {
+var base_player_mods = {
 	"speed" : 1.25
 }
+var machine_stat_mods = base_machine_stat_mods.duplicate(true)
+var resource_stat_mods = base_resource_stat_mods.duplicate(true)
+var player_mods = base_player_mods.duplicate(true)
 
 func apply_upgrade(uname):
 #	print("Applying upgrade " + name)
@@ -126,17 +127,17 @@ func apply_upgrade(uname):
 			resource_stat_mods[r].max *= 2
 			resource_stat_mods[r].manual_gather_rate *= 1.75
 	elif "Professional Arborist" in uname: # Lower recharge time for trees
-		resource_stat_mods["Tree"].recharge_rate *= 0.8
+		resource_stat_mods["Tree"].recharge_rate *= 0.1
 		resource_stat_mods["Tree"].max *= 100
 	elif "Kings Yield" in uname: # Lower recharge time for shiny rocks
-		resource_stat_mods["Shiny Rock"].recharge_rate *= 0.8
-		resource_stat_mods["Tree"].max *= 100
+		resource_stat_mods["Shiny Rock"].recharge_rate *= 0.1
+		resource_stat_mods["Shiny Rock"].max *= 100
 	elif "Black Diamonds" in uname: # Lower recharge time for sooty rocks
-		resource_stat_mods["Sooty Rock"].recharge_rate *= 0.8
-		resource_stat_mods["Tree"].max *= 100
+		resource_stat_mods["Sooty Rock"].recharge_rate *= 0.1
+		resource_stat_mods["Sooty Rock"].max *= 100
 	elif "Renewable Resource" in uname: # Lower recharge time for water tiles
-		resource_stat_mods["Water"].recharge_rate *= 0.8
-		resource_stat_mods["Tree"].max *= 100
+		resource_stat_mods["Water"].recharge_rate *= 0.1
+		resource_stat_mods["Water"].max *= 100
 	elif "Engineering 101" in uname: # Increased power for machines
 		match uname.substr(len("Engineering 101 ")):
 			"I":

@@ -50,7 +50,7 @@ func _ready():
 		self._inventory.max = 1000000000000
 		
 		# Conditional
-		if machine_category == "Moving":
+		if machine_category == "Moving" or body_name == "Market":
 			on = true
 			match body_name:
 				"Conveyer":
@@ -126,7 +126,7 @@ func move(delta):
 			accept_payload(stack_instance)
 		if not pulls_from_producer:
 			pulls_from_producer = true
-	if source_machine.body_name == "Accumulator":
+	if source_machine and source_machine.body_name == "Accumulator":
 		var res = Constants.MACHINE_INGREDIENTS["Market"]
 		var stack_instance = _parent.attempt_pull_from_inventory(res)
 		if stack_instance:
@@ -157,9 +157,6 @@ func compute_stats():
 	if Constants.MACHINE_INGREDIENTS[body_name]:
 		ingredients_required = Constants.MACHINE_INGREDIENTS[body_name].duplicate(true)
 		requires_ingredients = true
-		if machine_category == "Refining":
-			for k in ingredients_required.keys():
-				ingredients_required[k] *= stats.Power
 	base_power_draw = Constants.MACHINE_POWER_DRAW[body_name]
 
 func create(tile, pos, parent):

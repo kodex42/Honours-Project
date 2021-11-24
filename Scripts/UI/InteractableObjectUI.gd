@@ -40,10 +40,10 @@ func _process(delta):
 	if self._type == "Machine":
 		update_status()
 	if self._type == "Resource":
-		var stores = _interactable_object._stores.amount
-		var max_store = _interactable_object._stores.max
+		var stores = Big.new(str(_interactable_object._stores.amount))
+		var max_store = Big.new(str(_interactable_object._stores.max))
 		var res = _interactable_object._inventory.item_type
-		$PanelContainer/HBoxContainer/LeftContainer/VBoxContainer/NumResources.set_text(str(stores) + "/" + str(max_store) + " " + res)
+		$PanelContainer/HBoxContainer/LeftContainer/VBoxContainer/NumResources.set_text(stores.toScientific() + "/\n" + max_store.toScientific() + " " + res)
 
 func build_from_interactable_object(obj):
 	inv_cont.show()

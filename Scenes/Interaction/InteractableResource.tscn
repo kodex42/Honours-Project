@@ -4,13 +4,13 @@
 [ext_resource path="res://Scripts/Resources/InteractableResource.gd" type="Script" id=2]
 [ext_resource path="res://Data/Textures/Resources/EmptyResource.png" type="Texture" id=3]
 
-[sub_resource type="Curve" id=3]
+[sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -3.11683, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=4]
-curve = SubResource( 3 )
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
 
-[sub_resource type="ParticlesMaterial" id=5]
+[sub_resource type="ParticlesMaterial" id=3]
 emission_shape = 1
 emission_sphere_radius = 0.25
 direction = Vector3( 0, 1, 0 )
@@ -22,12 +22,12 @@ linear_accel = 0.2
 linear_accel_random = 0.1
 scale = 0.2
 scale_random = 0.05
-scale_curve = SubResource( 4 )
+scale_curve = SubResource( 2 )
 anim_speed = 1.0
 anim_offset = 1.0
 anim_offset_random = 1.0
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="SpatialMaterial" id=4]
 flags_transparent = true
 flags_unshaded = true
 params_billboard_mode = 3
@@ -37,8 +37,8 @@ particles_anim_loop = false
 albedo_color = Color( 1, 1, 1, 0.784314 )
 albedo_texture = ExtResource( 3 )
 
-[sub_resource type="QuadMesh" id=2]
-material = SubResource( 1 )
+[sub_resource type="QuadMesh" id=5]
+material = SubResource( 4 )
 
 [node name="InteractableResource" groups=[
 "int_resource",
@@ -51,5 +51,5 @@ emitting = false
 amount = 10
 lifetime = 1.5
 visibility_aabb = AABB( -1, -1, -1, 2, 2, 2 )
-process_material = SubResource( 5 )
-draw_pass_1 = SubResource( 2 )
+process_material = SubResource( 3 )
+draw_pass_1 = SubResource( 5 )
