@@ -54,6 +54,15 @@ func benchmark():
 			var machine = ["Excavator", "Pump", "Sawmill", "Miner"][randi()%4]
 			put_machine(machine, Vector3(x, 0, y), true)
 
+func attempt_pull_from_inventory(res):
+	var main = parent._main
+	if main.player_can_pay(res):
+		main.player_pay(res)
+		var stack = _resource_stack.instance()
+		stack.create_mixed(res)
+		return stack
+	return null
+
 func create_resource_stack(rType, amount):
 	var stack = _resource_stack.instance()
 	stack.create(rType, amount)

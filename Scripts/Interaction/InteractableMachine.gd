@@ -126,6 +126,11 @@ func move(delta):
 			accept_payload(stack_instance)
 		if not pulls_from_producer:
 			pulls_from_producer = true
+	if source_machine.body_name == "Accumulator":
+		var res = Constants.MACHINE_INGREDIENTS["Market"]
+		var stack_instance = _parent.attempt_pull_from_inventory(res)
+		if stack_instance:
+			accept_payload(stack_instance)
 
 func generate_power(delta):
 	if body_name == "Steam Engine" or body_name == "Reactor":

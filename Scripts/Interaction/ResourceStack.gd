@@ -54,6 +54,13 @@ func create(rType, amount):
 	stack[rType] = amount
 	make_static()
 
+func create_mixed(res):
+	self.stack_info.item_type = "merged"
+	is_mix = true
+	for k in res.keys():
+		stack[k] = res[k]
+	make_static()
+
 func swap_mesh(rType):
 	if current_mesh:
 		current_mesh.hide()
